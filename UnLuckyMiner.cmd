@@ -8,7 +8,7 @@ cd /d "%~dp0"
 @REM ! IMPORTANT ! This cmd is made for a cryptocurrency miner, it can be flagged by your antivirus.
 @REM ! IMPORTANT ! Change the value of XMrig_Folder to the XMrig directory path, or any directory path if you want to install XMrig from scratch.
 @REM ! IMPORTANT ! Due limitations of JSON format Windows directory separator should be escaped like \\ or written in Unix style like /.
-    set XMrig_Folder=%cd%
+    set XMrig_Folder=%cd:\=/%
 
 @REM ----------------------
 @REM ↧↧↧ Pools Settings ↧↧↧
@@ -814,6 +814,7 @@ if "%Coin%"=="x" exit else (
     ) else (
     if "%Coin%"=="ZEPH" ( 
         set FoundCoin=true
+        set OUTPUT_WALLET=%wallet_Zephyr%
         if %UnMineable%==true (
             set OUTPUT_WALLET=ZEPH:%wallet_Zephyr%
             if %global_discount_code%==false set OUTPUT_CODE=%discount_Zephyr%
@@ -991,6 +992,7 @@ set OUTPUT_WALLET=%OUTPUT_WALLET%.%MINER%
 if %UnMineable%==true (
     if %use_discount%==true set OUTPUT_WALLET=%OUTPUT_WALLET%#%OUTPUT_CODE%
 )
+set OUTPUT_WALLET=%OUTPUT_WALLET: =%
 
 echo Configuration successfully applied!
 echo Rig Name: %MINER%
@@ -1003,6 +1005,7 @@ set OUTPUT_GPU_TYPE=NVIDIA
 if %AMD%==true set OUTPUT_GPU_TYPE=AMD
 if %GPU%==true echo GPU Type: %OUTPUT_GPU_TYPE%
 if %UnMineable%==true echo Mining with UnMineable Pools!
+echo Wallet Address: %OUTPUT_WALLET%
 echo Starting a mining process with XMrig.
 set CONFIG={ "api": { "id": null, "worker-id": null }, "http": { "enabled": false, "host": "127.0.0.1", "port": 0, "access-token": null, "restricted": true }, "autosave": true, "background": false, "colors": true, "title": "UnLuckyMiner", "randomx": { "init": -1, "init-avx2": 1, "mode": "fast", "1gb-pages": true, "rdmsr": true, "wrmsr": true, "cache_qos": false, "numa": true, "scratchpad_prefetch_mode": 2 }, "cpu": { "enabled": %CPU%, "huge-pages": true, "huge-pages-jit": false, "hw-aes": null, "priority": null, "memory-pool": false, "yield": false, "max-threads-hint": 100, "asm": true, "argon2-impl": null, "cn/0": false, "cn-lite/0": false }, "opencl": { "enabled": %AMD%, "cache": true, "loader": null, "platform": "AMD", "adl": true, "cn/0": false, "cn-lite/0": false }, "cuda": { "enabled": %NVIDIA%, "loader": "%XMrig_Folder%/xmrig-cuda.dll", "nvml": true, "cn/0": false, "cn-lite/0": false }, "donate-level": %Donate%, "donate-over-proxy": %Donate%, "log-file": null, "pools": [{ "enabled": true, "coin": null, "algo": "%OUTPUT_ALGO%", "url": "%OUTPUT_POOL%", "user": "%OUTPUT_WALLET%", "pass": "%Password%", "rig-id": "%MINER%", "nicehash": %NiceHash%, "keepalive": true, "tls": %TLS%, "tls-fingerprint": null, "daemon": false, "socks5": null, "self-select": null, "submit-to-origin": false }], "print-time": 60, "health-print-time": 60, "dmi": true, "retries": 5, "retry-pause": 5, "syslog": false, "tls": { "enabled": false, "protocols": null, "cert": null, "cert_key": null, "ciphers": null, "ciphersuites": null, "dhparam": null }, "dns": { "ipv6": false, "ttl": 30 }, "user-agent": null, "verbose": 0, "watch": true, "pause-on-battery": false, "pause-on-active": false }
 echo %CONFIG% > config.json
