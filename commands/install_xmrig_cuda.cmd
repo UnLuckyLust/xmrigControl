@@ -1,7 +1,7 @@
 @REM Written by UnLuckyLust (https://DreamsWeaver.co) - https://github.com/UnLuckyLust/UnLuckyMiner
 
 @echo off
-echo Installing XMrig Nvidia Cuda.
+echo [7;94m::: SETUP :::[0m[94m Installing XMrig Nvidia Cuda... [0m
 curl --output xmrig-cuda.zip -LO https://github.com/xmrig/xmrig-cuda/releases/download/v6.17.0/xmrig-cuda-6.17.0-cuda11_4-win64.zip
 setlocal
 cd /d %~dp0
