@@ -1,14 +1,16 @@
 @REM Written by UnLuckyLust (https://DreamsWeaver.co) - https://github.com/UnLuckyLust/UnLuckyMiner
+@REM ! IMPORTANT ! This cmd is made for a cryptocurrency miner, it can be flagged by your antivirus.
 
 @echo off
+setlocal enabledelayedexpansion
 cd /d "%~dp0"
 @REM -----------------------------------
 @REM ↧↧↧ Start of configuration area ↧↧↧
 @REM -----------------------------------
-@REM ! IMPORTANT ! This cmd is made for a cryptocurrency miner, it can be flagged by your antivirus.
-@REM ! IMPORTANT ! Change the value of XMrig_Folder to the XMrig directory path, or any directory path if you want to install XMrig from scratch.
-@REM ! IMPORTANT ! Due limitations of JSON format Windows directory separator should be escaped like \\ or written in Unix style like /.
-    set XMrig_Folder=%cd:\=/%
+@REM ! IMPORTANT ! Change the XMRig_Folder value to the XMRig directory path, or place this file in the XMRig folder to use an existing XMRig installation.
+@REM ! IMPORTANT ! Leave XMRig_Folder value as it is to download a fresh installation of XMRig in the current folder. (Will download XMRig version 6.21.0 from GitHub)
+@REM ! IMPORTANT ! Due limitations of JSON format, Windows directory separator should be escaped like \\ or written in Unix style like /.
+    set XMRig_Folder=%cd:\=/%
 
 @REM ----------------------
 @REM ↧↧↧ Pools Settings ↧↧↧
@@ -55,8 +57,8 @@ cd /d "%~dp0"
 @REM ↧↧↧ UnMineable Discount Codes ↧↧↧
 @REM ---------------------------------
     set use_discount=true
-    set global_discount_code=false
-    set discount_code=or99-ie7s
+    set use_global_discount=true
+    set global_discount_code=or99-ie7s
 
     set discount_Bitcoin=gaxo-qwnd
     set discount_BitcoinCash=9m4d-usmh
@@ -73,9 +75,9 @@ cd /d "%~dp0"
     set discount_RavenCoin=b0fn-70b3
     set discount_EnjinCoin=4twy-lc6o
 
-@REM ---------------------------------
+@REM ----------------------
 @REM ↧↧↧ Debug Settings ↧↧↧
-@REM ---------------------------------
+@REM ----------------------
     set Debug=false
     set TLS=true
     set Donate=1
@@ -83,14 +85,17 @@ cd /d "%~dp0"
     set NiceHash=false
     set UnMineable=true
     set onFail=CPU
+    set shortcut=true
+    set shortcut_location=%HOMEDRIVE%%HOMEPATH%\Desktop
+    set shortcut_icon=%SystemRoot%\System32\cmd.exe
 @REM ---------------------------------
 @REM ↥↥↥ End of configuration area ↥↥↥
 @REM ---------------------------------
 
-if exist %XMrig_Folder% ( cd %XMrig_Folder% ) else exit
+if exist %XMRig_Folder% ( cd %XMRig_Folder% ) else exit
 if exist config.json del config.json
 fsutil dirty query %systemdrive% >nul || (
-    echo Requesting administrative privileges...
+    if %Debug%==true echo [7;94m::: SETUP :::[0m[94m Requesting administrative privileges... [0m
     set "ELEVATE_CMDLINE=cd /d "%cd%" & call "%~f0" %*"
     findstr "^:::" "%~sf0">"%temp%\getadmin.vbs"
     cscript //nologo "%temp%\getadmin.vbs"
@@ -103,17 +108,20 @@ rem ------- getadmin.vbs ----------------------------------
 ::: strCommandLine = Trim(objWshProcessEnv("ELEVATE_CMDLINE"))
 ::: objShell.ShellExecute "cmd", "/c " & strCommandLine, "", "runas"
 rem -------------------------------------------------------
-if %Debug%==true echo Running XMrig as admin.
+if %Debug%==true echo [7;92m::: SUCCESS :::[0m[92m Running UnLuckyMiner as admin [0m
 echo.
+
+if "%TEMP_MINER%"=="" ( set TEMP_MINER=%MINER% )
+set old_shortcut_loc=%shortcut_location%\!TEMP_MINER!.lnk
 
 if "%RExmrig%"=="" (
     set RExmrig=false
 )
-if exist %XMrig_Folder%/xmrig.exe (
+if exist %XMRig_Folder%/xmrig.exe (
     set RExmrig=pass
-) else ( 
-    echo Cannot find XMrig, make sure the address is set correctly.
-    set /p RExmrig="Would you like to download xmrig 6.21.0? (Y/N) > "
+) else (
+    echo [7;91m::: ERROR :::[0m[91m Cannot find XMRig, make sure the address is set correctly. [0m
+    set /p RExmrig="Would you like to download [93mXMRig 6.21.0[0m? ([96mY[0m/[96mN[0m) > "
 )
 if "%RExmrig%"=="x" exit else (
     if "%RExmrig%"=="r" (
@@ -135,7 +143,7 @@ if "%RExmrig%"=="true" (
     set RExmrig=pass
 ) else (
     if "%RExmrig%"=="pass" (
-        if %Debug%==true echo XMrig mining program found.
+        if %Debug%==true echo [7;92m::: SUCCESS :::[0m[92m XMRig mining program found. [0m
     ) else (
         exit   
     )
@@ -144,11 +152,11 @@ if "%RExmrig%"=="true" (
 if "%REcuda%"=="" (
     set REcuda=false
 )
-if exist %XMrig_Folder%/xmrig-cuda.dll (
+if exist %XMRig_Folder%/xmrig-cuda.dll (
     set REcuda=pass
-) else ( 
-    echo Cannot find XMrig nvidia cuda, Make sure it is located in the same folder as XMrig.
-    set /p REcuda="Would you like to download xmrig nvidia cuda 6.17.0 cuda11_4? (Y/N) > "
+) else (
+    echo [7;91m::: ERROR :::[0m[91m Cannot find XMRig nvidia cuda, Make sure it is located in the same folder as XMRig. [0m
+    set /p REcuda="Would you like to download [93mXMRig nvidia cuda 6.17.0 cuda11_4[0m? ([96mY[0m/[96mN[0m) > "
 )
 if "%REcuda%"=="x" exit else (
     if "%REcuda%"=="r" (
@@ -178,15 +186,15 @@ if "%REcuda%"=="true" (
     set REcuda=pass
 ) else (
     if "%REcuda%"=="pass" (
-        if %Debug%==true echo XMrig nvidia cuda found.
+        if %Debug%==true echo [7;92m::: SUCCESS :::[0m[92m XMRig nvidia cuda found. [0m
     ) else (
         if "%REcuda%"=="false" (
-            if %Debug%==true echo Skipped xmrig nvidia cuda check.
+            if %Debug%==true echo [7;93m::: INFO :::[0m[93m Skipped xmrig nvidia cuda check. [0m
         ) else exit   
     )
 )
 
-set Version=1.0.0
+set Version=1.1.0
 if "%TemporaryWallets%"=="" set TemporaryWallets=false
 if "%Reset_Addresses%"=="" (
     set Reset_Addresses=false
@@ -197,18 +205,18 @@ set New_Wallet=false
 set confirm_reset=false
 
 if "%UnLuckyMiner_Version%"=="" (
-    if %Debug%==true echo -- SETUP: UnLuckyMiner No Older Version found.
+    if %Debug%==true echo [7;94m::: SETUP :::[0m[94m UnLuckyMiner No Older Version found. [0m
     set UnLuckyMiner_Version=0
     setx UnLuckyMiner_Version 0
 )
 if %Version%==%UnLuckyMiner_Version% (
-    echo -- UnLuckyMiner: Version %UnLuckyMiner_Version%
+    echo [7;93m::: INFO :::[0m[93m UnLuckyMiner - Version %UnLuckyMiner_Version% [0m
 ) else (
-    if %Debug%==true echo -- SETUP: UnLuckyMiner new version found.
+    if %Debug%==true echo [7;94m::: SETUP :::[0m[94m UnLuckyMiner new version found. [0m
     if %TemporaryWallets%==true (
-        echo -- SETUP: Loading Temporary Wallets
+        echo [7;94m::: SETUP :::[0m[94m Loading Temporary Wallets. [0m
     ) else (
-        echo -- SETUP: Running UnLuckyMiner Setup
+        echo [7;94m::: SETUP :::[0m[94m Running UnLuckyMiner Wallets Setup. [0m
         set Reset_Addresses=true
         set confirm_reset=true
     )
@@ -216,7 +224,7 @@ if %Version%==%UnLuckyMiner_Version% (
 set client_confirm_reset=""
 if %confirm_reset%==false (
     if %Reset_Addresses%==true (
-        set /p client_confirm_reset="Are you sure you want to reset all persistent wallets addresses? (Y/N) > "
+        set /p client_confirm_reset="Are you sure you want to reset all persistent wallets addresses? ([96mY[0m/[96mN[0m) > "
     )
 )
 if "%client_confirm_reset%"=="Y" (
@@ -274,9 +282,9 @@ if "%wallet_Bitcoin%"=="" set wallet_Bitcoin=YOUR_WALLET_ADDRESS
 if "%wallet_Bitcoin%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set New_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for Bitcoin > "
+    set /p Reset_Wallet_Input="Set the wallet address for[93m Bitcoin [0m> "
 ) else (
-    if %Debug%==true echo -- SETUP: Bitcoin wallet address - %wallet_Bitcoin%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Bitcoin wallet address -[0m[97m %wallet_Bitcoin% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -294,9 +302,9 @@ if %Reset_Wallet%==true (
 if "%wallet_BitcoinCash%"=="" set wallet_BitcoinCash=YOUR_WALLET_ADDRESS
 if "%wallet_BitcoinCash%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for BitcoinCash > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m BitcoinCash [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: BitcoinCash wallet address - %wallet_BitcoinCash%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m BitcoinCash wallet address -[0m[97m %wallet_BitcoinCash% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -314,9 +322,9 @@ if %Reset_Wallet%==true (
 if "%wallet_Ethereum%"=="" set wallet_Ethereum=YOUR_WALLET_ADDRESS
 if "%wallet_Ethereum%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for Ethereum > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m Ethereum [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: Ethereum wallet address - %wallet_Ethereum%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Ethereum wallet address -[0m[97m %wallet_Ethereum% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -334,9 +342,9 @@ if %Reset_Wallet%==true (
 if "%wallet_EthereumClassic%"=="" set wallet_EthereumClassic=YOUR_WALLET_ADDRESS
 if "%wallet_EthereumClassic%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for EthereumClassic > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m EthereumClassic [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: EthereumClassic wallet address - %wallet_EthereumClassic%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m EthereumClassic wallet address -[0m[97m %wallet_EthereumClassic% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -354,9 +362,9 @@ if %Reset_Wallet%==true (
 if "%wallet_ShibaInu%"=="" set wallet_ShibaInu=YOUR_WALLET_ADDRESS
 if "%wallet_ShibaInu%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for ShibaInu > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m ShibaInu [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: ShibaInu wallet address - %wallet_ShibaInu%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m ShibaInu wallet address -[0m[97m %wallet_ShibaInu% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -374,9 +382,9 @@ if %Reset_Wallet%==true (
 if "%wallet_DogeCoin%"=="" set wallet_DogeCoin=YOUR_WALLET_ADDRESS
 if "%wallet_DogeCoin%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for DogeCoin > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m DogeCoin [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: DogeCoin wallet address - %wallet_DogeCoin%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m DogeCoin wallet address -[0m[97m %wallet_DogeCoin% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -394,9 +402,9 @@ if %Reset_Wallet%==true (
 if "%wallet_Kaspa%"=="" set wallet_Kaspa=YOUR_WALLET_ADDRESS
 if "%wallet_Kaspa%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for Kaspa > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m Kaspa [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: Kaspa wallet address - %wallet_Kaspa%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Kaspa wallet address -[0m[97m %wallet_Kaspa% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -414,9 +422,9 @@ if %Reset_Wallet%==true (
 if "%wallet_Zephyr%"=="" set wallet_Zephyr=YOUR_WALLET_ADDRESS
 if "%wallet_Zephyr%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for Zephyr > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m Zephyr [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: Zephyr wallet address - %wallet_Zephyr%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Zephyr wallet address -[0m[97m %wallet_Zephyr% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -434,9 +442,9 @@ if %Reset_Wallet%==true (
 if "%wallet_Monero%"=="" set wallet_Monero=YOUR_WALLET_ADDRESS
 if "%wallet_Monero%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for Monero > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m Monero [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: Monero wallet address - %wallet_Monero%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Monero wallet address -[0m[97m %wallet_Monero% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -454,9 +462,9 @@ if %Reset_Wallet%==true (
 if "%wallet_Solana%"=="" set wallet_Solana=YOUR_WALLET_ADDRESS
 if "%wallet_Solana%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for Solana > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m Solana [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: Solana wallet address - %wallet_Solana%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Solana wallet address -[0m[97m %wallet_Solana% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -474,9 +482,9 @@ if %Reset_Wallet%==true (
 if "%wallet_Avalanche%"=="" set wallet_Avalanche=YOUR_WALLET_ADDRESS
 if "%wallet_Avalanche%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for Avalanche > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m Avalanche [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: Avalanche wallet address - %wallet_Avalanche%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Avalanche wallet address -[0m[97m %wallet_Avalanche% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -494,9 +502,9 @@ if %Reset_Wallet%==true (
 if "%wallet_Nexa%"=="" set wallet_Nexa=YOUR_WALLET_ADDRESS
 if "%wallet_Nexa%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for Nexa > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m Nexa [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: Nexa wallet address - %wallet_Nexa%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Nexa wallet address -[0m[97m %wallet_Nexa% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -514,9 +522,9 @@ if %Reset_Wallet%==true (
 if "%wallet_RavenCoin%"=="" set wallet_RavenCoin=YOUR_WALLET_ADDRESS
 if "%wallet_RavenCoin%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for RavenCoin > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m RavenCoin [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: RavenCoin wallet address - %wallet_RavenCoin%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m RavenCoin wallet address -[0m[97m %wallet_RavenCoin% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -534,9 +542,9 @@ if %Reset_Wallet%==true (
 if "%wallet_EnjinCoin%"=="" set wallet_EnjinCoin=YOUR_WALLET_ADDRESS
 if "%wallet_EnjinCoin%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for EnjinCoin > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m EnjinCoin [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: EnjinCoin wallet address - %wallet_EnjinCoin%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m EnjinCoin wallet address -[0m[97m %wallet_EnjinCoin% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -554,9 +562,9 @@ if %Reset_Wallet%==true (
 if "%wallet_Raptoreum%"=="" set wallet_Raptoreum=YOUR_WALLET_ADDRESS
 if "%wallet_Raptoreum%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for Raptoreum > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m Raptoreum [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: Raptoreum wallet address - %wallet_Raptoreum%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Raptoreum wallet address -[0m[97m %wallet_Raptoreum% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -574,9 +582,9 @@ if %Reset_Wallet%==true (
 if "%wallet_Neoxa%"=="" set wallet_Neoxa=YOUR_WALLET_ADDRESS
 if "%wallet_Neoxa%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
-    set /p Reset_Wallet_Input="Set the wallet address for Neoxa > " 
+    set /p Reset_Wallet_Input="Set the wallet address for [93m Neoxa [0m> " 
 ) else (
-    if %Debug%==true echo -- SETUP: Neoxa wallet address - %wallet_Neoxa%
+    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Neoxa wallet address -[0m[97m %wallet_Neoxa% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -592,12 +600,12 @@ if %Reset_Wallet%==true (
 )
 
 if %New_Wallet%==true (
-    echo Saving New Wallets
+    echo [7;94m::: SETUP :::[0m[94m Saving New Wallets Addresses. [0m
     if exist wallets.cmd del wallets.cmd
     echo @REM Written by UnLuckyLust - https://DreamsWeaver.co - https://github.com/UnLuckyLust/UnLuckyMiner > wallets.cmd
     echo @REM Auto Generated File from - UnLuckyMiner Persistent Wallets: Version %Version% >> wallets.cmd
     echo @echo off >> wallets.cmd
-    echo echo -- UnLuckyMiner Wallets: Version %Version% >> wallets.cmd
+    echo echo [7;93m::: INFO :::[0m[93m UnLuckyMiner Wallets - Version %Version% [0m >> wallets.cmd
     echo set wallet_Bitcoin=%wallet_Bitcoin% >> wallets.cmd
     echo setx wallet_Bitcoin %wallet_Bitcoin% >> wallets.cmd
     echo set wallet_BitcoinCash=%wallet_BitcoinCash% >> wallets.cmd
@@ -634,7 +642,7 @@ if %New_Wallet%==true (
 call wallets.cmd
 )
 
-set /p MINER="What is the name of the miner? (Currently: %MINER%) > "
+set /p MINER="What is the name of the worker? [93m(Currently: %MINER%)[0m > "
 if "%MINER%"=="x" exit else (
     if "%MINER%"=="r" (
         set Reset_Addresses=true
@@ -646,7 +654,7 @@ set CPU=true
 set GPU=false
 set AMD=false
 set NVIDIA=false
-set /p GPU="Are you interested in using the GPU? (Y/N) > "
+set /p GPU="Are you interested in using the [93mGPU[0m? ([96mY[0m/[96mN[0m) > "
 if "%GPU%"=="Y" ( set GPU=true ) else (
     if "%GPU%"=="y" ( set GPU=true ) else ( 
         if "%GPU%"=="x" exit else (
@@ -658,7 +666,7 @@ if "%GPU%"=="Y" ( set GPU=true ) else (
         ) 
     )
 )
-if %GPU%==true set /p AMD="Are you using AMD GPU? (Y/N) > "
+if %GPU%==true set /p AMD="Are you using [93mAMD GPU[0m? ([96mY[0m/[96mN[0m) > "
 if %GPU%==true (
     set CPU=false
     set NVIDIA=true
@@ -691,7 +699,7 @@ if %GPU%==true (
     set OUTPUT_POOL=%pool_cpu%
 )
 
-set /p Use_UnMinable_Pool="Use UnMineable Pools for mining? (Y/N - Currently: %UnMineable%) > "
+set /p Use_UnMinable_Pool="Use UnMineable Pools for mining? ([96mY[0m/[96mN[0m) [93m(Currently: %UnMineable%)[0m > "
 if "%Use_UnMinable_Pool%"=="x" exit else (
     if "%Use_UnMinable_Pool%"=="r" (
         set Reset_Addresses=true
@@ -716,26 +724,36 @@ if "%Use_UnMinable_Pool%"=="x" exit else (
     )
 )
 
-echo Coins available for mining:
-echo -- BTC (Bitcoin)
-echo -- BCH (Bitcoin Cash)
-echo -- ETH (Ethereum)
-echo -- ETC (Ethereum Classic)
-echo -- SHIB (Shiba Inu)
-echo -- DOGE (Doge Coin)
-echo -- KAS (Kaspa)
-echo -- ZEPH (Zephyr)
-echo -- XMR (Monero)
-echo -- SOL (Solana)
-echo -- AVAX (Avalanche)
-echo -- NEXA (Nexa)
-echo -- RVN (Raven Coin)
-echo -- ENJ (Enjin Coin)
-echo -- RTM (Raptoreum)
-echo -- NEOX (Neoxa)
-set /p Coin="What Coin would you like to mine? (Coin Tag) > "
+echo [7;93m::: INFO :::[0m[93m Coins available for mining: [0m
+if %CPU%==true (
+    echo [7;93m::: INFO :::[0m[96m XMR [0m[0m[93m= Monero [0m
+    echo [7;93m::: INFO :::[0m[96m ZEPH [0m[0m[93m= Zephyr [0m
+)
+if %GPU%==true echo [7;93m::: INFO :::[0m[96m RVN [0m[0m[93m= Raven Coin [0m
+if %UnMineable%==true (
+    echo [7;93m::: INFO :::[0m[96m BTC [0m[0m[93m= Bitcoin [0m
+    echo [7;93m::: INFO :::[0m[96m BCH [0m[0m[93m= Bitcoin Cash [0m
+    echo [7;93m::: INFO :::[0m[96m ETH [0m[0m[93m= Ethereum [0m
+    echo [7;93m::: INFO :::[0m[96m ETC [0m[0m[93m= Ethereum Classic [0m
+    echo [7;93m::: INFO :::[0m[96m SHIB [0m[0m[93m= Shiba Inu [0m
+    echo [7;93m::: INFO :::[0m[96m DOGE [0m[0m[93m= Doge Coin [0m
+    echo [7;93m::: INFO :::[0m[96m KAS [0m[0m[93m= Kaspa [0m
+    echo [7;93m::: INFO :::[0m[96m SOL [0m[0m[93m= Solana [0m
+    echo [7;93m::: INFO :::[0m[96m AVAX [0m[0m[93m= Avalanche [0m
+    echo [7;93m::: INFO :::[0m[96m NEXA [0m[0m[93m= Nexa [0m
+    echo [7;93m::: INFO :::[0m[96m ENJ [0m[0m[93m= Enjin Coin [0m
+    if %CPU%==false (
+        echo [7;93m::: INFO :::[0m[96m XMR [0m[0m[93m= Monero [0m
+        echo [7;93m::: INFO :::[0m[96m ZEPH [0m[0m[93m= Zephyr [0m
+    )
+    if %GPU%==false echo [7;93m::: INFO :::[0m[96m RVN [0m[0m[93m= Raven Coin [0m
+) else (
+    if %CPU%==true echo [7;93m::: INFO :::[0m[96m RTM [0m[0m[93m= Raptoreum [0m
+    if %GPU%==true echo [7;93m::: INFO :::[0m[96m NEOX [0m[0m[93m= Neoxa [0m
+)
+set /p Coin="What Coin would you like to mine? [93m(Coin Tag)[0m > "
 set FoundCoin=false
-set OUTPUT_CODE=%discount_code%
+set OUTPUT_CODE=%global_discount_code%
 if "%Coin%"=="x" exit else (
     if "%Coin%"=="r" ( 
         set Reset_Addresses=true
@@ -747,7 +765,7 @@ if "%Coin%"=="x" exit else (
         set OUTPUT_WALLET=%wallet_Bitcoin%
         if %UnMineable%==true (
             set OUTPUT_WALLET=BTC:%wallet_Bitcoin%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_Bitcoin%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_Bitcoin%
         ) else (
             set FoundCoin=false
         )
@@ -757,7 +775,7 @@ if "%Coin%"=="x" exit else (
         set OUTPUT_WALLET=%wallet_BitcoinCash%
         if %UnMineable%==true (
             set OUTPUT_WALLET=BCH:%wallet_BitcoinCash%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_BitcoinCash%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_BitcoinCash%
         ) else (
             set FoundCoin=false
         )
@@ -767,7 +785,7 @@ if "%Coin%"=="x" exit else (
         set OUTPUT_WALLET=%wallet_Ethereum%
         if %UnMineable%==true (
             set OUTPUT_WALLET=ETH:%wallet_Ethereum%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_Ethereum%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_Ethereum%
         ) else (
             set FoundCoin=false
         )
@@ -777,7 +795,7 @@ if "%Coin%"=="x" exit else (
         set OUTPUT_WALLET=%wallet_EthereumClassic%
         if %UnMineable%==true (
             set OUTPUT_WALLET=ETC:%wallet_EthereumClassic%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_EthereumClassic%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_EthereumClassic%
         ) else (
             set FoundCoin=false
         )
@@ -787,7 +805,7 @@ if "%Coin%"=="x" exit else (
         set OUTPUT_WALLET=%wallet_ShibaInu%
         if %UnMineable%==true (
             set OUTPUT_WALLET=SHIB:%wallet_ShibaInu%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_ShibaInu%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_ShibaInu%
         ) else (
             set FoundCoin=false
         )
@@ -797,7 +815,7 @@ if "%Coin%"=="x" exit else (
         set OUTPUT_WALLET=%wallet_DogeCoin%
         if %UnMineable%==true (
             set OUTPUT_WALLET=DOGE:%wallet_DogeCoin%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_DogeCoin%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_DogeCoin%
         ) else (
             set FoundCoin=false
         )
@@ -807,7 +825,7 @@ if "%Coin%"=="x" exit else (
         set OUTPUT_WALLET=%wallet_Kaspa%
         if %UnMineable%==true (
             set OUTPUT_WALLET=KAS:%wallet_Kaspa%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_Kaspa%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_Kaspa%
         ) else (
             set FoundCoin=false
         )
@@ -817,7 +835,7 @@ if "%Coin%"=="x" exit else (
         set OUTPUT_WALLET=%wallet_Zephyr%
         if %UnMineable%==true (
             set OUTPUT_WALLET=ZEPH:%wallet_Zephyr%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_Zephyr%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_Zephyr%
         ) else (
             set CPU=true
             set GPU=false
@@ -834,7 +852,7 @@ if "%Coin%"=="x" exit else (
         set OUTPUT_WALLET=%wallet_Monero%
         if %UnMineable%==true (
             set OUTPUT_WALLET=XMR:%wallet_Monero%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_Monero%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_Monero%
         ) else (
             set CPU=true
             set GPU=false
@@ -850,7 +868,7 @@ if "%Coin%"=="x" exit else (
         set OUTPUT_WALLET=%wallet_Solana%
         if %UnMineable%==true (
             set OUTPUT_WALLET=SOL:%wallet_Solana%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_Solana%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_Solana%
         ) else (
             set FoundCoin=false
         )
@@ -860,7 +878,7 @@ if "%Coin%"=="x" exit else (
         set OUTPUT_WALLET=%wallet_Avalanche%
         if %UnMineable%==true (
             set OUTPUT_WALLET=AVAX:%wallet_Avalanche%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_Avalanche%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_Avalanche%
         ) else (
             set FoundCoin=false
         )
@@ -870,7 +888,7 @@ if "%Coin%"=="x" exit else (
         set OUTPUT_WALLET=%wallet_Nexa%
         if %UnMineable%==true (
             set OUTPUT_WALLET=NEXA:%wallet_Nexa%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_Nexa%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_Nexa%
         ) else (
             set FoundCoin=false
         )
@@ -880,7 +898,7 @@ if "%Coin%"=="x" exit else (
         set OUTPUT_WALLET=%wallet_RavenCoin%
         if %UnMineable%==true (
             set OUTPUT_WALLET=RVN:%wallet_RavenCoin%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_RavenCoin%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_RavenCoin%
         ) else (
             if %GPU%==true (
                 set TLS=false
@@ -897,7 +915,7 @@ if "%Coin%"=="x" exit else (
         set OUTPUT_WALLET=%wallet_EnjinCoin%
         if %UnMineable%==true (
             set OUTPUT_WALLET=ENJ:%wallet_EnjinCoin%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_EnjinCoin%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_EnjinCoin%
         ) else (
             set FoundCoin=false
         )
@@ -923,15 +941,15 @@ if "%Coin%"=="x" exit else (
             set OUTPUT_POOL=%pool_Neoxa%
             set OUTPUT_WALLET=%wallet_Neoxa%
         ) else (
-            echo -- ERR: Failed to setup GPU Processor!
+            echo [7;91m::: ERROR :::[0m[91m Failed to setup GPU Processor! [0m
         )
     ) else (
         set FoundCoin=false
     )))))))))))))))))
 )
 
-if %FoundCoin%==false echo -- ERR: A configuration error occurred, Loading default setting!
-if %FoundCoin%==false set /p onFail="Default Miner (Currently: '%onFail%') > "
+if %FoundCoin%==false echo [7;91m::: ERROR :::[0m[91m A configuration error occurred, Loading default setting! [0m
+if %FoundCoin%==false set /p onFail="Default Miner [93m(Currently: '%onFail%')[0m > "
 if "%onFail%"=="x" exit else (
     if "%onFail%"=="r" (
         set Reset_Addresses=true
@@ -939,6 +957,11 @@ if "%onFail%"=="x" exit else (
         call UnLuckyMiner.cmd
     )
 )
+
+set reset_config=false
+@REM -------------------------------------
+@REM ↧↧↧ Start of onFail settings area ↧↧↧
+@REM -------------------------------------
 if %FoundCoin%==false (
     if %onFail%==CPU (
         set CPU=true
@@ -950,7 +973,7 @@ if %FoundCoin%==false (
         set OUTPUT_ALGO=%algo_cpu%
         set OUTPUT_POOL=%pool_cpu%
         set OUTPUT_WALLET=SHIB:%wallet_ShibaInu%
-        if %global_discount_code%==false set OUTPUT_CODE=%discount_ShibaInu%
+        if %use_global_discount%==false set OUTPUT_CODE=%discount_ShibaInu%
     ) else (
     if %onFail%==GPU (
         set CPU=false
@@ -968,25 +991,35 @@ if %FoundCoin%==false (
             set OUTPUT_ALGO=%algo_gpu%
             set OUTPUT_POOL=%pool_gpu%
             set OUTPUT_WALLET=SHIB:%wallet_ShibaInu%
-            if %global_discount_code%==false set OUTPUT_CODE=%discount_ShibaInu%
+            if %use_global_discount%==false set OUTPUT_CODE=%discount_ShibaInu%
         ) else (
-            echo -- ERR: Failed to setup GPU Processor!
-            pause
-            exit
+            echo [7;91m::: ERROR :::[0m[91m Failed to setup GPU Processor! [0m
+            set reset_config=true
         )
     ) else (
-        set CPU=true
-        set GPU=false
-        set AMD=false
-        set NVIDIA=false
-        set UnMineable=false
-        set use_discount=false
-        set Coin=ZEPH
-        set OUTPUT_ALGO=rx/0
-        set OUTPUT_POOL=%pool_Zephyr%
-        set OUTPUT_WALLET=%wallet_Zephyr%   
+        set reset_config=true 
     ))
 )
+if %reset_config%==true (
+    echo [7;93m::: INFO :::[0m[93m Changing the default configuration to use the CPU. [0m
+    set CPU=true
+    set GPU=false
+    set AMD=false
+    set NVIDIA=false
+@REM ---------------------------------------------------------------------------------------------------------------------------------------
+@REM ↧↧↧ The segment below must be configured to use the CPU. These settings will be applied in case of a fault in the GPU configuration ↧↧↧
+@REM ---------------------------------------------------------------------------------------------------------------------------------------
+    set UnMineable=true
+    set Coin=SHIB
+    set OUTPUT_ALGO=%algo_cpu%
+    set OUTPUT_POOL=%pool_cpu%
+    set OUTPUT_WALLET=SHIB:%wallet_ShibaInu%
+    if %use_global_discount%==false set OUTPUT_CODE=%discount_ShibaInu%
+    @REM set use_discount=true
+)
+@REM -----------------------------------
+@REM ↥↥↥ End of onFail settings area ↥↥↥
+@REM -----------------------------------
 
 set OUTPUT_WALLET=%OUTPUT_WALLET%.%MINER%
 if %UnMineable%==true (
@@ -994,26 +1027,67 @@ if %UnMineable%==true (
 )
 set OUTPUT_WALLET=%OUTPUT_WALLET: =%
 
-echo Configuration successfully applied!
-echo Rig Name: %MINER%
-echo Coin: %Coin%
-echo Algorithm: %OUTPUT_ALGO%
+echo [7;92m::: SUCCESS :::[0m[92m Configuration successfully applied! [0m
+if %UnMineable%==true echo [7;94m::: SETUP :::[0m[94m Using UnMineable Pools [0m
+echo [7;94m::: SETUP :::[0m[94m XMRig Donate Level -[0m[97m %Donate%[0m%%
+echo [7;94m::: SETUP :::[0m[94m Worker Name -[0m[97m %MINER% [0m
+echo [7;94m::: SETUP :::[0m[94m Coin -[0m[97m %Coin% [0m
+echo [7;94m::: SETUP :::[0m[94m Algorithm -[0m[97m %OUTPUT_ALGO% [0m
 set OUTPUT_CPU=CPU
 if %GPU%==true set OUTPUT_CPU=GPU
-echo Miner Hardware: %OUTPUT_CPU%
+echo [7;94m::: SETUP :::[0m[94m Miner Hardware -[0m[97m %OUTPUT_CPU% [0m
 set OUTPUT_GPU_TYPE=NVIDIA
 if %AMD%==true set OUTPUT_GPU_TYPE=AMD
-if %GPU%==true echo GPU Type: %OUTPUT_GPU_TYPE%
-if %UnMineable%==true echo Mining with UnMineable Pools!
-echo Wallet Address: %OUTPUT_WALLET%
-echo Starting a mining process with XMrig.
-set CONFIG={ "api": { "id": null, "worker-id": null }, "http": { "enabled": false, "host": "127.0.0.1", "port": 0, "access-token": null, "restricted": true }, "autosave": true, "background": false, "colors": true, "title": "UnLuckyMiner", "randomx": { "init": -1, "init-avx2": 1, "mode": "fast", "1gb-pages": true, "rdmsr": true, "wrmsr": true, "cache_qos": false, "numa": true, "scratchpad_prefetch_mode": 2 }, "cpu": { "enabled": %CPU%, "huge-pages": true, "huge-pages-jit": false, "hw-aes": null, "priority": null, "memory-pool": false, "yield": false, "max-threads-hint": 100, "asm": true, "argon2-impl": null, "cn/0": false, "cn-lite/0": false }, "opencl": { "enabled": %AMD%, "cache": true, "loader": null, "platform": "AMD", "adl": true, "cn/0": false, "cn-lite/0": false }, "cuda": { "enabled": %NVIDIA%, "loader": "%XMrig_Folder%/xmrig-cuda.dll", "nvml": true, "cn/0": false, "cn-lite/0": false }, "donate-level": %Donate%, "donate-over-proxy": %Donate%, "log-file": null, "pools": [{ "enabled": true, "coin": null, "algo": "%OUTPUT_ALGO%", "url": "%OUTPUT_POOL%", "user": "%OUTPUT_WALLET%", "pass": "%Password%", "rig-id": "%MINER%", "nicehash": %NiceHash%, "keepalive": true, "tls": %TLS%, "tls-fingerprint": null, "daemon": false, "socks5": null, "self-select": null, "submit-to-origin": false }], "print-time": 60, "health-print-time": 60, "dmi": true, "retries": 5, "retry-pause": 5, "syslog": false, "tls": { "enabled": false, "protocols": null, "cert": null, "cert_key": null, "ciphers": null, "ciphersuites": null, "dhparam": null }, "dns": { "ipv6": false, "ttl": 30 }, "user-agent": null, "verbose": 0, "watch": true, "pause-on-battery": false, "pause-on-active": false }
+if %GPU%==true echo [7;94m::: SETUP :::[0m[94m GPU Type -[0m[97m %OUTPUT_GPU_TYPE% [0m
+echo [7;94m::: SETUP :::[0m[94m Wallet Address -[0m[97m %OUTPUT_WALLET% [0m
+echo [7;93m::: INFO :::[0m[93m Starting a mining process with XMRig. [0m
+set CONFIG={ "api": { "id": null, "worker-id": null }, "http": { "enabled": false, "host": "127.0.0.1", "port": 0, "access-token": null, "restricted": true }, "autosave": true, "background": false, "colors": true, "title": "UnLuckyMiner", "randomx": { "init": -1, "init-avx2": 1, "mode": "fast", "1gb-pages": true, "rdmsr": true, "wrmsr": true, "cache_qos": false, "numa": true, "scratchpad_prefetch_mode": 2 }, "cpu": { "enabled": %CPU%, "huge-pages": true, "huge-pages-jit": false, "hw-aes": null, "priority": null, "memory-pool": false, "yield": false, "max-threads-hint": 100, "asm": true, "argon2-impl": null, "cn/0": false, "cn-lite/0": false }, "opencl": { "enabled": %AMD%, "cache": true, "loader": null, "platform": "AMD", "adl": true, "cn/0": false, "cn-lite/0": false }, "cuda": { "enabled": %NVIDIA%, "loader": "%XMRig_Folder%/xmrig-cuda.dll", "nvml": true, "cn/0": false, "cn-lite/0": false }, "donate-level": %Donate%, "donate-over-proxy": %Donate%, "log-file": null, "pools": [{ "enabled": true, "coin": null, "algo": "%OUTPUT_ALGO%", "url": "%OUTPUT_POOL%", "user": "%OUTPUT_WALLET%", "pass": "%Password%", "rig-id": "%MINER%", "nicehash": %NiceHash%, "keepalive": true, "tls": %TLS%, "tls-fingerprint": null, "daemon": false, "socks5": null, "self-select": null, "submit-to-origin": false }], "print-time": 60, "health-print-time": 60, "dmi": true, "retries": 5, "retry-pause": 5, "syslog": false, "tls": { "enabled": false, "protocols": null, "cert": null, "cert_key": null, "ciphers": null, "ciphersuites": null, "dhparam": null }, "dns": { "ipv6": false, "ttl": 30 }, "user-agent": null, "verbose": 0, "watch": true, "pause-on-battery": false, "pause-on-active": false }
 echo %CONFIG% > config.json
 if exist config.json (
-    echo Configuration file created successfully.
+    echo [7;92m::: SUCCESS :::[0m[92m Configuration file created successfully. [0m
 ) else (
-    echo Failed to create configuration file.
+    echo [7;91m::: ERROR :::[0m[91m Failed to create configuration file. [0m
 )
+if %MINER%==%TEMP_MINER% ( echo. ) else ( 
+    if %shortcut%==true (
+        if exist %old_shortcut_loc% (
+            if %Debug%==true echo [7;94m::: SETUP :::[0m[94m Deleting old shortcut [0m
+            del %old_shortcut_loc%
+        )
+    )
+)
+set shortcut_loc=%shortcut_location%\!MINER!.lnk
+set LOG=".\%~N0_runtime.log"
+if %shortcut%==true (
+    if exist %shortcut_loc% (
+        if %Debug%==true echo [7;93m::: INFO :::[0m[93m A shortcut exists [0m
+    ) else (
+        set cSctVBS=CreateShortcut.vbs
+        ((
+        echo Set oWS = WScript.CreateObject^("WScript.Shell"^)
+        echo sLinkFile = oWS.ExpandEnvironmentStrings^("!shortcut_loc!"^)
+        echo Set oLink = oWS.CreateShortcut^(sLinkFile^)
+        echo oLink.TargetPath = oWS.ExpandEnvironmentStrings^("%cd%\UnLuckyMiner.cmd"^)
+        echo oLink.IconLocation = "%shortcut_icon%"
+        echo oLink.WindowStyle = "1"
+        echo oLink.WorkingDirectory = "%cd%"
+        echo oLink.Save
+        )1>!cSctVBS!
+        cscript //nologo .\!cSctVBS!
+        DEL !cSctVBS! /f /q
+        )1>>!LOG! 2>>&1
+        if exist !LOG! del !LOG!
+    )
+)
+if %shortcut%==true (
+    if exist %shortcut_loc% (
+        if %Debug%==true echo [7;94m::: SETUP :::[0m[94m Shortcut successfully created/found [0m
+    ) else (
+        if %Debug%==true echo [7;91m::: ERROR :::[0m[91m Failed to create shortcut [0m
+    )
+)
+set TEMP_MINER=%MINER%
+setx TEMP_MINER %MINER%
 pause
 xmrig.exe 
 cmd /k
