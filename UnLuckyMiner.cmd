@@ -26,32 +26,43 @@ cd /d "%~dp0"
     set pool_gpu=stratum+ssl://kp-eu.unmineable.com:443
 
 @REM Custom Pools addresses
-    set pool_Zephyr=stratum+ssl://tr.zephyr.herominers.com:1123
+    set pool_Clore=stratum+ssl://tr.clore.herominers.com:1163
     set pool_Monero=stratum+ssl://xmr-eu1.nanopool.org:10343
-    set pool_RavenCoin=rvn.2miners.com:6060
-    set pool_Raptoreum=stratum+ssl://eu.flockpool.com:5555
     set pool_Neoxa=stratum+ssl://neox.2miners.com:4040
+    set pool_Raptoreum=stratum+ssl://eu.flockpool.com:5555
+    set pool_RavenCoin=rvn.2miners.com:6060
+    set pool_Zephyr=stratum+ssl://tr.zephyr.herominers.com:1123
 
-@REM -----------------------------------------------------------------------
-@REM ↧↧↧ Uncomment the lines below to enable temporary wallets addresses ↧↧↧
-@REM -----------------------------------------------------------------------
-    @REM set TemporaryWallets=true
-    @REM set wallet_Bitcoin=bc1qm6x7lcgck5h8lrrs9glv243mty0pnv72236sz8
-    @REM set wallet_BitcoinCash=1Adtmi4FdwfCrBdHCbYJyBwuyTiA6n1Q9j
-    @REM set wallet_Ethereum=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
-    @REM set wallet_EthereumClassic=0xdB334D2B4D6B10cc7e84a4927e3bcf6e9a75A629
-    @REM set wallet_ShibaInu=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
-    @REM set wallet_DogeCoin=DHRQi6qMF7KdFthUhjaTDh42HN6Rp2jdXq
-    @REM set wallet_Kaspa=kaspa:qyp4h36wejns6zfddah5wqrclnawrl74lrlqjnhf7gjccy03jh6j8zs4e6grwud
-    @REM set wallet_Zephyr=ZEPHYR3d46PJL5fM5C4Lu2XHHmt9opnjuhzMvJXTxjgmftPsKmUzrzVE4GmPsSCWWeKe7DzjmQuPXaqqDoiPziBkVtfCyW2STTC2m
-    @REM set wallet_Monero=48rfHy6xMMQCKCJTAdojzqcKbtvFYhkvB5giRfbzF6wv5wGDMfJLjzsWL1njt6y7PSJYY7F6QajQFXXNfmw5cuGj61vQSVL
-    @REM set wallet_Solana=3BQMMAUaGbTg6A9Fr7t6kPmSw7c41WEkKWWJJ5Yra4qo
-    @REM set wallet_Avalanche=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
-    @REM set wallet_Nexa=nexa:nqtsq5g5az4f8xuy5kg3u499ml0mrdsfle7jgtru99a33xyc
-    @REM set wallet_RavenCoin=RQ2oVQHg4ETZkCL7fkvbJRpfcvGc47XvsF
-    @REM set wallet_EnjinCoin=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
-    @REM set wallet_Raptoreum=RVJ57sidiLD8EVHvEnRrBUeyBaPoKVh2yZ
-    @REM set wallet_Neoxa=GXjY2uyeji7qEBxVF93mKRQ9snUzoZPfdx
+@REM ----------------------------------------------------------------------------------------------------------------
+@REM By default the program will not use the section below, and will ask for wallet addresses on the initial startup.
+@REM If you want to use temporary wallet addresses on all rigs change to ( set TemporaryWallets=true ), and fill in your wallet addresses in the section below.
+@REM If you want to change the addresses to the temporary or vice versa after the initial setup, send the command "t"
+@REM If you want to reset the persistent addresses on your current rig, send the command "r"
+@REM ----------------------------------------------------------------------------------------------------------------
+    if "%TemporaryWallets%"=="" ( set TemporaryWallets=false ) else (
+        set TemporaryWallets=%TemporaryWallets%
+    ) 
+    setx TemporaryWallets %TemporaryWallets%
+@REM -----------------------------------
+@REM ↧↧↧ Temporary wallets addresses ↧↧↧
+@REM -----------------------------------    
+    set t_wallet_Avalanche=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
+    set t_wallet_Bitcoin=bc1qm6x7lcgck5h8lrrs9glv243mty0pnv72236sz8
+    set t_wallet_BitcoinCash=1Adtmi4FdwfCrBdHCbYJyBwuyTiA6n1Q9j
+    set t_wallet_Clore=AUJZmq919Ujsn9jRfkcVSNA1txUewy467W
+    set t_wallet_DogeCoin=DHRQi6qMF7KdFthUhjaTDh42HN6Rp2jdXq
+    set t_wallet_EnjinCoin=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
+    set t_wallet_Ethereum=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
+    set t_wallet_EthereumClassic=0xdB334D2B4D6B10cc7e84a4927e3bcf6e9a75A629
+    set t_wallet_Kaspa=kaspa:qyp4h36wejns6zfddah5wqrclnawrl74lrlqjnhf7gjccy03jh6j8zs4e6grwud
+    set t_wallet_Monero=48rfHy6xMMQCKCJTAdojzqcKbtvFYhkvB5giRfbzF6wv5wGDMfJLjzsWL1njt6y7PSJYY7F6QajQFXXNfmw5cuGj61vQSVL
+    set t_wallet_Neoxa=GXjY2uyeji7qEBxVF93mKRQ9snUzoZPfdx
+    set t_wallet_Nexa=nexa:nqtsq5g5az4f8xuy5kg3u499ml0mrdsfle7jgtru99a33xyc
+    set t_wallet_ShibaInu=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
+    set t_wallet_Solana=3BQMMAUaGbTg6A9Fr7t6kPmSw7c41WEkKWWJJ5Yra4qo
+    set t_wallet_RavenCoin=RQ2oVQHg4ETZkCL7fkvbJRpfcvGc47XvsF
+    set t_wallet_Raptoreum=RVJ57sidiLD8EVHvEnRrBUeyBaPoKVh2yZ
+    set t_wallet_Zephyr=ZEPHYR3d46PJL5fM5C4Lu2XHHmt9opnjuhzMvJXTxjgmftPsKmUzrzVE4GmPsSCWWeKe7DzjmQuPXaqqDoiPziBkVtfCyW2STTC2m
 
 @REM ---------------------------------
 @REM ↧↧↧ UnMineable Discount Codes ↧↧↧
@@ -60,20 +71,20 @@ cd /d "%~dp0"
     set use_global_discount=true
     set global_discount_code=or99-ie7s
 
+    set discount_Avalanche=5n2s-3fhd
     set discount_Bitcoin=gaxo-qwnd
     set discount_BitcoinCash=9m4d-usmh
+    set discount_DogeCoin=x0x8-zqtb
+    set discount_EnjinCoin=4twy-lc6o
     set discount_Ethereum=9y1u-abm2
     set discount_EthereumClassic=s1fn-193o
-    set discount_ShibaInu=or99-ie7s
-    set discount_DogeCoin=x0x8-zqtb
     set discount_Kaspa=k7cp-oyfk
-    set discount_Zephyr=f60t-hqix
     set discount_Monero=mky5-uf5c
-    set discount_Solana=6yt7-80iq
-    set discount_Avalanche=5n2s-3fhd
     set discount_Nexa=st3u-qrcx
+    set discount_ShibaInu=or99-ie7s
+    set discount_Solana=6yt7-80iq
     set discount_RavenCoin=b0fn-70b3
-    set discount_EnjinCoin=4twy-lc6o
+    set discount_Zephyr=f60t-hqix
 
 @REM ----------------------
 @REM ↧↧↧ Debug Settings ↧↧↧
@@ -86,7 +97,7 @@ cd /d "%~dp0"
     set UnMineable=true
     set onFail=CPU
     set shortcut=true
-    set shortcut_location=%HOMEDRIVE%%HOMEPATH%\Desktop
+    set shortcut_location=%cd%
     set shortcut_icon=%SystemRoot%\System32\cmd.exe
 @REM ---------------------------------
 @REM ↥↥↥ End of configuration area ↥↥↥
@@ -109,7 +120,6 @@ rem ------- getadmin.vbs ----------------------------------
 ::: objShell.ShellExecute "cmd", "/c " & strCommandLine, "", "runas"
 rem -------------------------------------------------------
 if %Debug%==true echo [7;92m::: SUCCESS :::[0m[92m Running UnLuckyMiner as admin [0m
-echo.
 
 if "%TEMP_MINER%"=="" ( set TEMP_MINER=%MINER% )
 set old_shortcut_loc=%shortcut_location%\!TEMP_MINER!.lnk
@@ -120,6 +130,8 @@ if "%RExmrig%"=="" (
 if exist %XMRig_Folder%/xmrig.exe (
     set RExmrig=pass
 ) else (
+    echo [7;94m::: IMPORTANT :::[0m[94m This cmd file is made for XMRig crypto currency miner, it can be flagged by your antivirus. [0m
+    echo [7;94m::: IMPORTANT :::[0m[94m If you want to use XMRig miner make sure whitelist the folder in your antivirus. [0m
     echo [7;91m::: ERROR :::[0m[91m Cannot find XMRig, make sure the address is set correctly. [0m
     set /p RExmrig="Would you like to download [93mXMRig 6.21.0[0m? ([96mY[0m/[96mN[0m) > "
 )
@@ -139,7 +151,13 @@ if "%RExmrig%"=="x" exit else (
     )
 )
 if "%RExmrig%"=="true" (
-    if exist ./commands/install_xmrig.cmd call ./commands/install_xmrig.cmd
+    if exist ./commands/install_xmrig.cmd (
+        call ./commands/install_xmrig.cmd
+    ) else (
+        echo [7;91m::: ERROR :::[0m[91m Cannot find XMRig intsall command. [0m
+        pause
+        exit
+    )
     set RExmrig=pass
 ) else (
     if "%RExmrig%"=="pass" (
@@ -182,7 +200,11 @@ if "%REcuda%"=="x" exit else (
     )
 )
 if "%REcuda%"=="true" (
-    if exist ./commands/install_xmrig_cuda.cmd call ./commands/install_xmrig_cuda.cmd
+    if exist ./commands/install_xmrig_cuda.cmd (
+        call ./commands/install_xmrig_cuda.cmd
+    ) else (
+        echo [7;91m::: ERROR :::[0m[91m Cannot find XMRig Cuda intsall command. [0m
+    )
     set REcuda=pass
 ) else (
     if "%REcuda%"=="pass" (
@@ -194,15 +216,22 @@ if "%REcuda%"=="true" (
     )
 )
 
-set Version=1.1.0
-if "%TemporaryWallets%"=="" set TemporaryWallets=false
+set Version=1.2.0
+echo [7;93m::: INFO :::[0m[93m UnLuckyMiner - Version %Version% [0m
+echo [7;95m::: COMMAND :::[0m [95me[0m[7;95mx[0m[95mit[0m
+echo [7;95m::: COMMAND :::[0m [7;95mt[0m[95moggle persistent addresses[0m
+echo [7;95m::: COMMAND :::[0m [7;95mr[0m[95meset persistent addresses[0m
+
 if "%Reset_Addresses%"=="" (
     set Reset_Addresses=false
     setx Reset_Addresses false  
 )
-set Reset_Wallet=false
-set New_Wallet=false
 set confirm_reset=false
+
+if "%Toggle_Temporary_Addresses%"=="" (
+    set Toggle_Temporary_Addresses=false
+    setx Toggle_Temporary_Addresses false  
+)
 
 if "%UnLuckyMiner_Version%"=="" (
     if %Debug%==true echo [7;94m::: SETUP :::[0m[94m UnLuckyMiner No Older Version found. [0m
@@ -210,17 +239,17 @@ if "%UnLuckyMiner_Version%"=="" (
     setx UnLuckyMiner_Version 0
 )
 if %Version%==%UnLuckyMiner_Version% (
-    echo [7;93m::: INFO :::[0m[93m UnLuckyMiner - Version %UnLuckyMiner_Version% [0m
+    echo.
+    @REM echo [7;93m::: INFO :::[0m[93m UnLuckyMiner - Version %UnLuckyMiner_Version% [0m
 ) else (
-    if %Debug%==true echo [7;94m::: SETUP :::[0m[94m UnLuckyMiner new version found. [0m
-    if %TemporaryWallets%==true (
-        echo [7;94m::: SETUP :::[0m[94m Loading Temporary Wallets. [0m
-    ) else (
-        echo [7;94m::: SETUP :::[0m[94m Running UnLuckyMiner Wallets Setup. [0m
-        set Reset_Addresses=true
-        set confirm_reset=true
-    )
+    echo [7;94m::: SETUP :::[0m[94m UnLuckyMiner new version found. [0m
+    echo [7;94m::: SETUP :::[0m[94m Resetting... [0m
+    set new_version=true
+    echo [7;94m::: SETUP :::[0m[94m Running UnLuckyMiner Wallets Setup. [0m
+    set Reset_Addresses=true
+    set confirm_reset=true
 )
+
 set client_confirm_reset=""
 if %confirm_reset%==false (
     if %Reset_Addresses%==true (
@@ -232,41 +261,46 @@ if "%client_confirm_reset%"=="Y" (
 ) else (
     if "%client_confirm_reset%"=="y" (
         set confirm_reset=true
+    ) else (
+        set Reset_Addresses=false
+        setx Reset_Addresses false  
     )
 )
 if %confirm_reset%==true (
-    set wallet_Bitcoin=YOUR_WALLET_ADDRESS
-    setx wallet_Bitcoin YOUR_WALLET_ADDRESS
-    set wallet_BitcoinCash=YOUR_WALLET_ADDRESS
-    setx wallet_BitcoinCash YOUR_WALLET_ADDRESS
-    set wallet_Ethereum=YOUR_WALLET_ADDRESS
-    setx wallet_Ethereum YOUR_WALLET_ADDRESS
-    set wallet_EthereumClassic=YOUR_WALLET_ADDRESS
-    setx wallet_EthereumClassic YOUR_WALLET_ADDRESS
-    set wallet_ShibaInu=YOUR_WALLET_ADDRESS
-    setx wallet_ShibaInu YOUR_WALLET_ADDRESS
-    set wallet_DogeCoin=YOUR_WALLET_ADDRESS
-    setx wallet_DogeCoin YOUR_WALLET_ADDRESS
-    set wallet_Kaspa=YOUR_WALLET_ADDRESS
-    setx wallet_Kaspa YOUR_WALLET_ADDRESS
-    set wallet_Zephyr=YOUR_WALLET_ADDRESS
-    setx wallet_Zephyr YOUR_WALLET_ADDRESS
-    set wallet_Monero=YOUR_WALLET_ADDRESS
-    setx wallet_Monero YOUR_WALLET_ADDRESS
-    set wallet_Solana=YOUR_WALLET_ADDRESS
-    setx wallet_Solana YOUR_WALLET_ADDRESS
-    set wallet_Avalanche=YOUR_WALLET_ADDRESS
-    setx wallet_Avalanche YOUR_WALLET_ADDRESS
-    set wallet_Nexa=YOUR_WALLET_ADDRESS
-    setx wallet_Nexa YOUR_WALLET_ADDRESS
-    set wallet_RavenCoin=YOUR_WALLET_ADDRESS
-    setx wallet_RavenCoin YOUR_WALLET_ADDRESS
-    set wallet_EnjinCoin=YOUR_WALLET_ADDRESS
-    setx wallet_EnjinCoin YOUR_WALLET_ADDRESS
-    set wallet_Raptoreum=YOUR_WALLET_ADDRESS
-    setx wallet_Raptoreum YOUR_WALLET_ADDRESS
-    set wallet_Neoxa=YOUR_WALLET_ADDRESS
-    setx wallet_Neoxa YOUR_WALLET_ADDRESS
+    set p_wallet_Bitcoin=YOUR_WALLET_ADDRESS
+    setx p_wallet_Bitcoin YOUR_WALLET_ADDRESS
+    set p_wallet_BitcoinCash=YOUR_WALLET_ADDRESS
+    setx p_wallet_BitcoinCash YOUR_WALLET_ADDRESS
+    set p_wallet_Ethereum=YOUR_WALLET_ADDRESS
+    setx p_wallet_Ethereum YOUR_WALLET_ADDRESS
+    set p_wallet_EthereumClassic=YOUR_WALLET_ADDRESS
+    setx p_wallet_EthereumClassic YOUR_WALLET_ADDRESS
+    set p_wallet_ShibaInu=YOUR_WALLET_ADDRESS
+    setx p_wallet_ShibaInu YOUR_WALLET_ADDRESS
+    set p_wallet_DogeCoin=YOUR_WALLET_ADDRESS
+    setx p_wallet_DogeCoin YOUR_WALLET_ADDRESS
+    set p_wallet_Kaspa=YOUR_WALLET_ADDRESS
+    setx p_wallet_Kaspa YOUR_WALLET_ADDRESS
+    set p_wallet_Zephyr=YOUR_WALLET_ADDRESS
+    setx p_wallet_Zephyr YOUR_WALLET_ADDRESS
+    set p_wallet_Monero=YOUR_WALLET_ADDRESS
+    setx p_wallet_Monero YOUR_WALLET_ADDRESS
+    set p_wallet_Solana=YOUR_WALLET_ADDRESS
+    setx p_wallet_Solana YOUR_WALLET_ADDRESS
+    set p_wallet_Avalanche=YOUR_WALLET_ADDRESS
+    setx p_wallet_Avalanche YOUR_WALLET_ADDRESS
+    set p_wallet_Nexa=YOUR_WALLET_ADDRESS
+    setx p_wallet_Nexa YOUR_WALLET_ADDRESS
+    set p_wallet_RavenCoin=YOUR_WALLET_ADDRESS
+    setx p_wallet_RavenCoin YOUR_WALLET_ADDRESS
+    set p_wallet_EnjinCoin=YOUR_WALLET_ADDRESS
+    setx p_wallet_EnjinCoin YOUR_WALLET_ADDRESS
+    set p_wallet_Raptoreum=YOUR_WALLET_ADDRESS
+    setx p_wallet_Raptoreum YOUR_WALLET_ADDRESS
+    set p_wallet_Neoxa=YOUR_WALLET_ADDRESS
+    setx p_wallet_Neoxa YOUR_WALLET_ADDRESS
+    set p_wallet_Clore=YOUR_WALLET_ADDRESS
+    setx p_wallet_Clore YOUR_WALLET_ADDRESS
 
     set UnLuckyMiner_Version=%Version%
     setx UnLuckyMiner_Version %Version%
@@ -278,13 +312,123 @@ if %confirm_reset%==true (
     setx Reset_Addresses false
 )
 
+if "%new_version%"=="" set new_version=false
+if %new_version%==true (
+    echo [7;94m::: SETUP :::[0m[94m New version applied. [0m
+    echo [7;94m::: SETUP :::[0m[94m Need to restart UnLuckyMiner. [0m
+    set TemporaryWallets=""
+    setx TemporaryWallets ""
+    pause
+    exit
+)
+
+set client_confirm_toggle=pass
+set toggle_option=pass
+if %Toggle_Temporary_Addresses%==true (
+    if %TemporaryWallets%==false ( 
+        set /p client_confirm_toggle="Are you sure you want to [93mDisable[0m persistent wallets addresses? ([96mY[0m/[96mN[0m) > "
+        set toggle_option=false
+    ) else (
+        set /p client_confirm_toggle="Are you sure you want to [93mEnable[0m persistent wallets addresses? ([96mY[0m/[96mN[0m) > "
+        set toggle_option=true
+    )
+)
+if "%client_confirm_toggle%"=="Y" (
+    set client_confirm_toggle=true
+) else (
+    if "%client_confirm_toggle%"=="y" (
+        set client_confirm_toggle=true
+    ) else (
+        if "%client_confirm_toggle%"=="N" (
+            set client_confirm_toggle=false
+        ) else (
+            if "%client_confirm_toggle%"=="n" (
+                set client_confirm_toggle=false
+            ) else ( 
+                set client_confirm_toggle=pass
+                set toggle_option=pass
+            )
+        )
+    )
+)
+if %client_confirm_toggle%==true (
+    if %toggle_option%==true (
+        set TemporaryWallets=false
+        setx TemporaryWallets false
+    )
+    if %toggle_option%==false (
+        set TemporaryWallets=true
+        setx TemporaryWallets true
+    ) 
+    set Toggle_Temporary_Addresses=false
+    setx Toggle_Temporary_Addresses false
+) else (
+    if %Toggle_Temporary_Addresses%==true (
+        set Toggle_Temporary_Addresses=false
+        setx Toggle_Temporary_Addresses false
+    )
+)
+if %client_confirm_toggle%==true (
+    if %toggle_option%==true (
+        echo [7;93m::: INFO :::[0m[93m persistent wallets addresses [0m[7;92mactivated[0m[93m.[0m
+    ) else (
+        if %toggle_option%==false (
+            echo [7;93m::: INFO :::[0m[93m persistent wallets addresses [0m[7;91mdisabled[0m[93m.[0m
+        )
+    )
+    echo [7;94m::: SETUP :::[0m[94m Need to restart UnLuckyMiner. [0m
+    pause
+    exit
+)
+
+
+if %TemporaryWallets%==true (
+    set wallet_Bitcoin=%t_wallet_Bitcoin%
+    set wallet_BitcoinCash=%t_wallet_BitcoinCash%
+    set wallet_Ethereum=%t_wallet_Ethereum%
+    set wallet_EthereumClassic=%t_wallet_EthereumClassic%
+    set wallet_ShibaInu=%t_wallet_ShibaInu%
+    set wallet_DogeCoin=%t_wallet_DogeCoin%
+    set wallet_Kaspa=%t_wallet_Kaspa%
+    set wallet_Zephyr=%t_wallet_Zephyr%
+    set wallet_Monero=%t_wallet_Monero%
+    set wallet_Solana=%t_wallet_Solana%
+    set wallet_Avalanche=%t_wallet_Avalanche%
+    set wallet_Nexa=%t_wallet_Nexa%
+    set wallet_RavenCoin=%t_wallet_RavenCoin%
+    set wallet_EnjinCoin=%t_wallet_EnjinCoin%
+    set wallet_Raptoreum=%t_wallet_Raptoreum%
+    set wallet_Neoxa=%t_wallet_Neoxa%
+    set wallet_Clore=%t_wallet_Clore%
+    echo [7;94m::: SETUP :::[0m[94m Using temporary wallets addresses. [0m
+) else (
+    set wallet_Bitcoin=%p_wallet_Bitcoin%
+    set wallet_BitcoinCash=%p_wallet_BitcoinCash%
+    set wallet_Ethereum=%p_wallet_Ethereum%
+    set wallet_EthereumClassic=%p_wallet_EthereumClassic%
+    set wallet_ShibaInu=%p_wallet_ShibaInu%
+    set wallet_DogeCoin=%p_wallet_DogeCoin%
+    set wallet_Kaspa=%p_wallet_Kaspa%
+    set wallet_Zephyr=%p_wallet_Zephyr%
+    set wallet_Monero=%p_wallet_Monero%
+    set wallet_Solana=%p_wallet_Solana%
+    set wallet_Avalanche=%p_wallet_Avalanche%
+    set wallet_Nexa=%p_wallet_Nexa%
+    set wallet_RavenCoin=%p_wallet_RavenCoin%
+    set wallet_EnjinCoin=%p_wallet_EnjinCoin%
+    set wallet_Raptoreum=%p_wallet_Raptoreum%
+    set wallet_Neoxa=%p_wallet_Neoxa%
+    set wallet_Clore=%p_wallet_Clore%
+    echo [7;94m::: SETUP :::[0m[94m Using persistent wallets addresses. [0m
+)
+
+set Reset_Wallet=false
+set New_Wallet=false
 if "%wallet_Bitcoin%"=="" set wallet_Bitcoin=YOUR_WALLET_ADDRESS
 if "%wallet_Bitcoin%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set New_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for[93m Bitcoin [0m> "
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Bitcoin wallet address -[0m[97m %wallet_Bitcoin% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -292,8 +436,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_Bitcoin=%Reset_Wallet_Input%
+    set p_wallet_Bitcoin=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -303,8 +452,6 @@ if "%wallet_BitcoinCash%"=="" set wallet_BitcoinCash=YOUR_WALLET_ADDRESS
 if "%wallet_BitcoinCash%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m BitcoinCash [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m BitcoinCash wallet address -[0m[97m %wallet_BitcoinCash% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -312,8 +459,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_BitcoinCash=%Reset_Wallet_Input%
+    set p_wallet_BitcoinCash=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -323,8 +475,6 @@ if "%wallet_Ethereum%"=="" set wallet_Ethereum=YOUR_WALLET_ADDRESS
 if "%wallet_Ethereum%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m Ethereum [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Ethereum wallet address -[0m[97m %wallet_Ethereum% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -332,8 +482,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_Ethereum=%Reset_Wallet_Input%
+    set p_wallet_Ethereum=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -343,8 +498,6 @@ if "%wallet_EthereumClassic%"=="" set wallet_EthereumClassic=YOUR_WALLET_ADDRESS
 if "%wallet_EthereumClassic%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m EthereumClassic [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m EthereumClassic wallet address -[0m[97m %wallet_EthereumClassic% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -352,8 +505,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_EthereumClassic=%Reset_Wallet_Input%
+    set p_wallet_EthereumClassic=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -363,8 +521,6 @@ if "%wallet_ShibaInu%"=="" set wallet_ShibaInu=YOUR_WALLET_ADDRESS
 if "%wallet_ShibaInu%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m ShibaInu [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m ShibaInu wallet address -[0m[97m %wallet_ShibaInu% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -372,8 +528,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_ShibaInu=%Reset_Wallet_Input%
+    set p_wallet_ShibaInu=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -383,8 +544,6 @@ if "%wallet_DogeCoin%"=="" set wallet_DogeCoin=YOUR_WALLET_ADDRESS
 if "%wallet_DogeCoin%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m DogeCoin [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m DogeCoin wallet address -[0m[97m %wallet_DogeCoin% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -392,8 +551,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_DogeCoin=%Reset_Wallet_Input%
+    set p_wallet_DogeCoin=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -403,8 +567,6 @@ if "%wallet_Kaspa%"=="" set wallet_Kaspa=YOUR_WALLET_ADDRESS
 if "%wallet_Kaspa%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m Kaspa [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Kaspa wallet address -[0m[97m %wallet_Kaspa% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -412,8 +574,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_Kaspa=%Reset_Wallet_Input%
+    set p_wallet_Kaspa=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -423,8 +590,6 @@ if "%wallet_Zephyr%"=="" set wallet_Zephyr=YOUR_WALLET_ADDRESS
 if "%wallet_Zephyr%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m Zephyr [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Zephyr wallet address -[0m[97m %wallet_Zephyr% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -432,8 +597,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_Zephyr=%Reset_Wallet_Input%
+    set p_wallet_Zephyr=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -443,8 +613,6 @@ if "%wallet_Monero%"=="" set wallet_Monero=YOUR_WALLET_ADDRESS
 if "%wallet_Monero%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m Monero [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Monero wallet address -[0m[97m %wallet_Monero% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -452,8 +620,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_Monero=%Reset_Wallet_Input%
+    set p_wallet_Monero=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -463,8 +636,6 @@ if "%wallet_Solana%"=="" set wallet_Solana=YOUR_WALLET_ADDRESS
 if "%wallet_Solana%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m Solana [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Solana wallet address -[0m[97m %wallet_Solana% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -472,8 +643,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_Solana=%Reset_Wallet_Input%
+    set p_wallet_Solana=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -483,8 +659,6 @@ if "%wallet_Avalanche%"=="" set wallet_Avalanche=YOUR_WALLET_ADDRESS
 if "%wallet_Avalanche%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m Avalanche [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Avalanche wallet address -[0m[97m %wallet_Avalanche% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -492,8 +666,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_Avalanche=%Reset_Wallet_Input%
+    set p_wallet_Avalanche=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -503,8 +682,6 @@ if "%wallet_Nexa%"=="" set wallet_Nexa=YOUR_WALLET_ADDRESS
 if "%wallet_Nexa%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m Nexa [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Nexa wallet address -[0m[97m %wallet_Nexa% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -512,8 +689,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_Nexa=%Reset_Wallet_Input%
+    set p_wallet_Nexa=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -523,8 +705,6 @@ if "%wallet_RavenCoin%"=="" set wallet_RavenCoin=YOUR_WALLET_ADDRESS
 if "%wallet_RavenCoin%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m RavenCoin [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m RavenCoin wallet address -[0m[97m %wallet_RavenCoin% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -532,8 +712,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_RavenCoin=%Reset_Wallet_Input%
+    set p_wallet_RavenCoin=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -543,8 +728,6 @@ if "%wallet_EnjinCoin%"=="" set wallet_EnjinCoin=YOUR_WALLET_ADDRESS
 if "%wallet_EnjinCoin%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m EnjinCoin [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m EnjinCoin wallet address -[0m[97m %wallet_EnjinCoin% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -552,8 +735,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_EnjinCoin=%Reset_Wallet_Input%
+    set p_wallet_EnjinCoin=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -563,8 +751,6 @@ if "%wallet_Raptoreum%"=="" set wallet_Raptoreum=YOUR_WALLET_ADDRESS
 if "%wallet_Raptoreum%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m Raptoreum [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Raptoreum wallet address -[0m[97m %wallet_Raptoreum% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -572,8 +758,13 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_Raptoreum=%Reset_Wallet_Input%
+    set p_wallet_Raptoreum=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -583,8 +774,6 @@ if "%wallet_Neoxa%"=="" set wallet_Neoxa=YOUR_WALLET_ADDRESS
 if "%wallet_Neoxa%"=="YOUR_WALLET_ADDRESS" (
     set Reset_Wallet=true
     set /p Reset_Wallet_Input="Set the wallet address for [93m Neoxa [0m> " 
-) else (
-    if %Debug%==true echo [7;93m::: INFO :::[0m[93m Neoxa wallet address -[0m[97m %wallet_Neoxa% [0m
 )
 if "%Reset_Wallet_Input%"=="x" exit
 if "%Reset_Wallet_Input%"=="r" (
@@ -592,8 +781,36 @@ if "%Reset_Wallet_Input%"=="r" (
     setx Reset_Addresses true
     call UnLuckyMiner.cmd
 )
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
 if %Reset_Wallet%==true (
-    set wallet_Neoxa=%Reset_Wallet_Input%
+    set p_wallet_Neoxa=%Reset_Wallet_Input%
+    set Reset_Wallet=false
+    set New_Wallet=true
+    set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
+)
+
+if "%wallet_Clore%"=="" set wallet_Clore=YOUR_WALLET_ADDRESS
+if "%wallet_Clore%"=="YOUR_WALLET_ADDRESS" (
+    set Reset_Wallet=true
+    set /p Reset_Wallet_Input="Set the wallet address for [93m CloreAI [0m> " 
+)
+if "%Reset_Wallet_Input%"=="x" exit
+if "%Reset_Wallet_Input%"=="r" (
+    set Reset_Addresses=true
+    setx Reset_Addresses true
+    call UnLuckyMiner.cmd
+)
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call UnLuckyMiner.cmd
+)
+if %Reset_Wallet%==true (
+    set p_wallet_Clore=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=YOUR_WALLET_ADDRESS
@@ -606,40 +823,62 @@ if %New_Wallet%==true (
     echo @REM Auto Generated File from - UnLuckyMiner Persistent Wallets: Version %Version% >> wallets.cmd
     echo @echo off >> wallets.cmd
     echo echo [7;93m::: INFO :::[0m[93m UnLuckyMiner Wallets - Version %Version% [0m >> wallets.cmd
-    echo set wallet_Bitcoin=%wallet_Bitcoin% >> wallets.cmd
-    echo setx wallet_Bitcoin %wallet_Bitcoin% >> wallets.cmd
-    echo set wallet_BitcoinCash=%wallet_BitcoinCash% >> wallets.cmd
-    echo setx wallet_BitcoinCash %wallet_BitcoinCash% >> wallets.cmd
-    echo set wallet_Ethereum=%wallet_Ethereum% >> wallets.cmd
-    echo setx wallet_Ethereum %wallet_Ethereum% >> wallets.cmd
-    echo set wallet_EthereumClassic=%wallet_EthereumClassic% >> wallets.cmd
-    echo setx wallet_EthereumClassic %wallet_EthereumClassic% >> wallets.cmd
-    echo set wallet_ShibaInu=%wallet_ShibaInu% >> wallets.cmd
-    echo setx wallet_ShibaInu %wallet_ShibaInu% >> wallets.cmd
-    echo set wallet_DogeCoin=%wallet_DogeCoin% >> wallets.cmd
-    echo setx wallet_DogeCoin %wallet_DogeCoin% >> wallets.cmd
-    echo set wallet_Kaspa=%wallet_Kaspa% >> wallets.cmd
-    echo setx wallet_Kaspa %wallet_Kaspa% >> wallets.cmd
-    echo set wallet_Zephyr=%wallet_Zephyr% >> wallets.cmd
-    echo setx wallet_Zephyr %wallet_Zephyr% >> wallets.cmd
-    echo set wallet_Monero=%wallet_Monero% >> wallets.cmd
-    echo setx wallet_Monero %wallet_Monero% >> wallets.cmd
-    echo set wallet_Solana=%wallet_Solana% >> wallets.cmd
-    echo setx wallet_Solana %wallet_Solana% >> wallets.cmd
-    echo set wallet_Avalanche=%wallet_Avalanche% >> wallets.cmd
-    echo setx wallet_Avalanche %wallet_Avalanche% >> wallets.cmd
-    echo set wallet_Nexa=%wallet_Nexa% >> wallets.cmd
-    echo setx wallet_Nexa %wallet_Nexa% >> wallets.cmd
-    echo set wallet_RavenCoin=%wallet_RavenCoin% >> wallets.cmd
-    echo setx wallet_RavenCoin %wallet_RavenCoin% >> wallets.cmd
-    echo set wallet_EnjinCoin=%wallet_EnjinCoin% >> wallets.cmd
-    echo setx wallet_EnjinCoin %wallet_EnjinCoin% >> wallets.cmd
-    echo set wallet_Raptoreum=%wallet_Raptoreum% >> wallets.cmd
-    echo setx wallet_Raptoreum %wallet_Raptoreum% >> wallets.cmd
-    echo set wallet_Neoxa=%wallet_Neoxa% >> wallets.cmd
-    echo setx wallet_Neoxa %wallet_Neoxa% >> wallets.cmd
+    echo set p_wallet_Bitcoin=%p_wallet_Bitcoin% >> wallets.cmd
+    echo setx p_wallet_Bitcoin %p_wallet_Bitcoin% >> wallets.cmd
+    echo set p_wallet_BitcoinCash=%p_wallet_BitcoinCash% >> wallets.cmd
+    echo setx p_wallet_BitcoinCash %p_wallet_BitcoinCash% >> wallets.cmd
+    echo set p_wallet_Ethereum=%p_wallet_Ethereum% >> wallets.cmd
+    echo setx p_wallet_Ethereum %p_wallet_Ethereum% >> wallets.cmd
+    echo set p_wallet_EthereumClassic=%p_wallet_EthereumClassic% >> wallets.cmd
+    echo setx p_wallet_EthereumClassic %p_wallet_EthereumClassic% >> wallets.cmd
+    echo set p_wallet_ShibaInu=%p_wallet_ShibaInu% >> wallets.cmd
+    echo setx p_wallet_ShibaInu %p_wallet_ShibaInu% >> wallets.cmd
+    echo set p_wallet_DogeCoin=%p_wallet_DogeCoin% >> wallets.cmd
+    echo setx p_wallet_DogeCoin %p_wallet_DogeCoin% >> wallets.cmd
+    echo set p_wallet_Kaspa=%p_wallet_Kaspa% >> wallets.cmd
+    echo setx p_wallet_Kaspa %p_wallet_Kaspa% >> wallets.cmd
+    echo set p_wallet_Zephyr=%p_wallet_Zephyr% >> wallets.cmd
+    echo setx p_wallet_Zephyr %p_wallet_Zephyr% >> wallets.cmd
+    echo set p_wallet_Monero=%p_wallet_Monero% >> wallets.cmd
+    echo setx p_wallet_Monero %p_wallet_Monero% >> wallets.cmd
+    echo set p_wallet_Solana=%p_wallet_Solana% >> wallets.cmd
+    echo setx p_wallet_Solana %p_wallet_Solana% >> wallets.cmd
+    echo set p_wallet_Avalanche=%p_wallet_Avalanche% >> wallets.cmd
+    echo setx p_wallet_Avalanche %p_wallet_Avalanche% >> wallets.cmd
+    echo set p_wallet_Nexa=%p_wallet_Nexa% >> wallets.cmd
+    echo setx p_wallet_Nexa %p_wallet_Nexa% >> wallets.cmd
+    echo set p_wallet_RavenCoin=%p_wallet_RavenCoin% >> wallets.cmd
+    echo setx p_wallet_RavenCoin %p_wallet_RavenCoin% >> wallets.cmd
+    echo set p_wallet_EnjinCoin=%p_wallet_EnjinCoin% >> wallets.cmd
+    echo setx p_wallet_EnjinCoin %p_wallet_EnjinCoin% >> wallets.cmd
+    echo set p_wallet_Raptoreum=%p_wallet_Raptoreum% >> wallets.cmd
+    echo setx p_wallet_Raptoreum %p_wallet_Raptoreum% >> wallets.cmd
+    echo set p_wallet_Neoxa=%p_wallet_Neoxa% >> wallets.cmd
+    echo setx p_wallet_Neoxa %p_wallet_Neoxa% >> wallets.cmd
+    echo set p_wallet_Clore=%p_wallet_Clore% >> wallets.cmd
+    echo setx p_wallet_Clore %p_wallet_Clore% >> wallets.cmd
     echo call UnLuckyMiner.cmd >> wallets.cmd
 call wallets.cmd
+)
+
+if %Debug%==true ( 
+    echo [7;93m::: INFO :::[0m[93m Avalanche wallet address -[0m[97m %wallet_Avalanche% [0m
+    echo [7;93m::: INFO :::[0m[93m Bitcoin wallet address -[0m[97m %wallet_Bitcoin% [0m
+    echo [7;93m::: INFO :::[0m[93m Bitcoin Cash wallet address -[0m[97m %wallet_BitcoinCash% [0m
+    echo [7;93m::: INFO :::[0m[93m Clore AI wallet address -[0m[97m %wallet_Clore% [0m
+    echo [7;93m::: INFO :::[0m[93m Doge Coin wallet address -[0m[97m %wallet_DogeCoin% [0m
+    echo [7;93m::: INFO :::[0m[93m Enjin Coin wallet address -[0m[97m %wallet_EnjinCoin% [0m
+    echo [7;93m::: INFO :::[0m[93m Ethereum wallet address -[0m[97m %wallet_Ethereum% [0m
+    echo [7;93m::: INFO :::[0m[93m Ethereum Classic wallet address -[0m[97m %wallet_EthereumClassic% [0m
+    echo [7;93m::: INFO :::[0m[93m Kaspa wallet address -[0m[97m %wallet_Kaspa% [0m
+    echo [7;93m::: INFO :::[0m[93m Monero wallet address -[0m[97m %wallet_Monero% [0m
+    echo [7;93m::: INFO :::[0m[93m Neoxa wallet address -[0m[97m %wallet_Neoxa% [0m
+    echo [7;93m::: INFO :::[0m[93m Nexa wallet address -[0m[97m %wallet_Nexa% [0m
+    echo [7;93m::: INFO :::[0m[93m Shiba Inu wallet address -[0m[97m %wallet_ShibaInu% [0m
+    echo [7;93m::: INFO :::[0m[93m Solana wallet address -[0m[97m %wallet_Solana% [0m
+    echo [7;93m::: INFO :::[0m[93m Raven Coin wallet address -[0m[97m %wallet_RavenCoin% [0m
+    echo [7;93m::: INFO :::[0m[93m Raptoreum wallet address -[0m[97m %wallet_Raptoreum% [0m
+    echo [7;93m::: INFO :::[0m[93m Zephyr wallet address -[0m[97m %wallet_Zephyr% [0m
 )
 
 set /p MINER="What is the name of the worker? [93m(Currently: %MINER%)[0m > "
@@ -647,6 +886,11 @@ if "%MINER%"=="x" exit else (
     if "%MINER%"=="r" (
         set Reset_Addresses=true
         setx Reset_Addresses true
+        call UnLuckyMiner.cmd
+    )
+    if "%MINER%"=="t" (
+        set Toggle_Temporary_Addresses=true
+        setx Toggle_Temporary_Addresses true
         call UnLuckyMiner.cmd
     )
 )
@@ -662,7 +906,13 @@ if "%GPU%"=="Y" ( set GPU=true ) else (
                 set Reset_Addresses=true
                 setx Reset_Addresses true
                 call UnLuckyMiner.cmd
-            ) else ( set GPU=false )
+            ) else (  
+                if "%GPU%"=="t" (
+                    set Toggle_Temporary_Addresses=true
+                    setx Toggle_Temporary_Addresses true
+                    call UnLuckyMiner.cmd
+                ) else ( set GPU=false )
+            )
         ) 
     )
 )
@@ -675,17 +925,23 @@ if %GPU%==true (
             set Reset_Addresses=true
             setx Reset_Addresses true
             call UnLuckyMiner.cmd
-        ) else ( 
-            if "%AMD%"=="Y" ( 
-                set AMD=true
-                set NVIDIA=false
+        ) else (
+            if "%AMD%"=="t" (
+                set Toggle_Temporary_Addresses=true
+                setx Toggle_Temporary_Addresses true
+                call UnLuckyMiner.cmd
             ) else (
-                if "%AMD%"=="y" (
+                if "%AMD%"=="Y" ( 
                     set AMD=true
                     set NVIDIA=false
                 ) else (
-                    set AMD=false
-                    set NVIDIA=true
+                    if "%AMD%"=="y" (
+                        set AMD=true
+                        set NVIDIA=false
+                    ) else (
+                        set AMD=false
+                        set NVIDIA=true
+                    )
                 )
             ) 
         )
@@ -706,50 +962,59 @@ if "%Use_UnMinable_Pool%"=="x" exit else (
         setx Reset_Addresses true
         call UnLuckyMiner.cmd
     ) else ( 
-        if "%Use_UnMinable_Pool%"=="Y" ( 
-            set UnMineable=true
+        if "%Use_UnMinable_Pool%"=="t" (
+            set Toggle_Temporary_Addresses=true
+            setx Toggle_Temporary_Addresses true
+            call UnLuckyMiner.cmd
         ) else (
-            if "%Use_UnMinable_Pool%"=="y" (
+            if "%Use_UnMinable_Pool%"=="Y" ( 
                 set UnMineable=true
             ) else (
-                if "%Use_UnMinable_Pool%"=="N" (
-                    set UnMineable=false
+                if "%Use_UnMinable_Pool%"=="y" (
+                    set UnMineable=true
                 ) else (
-                    if "%Use_UnMinable_Pool%"=="n" (
+                    if "%Use_UnMinable_Pool%"=="N" (
                         set UnMineable=false
+                    ) else (
+                        if "%Use_UnMinable_Pool%"=="n" (
+                            set UnMineable=false
+                        )
                     )
                 )
-            )
-        ) 
+            ) 
+        )
     )
 )
 
 echo [7;93m::: INFO :::[0m[93m Coins available for mining: [0m
-if %CPU%==true (
-    echo [7;93m::: INFO :::[0m[96m XMR [0m[0m[93m= Monero [0m
-    echo [7;93m::: INFO :::[0m[96m ZEPH [0m[0m[93m= Zephyr [0m
-)
-if %GPU%==true echo [7;93m::: INFO :::[0m[96m RVN [0m[0m[93m= Raven Coin [0m
 if %UnMineable%==true (
-    echo [7;93m::: INFO :::[0m[96m BTC [0m[0m[93m= Bitcoin [0m
-    echo [7;93m::: INFO :::[0m[96m BCH [0m[0m[93m= Bitcoin Cash [0m
-    echo [7;93m::: INFO :::[0m[96m ETH [0m[0m[93m= Ethereum [0m
-    echo [7;93m::: INFO :::[0m[96m ETC [0m[0m[93m= Ethereum Classic [0m
-    echo [7;93m::: INFO :::[0m[96m SHIB [0m[0m[93m= Shiba Inu [0m
-    echo [7;93m::: INFO :::[0m[96m DOGE [0m[0m[93m= Doge Coin [0m
-    echo [7;93m::: INFO :::[0m[96m KAS [0m[0m[93m= Kaspa [0m
-    echo [7;93m::: INFO :::[0m[96m SOL [0m[0m[93m= Solana [0m
-    echo [7;93m::: INFO :::[0m[96m AVAX [0m[0m[93m= Avalanche [0m
-    echo [7;93m::: INFO :::[0m[96m NEXA [0m[0m[93m= Nexa [0m
-    echo [7;93m::: INFO :::[0m[96m ENJ [0m[0m[93m= Enjin Coin [0m
+    echo [7;93m::: INFO :::[0m[96m AVAX  [0m[0m[93m= Avalanche [0m
+    echo [7;93m::: INFO :::[0m[96m BCH   [0m[0m[93m= Bitcoin Cash [0m
+    echo [7;93m::: INFO :::[0m[96m BTC   [0m[0m[93m= Bitcoin [0m
+    echo [7;93m::: INFO :::[0m[96m DOGE  [0m[0m[93m= Doge Coin [0m
+    echo [7;93m::: INFO :::[0m[96m ENJ   [0m[0m[93m= Enjin Coin [0m
+    echo [7;93m::: INFO :::[0m[96m ETC   [0m[0m[93m= Ethereum Classic [0m
+    echo [7;93m::: INFO :::[0m[96m ETH   [0m[0m[93m= Ethereum [0m
+    echo [7;93m::: INFO :::[0m[96m KAS   [0m[0m[93m= Kaspa [0m
+    echo [7;93m::: INFO :::[0m[96m NEXA  [0m[0m[93m= Nexa [0m
+    echo [7;93m::: INFO :::[0m[96m SHIB  [0m[0m[93m= Shiba Inu [0m
+    echo [7;93m::: INFO :::[0m[96m SOL   [0m[0m[93m= Solana [0m
+    if %GPU%==false echo [7;93m::: INFO :::[0m[96m RVN   [0m[0m[93m= Raven Coin [0m
     if %CPU%==false (
-        echo [7;93m::: INFO :::[0m[96m XMR [0m[0m[93m= Monero [0m
-        echo [7;93m::: INFO :::[0m[96m ZEPH [0m[0m[93m= Zephyr [0m
+        echo [7;93m::: INFO :::[0m[96m XMR   [0m[0m[93m= Monero [0m
+        echo [7;93m::: INFO :::[0m[96m ZEPH  [0m[0m[93m= Zephyr [0m
     )
-    if %GPU%==false echo [7;93m::: INFO :::[0m[96m RVN [0m[0m[93m= Raven Coin [0m
 ) else (
-    if %CPU%==true echo [7;93m::: INFO :::[0m[96m RTM [0m[0m[93m= Raptoreum [0m
-    if %GPU%==true echo [7;93m::: INFO :::[0m[96m NEOX [0m[0m[93m= Neoxa [0m
+    if %GPU%==true (
+        echo [7;93m::: INFO :::[0m[96m CLORE [0m[0m[93m= Clore AI [0m
+        echo [7;93m::: INFO :::[0m[96m NEOX  [0m[0m[93m= Neoxa [0m
+    )
+    if %CPU%==true echo [7;93m::: INFO :::[0m[96m RTM   [0m[0m[93m= Raptoreum [0m
+)
+if %GPU%==true echo [7;93m::: INFO :::[0m[96m RVN   [0m[0m[93m= Raven Coin [0m
+if %CPU%==true (
+    echo [7;93m::: INFO :::[0m[96m XMR   [0m[0m[93m= Monero [0m
+    echo [7;93m::: INFO :::[0m[96m ZEPH  [0m[0m[93m= Zephyr [0m
 )
 set /p Coin="What Coin would you like to mine? [93m(Coin Tag)[0m > "
 set FoundCoin=false
@@ -758,6 +1023,11 @@ if "%Coin%"=="x" exit else (
     if "%Coin%"=="r" ( 
         set Reset_Addresses=true
         setx Reset_Addresses true
+        call UnLuckyMiner.cmd
+    ) else (  
+    if "%Coin%"=="t" (
+        set Toggle_Temporary_Addresses=true
+        setx Toggle_Temporary_Addresses true
         call UnLuckyMiner.cmd
     ) else ( 
     if "%Coin%"=="BTC" ( 
@@ -944,8 +1214,20 @@ if "%Coin%"=="x" exit else (
             echo [7;91m::: ERROR :::[0m[91m Failed to setup GPU Processor! [0m
         )
     ) else (
+    if "%Coin%"=="CLORE" ( 
+        if %GPU%==true (
+            set FoundCoin=true
+            set UnMineable=false
+            set use_discount=false
+            set OUTPUT_ALGO=kawpow
+            set OUTPUT_POOL=%pool_Clore%
+            set OUTPUT_WALLET=%wallet_Clore%
+        ) else (
+            echo [7;91m::: ERROR :::[0m[91m Failed to setup GPU Processor! [0m
+        )
+    ) else (
         set FoundCoin=false
-    )))))))))))))))))
+    )))))))))))))))))))
 )
 
 if %FoundCoin%==false echo [7;91m::: ERROR :::[0m[91m A configuration error occurred, Loading default setting! [0m
@@ -955,9 +1237,14 @@ if "%onFail%"=="x" exit else (
         set Reset_Addresses=true
         setx Reset_Addresses true
         call UnLuckyMiner.cmd
+    ) else (  
+        if "%onFail%"=="t" (
+            set Toggle_Temporary_Addresses=true
+            setx Toggle_Temporary_Addresses true
+            call UnLuckyMiner.cmd
+        )
     )
 )
-
 set reset_config=false
 @REM -------------------------------------
 @REM ↧↧↧ Start of onFail settings area ↧↧↧
