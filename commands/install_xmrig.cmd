@@ -1,11 +1,10 @@
 @REM Written by UnLuckyLust (https://DreamsWeaver.co) - https://github.com/UnLuckyLust/UnLuckyMiner
-
 @echo off
+cls
 echo [7;94m::: SETUP :::[0m[94m Installing XMrig Miner... [0m
 curl --output xmrig.zip -LO https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-gcc-win64.zip
 setlocal
 cd /d %~dp0
-cd ..
 Call :UnZipFile "%cd%" "%cd%\xmrig.zip"
 exit /b
 :UnZipFile <ExtractTo> <newzipfile>
@@ -34,4 +33,3 @@ if exist solo_mine_example.cmd del solo_mine_example.cmd
 if exist start.cmd del start.cmd
 rmdir %xmrig_src%
 call UnLuckyMiner.cmd
-pause

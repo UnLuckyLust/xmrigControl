@@ -1,11 +1,10 @@
 @REM Written by UnLuckyLust (https://DreamsWeaver.co) - https://github.com/UnLuckyLust/UnLuckyMiner
-
 @echo off
+cls
 echo [7;94m::: SETUP :::[0m[94m Installing XMrig Nvidia Cuda... [0m
 curl --output xmrig-cuda.zip -LO https://github.com/xmrig/xmrig-cuda/releases/download/v6.17.0/xmrig-cuda-6.17.0-cuda11_4-win64.zip
 setlocal
 cd /d %~dp0
-cd ..
 Call :UnZipFile "%cd%" "%cd%\xmrig-cuda.zip"
 exit /b
 :UnZipFile <ExtractTo> <newzipfile>
@@ -27,4 +26,3 @@ set xmrig_cuda_src=%cd%\xmrig-cuda-6.17.0
 for /f %%a IN ('dir "%xmrig_cuda_src%" /b') do move "%xmrig_cuda_src%\%%a" "%cd%\"
 rmdir %xmrig_cuda_src%
 call UnLuckyMiner.cmd
-pause
