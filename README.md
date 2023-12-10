@@ -12,12 +12,13 @@
 - Support for UnMineable pools, for expanded coin options.
 
 ## Using Commands
-### Quit program - 'x'
-### Restart the configuration processes - 's'
-### Toggle persistent wallets addresses - 't'
-### Reset persistent wallets addresses - 'r'
 - You can execute the commands at any time during the setup process.
 - The commands must be written in lowercase letters. (use 'x' not 'X')
+  
+- Quit program - 'x'
+- Restart the configuration processes - 's'
+- Toggle persistent wallets addresses - 't'
+- Reset persistent wallets addresses - 'r'
 
 ## What coins can i mine?
 - Coin support depends on if you use UnMineable pools.
