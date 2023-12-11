@@ -51,6 +51,7 @@ cd /d "%~dp0"
     set t_wallet_EnjinCoin=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
     set t_wallet_Ethereum=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
     set t_wallet_EthereumClassic=0xdB334D2B4D6B10cc7e84a4927e3bcf6e9a75A629
+    set t_wallet_Karlsen=karlsen:qp9yaplt6nl35cz6sc9ltmzj52afncjnycdvgf62k4nqac8yu0syusdnvzraa
     set t_wallet_Kaspa=kaspa:qyp4h36wejns6zfddah5wqrclnawrl74lrlqjnhf7gjccy03jh6j8zs4e6grwud
     set t_wallet_Monero=48rfHy6xMMQCKCJTAdojzqcKbtvFYhkvB5giRfbzF6wv5wGDMfJLjzsWL1njt6y7PSJYY7F6QajQFXXNfmw5cuGj61vQSVL
     set t_wallet_Neoxa=GXjY2uyeji7qEBxVF93mKRQ9snUzoZPfdx
@@ -75,6 +76,7 @@ cd /d "%~dp0"
     set discount_EnjinCoin=4twy-lc6o
     set discount_Ethereum=9y1u-abm2
     set discount_EthereumClassic=s1fn-193o
+    set discount_Karlsen=g1o5-lb1g
     set discount_Kaspa=k7cp-oyfk
     set discount_Monero=mky5-uf5c
     set discount_Nexa=st3u-qrcx
@@ -157,7 +159,7 @@ if %RExmrig%==true (
     )
 )
 cls
-set Version=1.3.0
+set Version=1.3.1
 echo [7;93m::: INFO :::[0m[93m %p_name% - Version %Version% [0m
 echo [7;95m::: COMMAND :::[0m [95me[0m[7;95mx[0m[95mit[0m
 echo [7;95m::: COMMAND :::[0m [7;95ms[0m[95mtart over[0m
@@ -231,6 +233,8 @@ if %confirm_reset%==true (
     setx p_wallet_Ethereum NO_WALLET_ADDRESS
     set p_wallet_EthereumClassic=NO_WALLET_ADDRESS
     setx p_wallet_EthereumClassic NO_WALLET_ADDRESS
+    set p_wallet_Karlsen=NO_WALLET_ADDRESS
+    setx p_wallet_Karlsen NO_WALLET_ADDRESS
     set p_wallet_Kaspa=NO_WALLET_ADDRESS
     setx p_wallet_Kaspa NO_WALLET_ADDRESS
     set p_wallet_Monero=NO_WALLET_ADDRESS
@@ -347,6 +351,7 @@ if %TemporaryWallets%==true (
     set wallet_EnjinCoin=%t_wallet_EnjinCoin%
     set wallet_Ethereum=%t_wallet_Ethereum%
     set wallet_EthereumClassic=%t_wallet_EthereumClassic%
+    set wallet_Karlsen=%t_wallet_Karlsen%
     set wallet_Kaspa=%t_wallet_Kaspa%
     set wallet_Monero=%t_wallet_Monero%
     set wallet_ShibaInu=%t_wallet_ShibaInu%
@@ -366,6 +371,7 @@ if %TemporaryWallets%==true (
     set wallet_EnjinCoin=%p_wallet_EnjinCoin%
     set wallet_Ethereum=%p_wallet_Ethereum%
     set wallet_EthereumClassic=%p_wallet_EthereumClassic%
+    set wallet_Karlsen=%p_wallet_Karlsen%
     set wallet_Kaspa=%p_wallet_Kaspa%
     set wallet_Monero=%p_wallet_Monero%
     set wallet_ShibaInu=%p_wallet_ShibaInu%
@@ -594,6 +600,33 @@ if "%Reset_Wallet_Input%"=="t" (
 )
 if %Reset_Wallet%==true (
     set p_wallet_EthereumClassic=%Reset_Wallet_Input%
+    set Reset_Wallet=false
+    set New_Wallet=true
+    set Reset_Wallet_Input=NO_WALLET_ADDRESS
+)
+
+@REM Karlsen Wallet Address
+if "%wallet_Karlsen%"=="" set wallet_Karlsen=NO_WALLET_ADDRESS
+if "%wallet_Karlsen%"=="NO_WALLET_ADDRESS" (
+    set Reset_Wallet=true
+    set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Karlsen [0m> " 
+)
+if "%Reset_Wallet_Input%"=="x" exit
+if "%Reset_Wallet_Input%"=="s" (
+    call %p_name%.cmd
+)
+if "%Reset_Wallet_Input%"=="r" (
+    set Reset_Addresses=true
+    setx Reset_Addresses true
+    call %p_name%.cmd
+)
+if "%Reset_Wallet_Input%"=="t" (
+    set Toggle_Temporary_Addresses=true
+    setx Toggle_Temporary_Addresses true
+    call %p_name%.cmd
+)
+if %Reset_Wallet%==true (
+    set p_wallet_Karlsen=%Reset_Wallet_Input%
     set Reset_Wallet=false
     set New_Wallet=true
     set Reset_Wallet_Input=NO_WALLET_ADDRESS
@@ -868,6 +901,8 @@ if %New_Wallet%==true (
     echo setx p_wallet_Ethereum %p_wallet_Ethereum% >> wallets.cmd
     echo set p_wallet_EthereumClassic=%p_wallet_EthereumClassic% >> wallets.cmd
     echo setx p_wallet_EthereumClassic %p_wallet_EthereumClassic% >> wallets.cmd
+    echo set p_wallet_Karlsen=%p_wallet_Karlsen% >> wallets.cmd
+    echo setx p_wallet_Karlsen %p_wallet_Karlsen% >> wallets.cmd
     echo set p_wallet_Kaspa=%p_wallet_Kaspa% >> wallets.cmd
     echo setx p_wallet_Kaspa %p_wallet_Kaspa% >> wallets.cmd
     echo set p_wallet_Monero=%p_wallet_Monero% >> wallets.cmd
@@ -899,6 +934,7 @@ if %Debug%==true (
     echo [7;93m::: INFO :::[0m[93m Enjin Coin wallet address -[0m[97m %wallet_EnjinCoin% [0m
     echo [7;93m::: INFO :::[0m[93m Ethereum wallet address -[0m[97m %wallet_Ethereum% [0m
     echo [7;93m::: INFO :::[0m[93m Ethereum Classic wallet address -[0m[97m %wallet_EthereumClassic% [0m
+    echo [7;93m::: INFO :::[0m[93m Karlsen wallet address -[0m[97m %wallet_Karlsen% [0m
     echo [7;93m::: INFO :::[0m[93m Kaspa wallet address -[0m[97m %wallet_Kaspa% [0m
     echo [7;93m::: INFO :::[0m[93m Monero wallet address -[0m[97m %wallet_Monero% [0m
     echo [7;93m::: INFO :::[0m[93m Neoxa wallet address -[0m[97m %wallet_Neoxa% [0m
@@ -944,6 +980,7 @@ echo [7;93m::: INFO :::[0m[96m DOGE  [0m[0m[93m= Doge Coin [0m
 echo [7;93m::: INFO :::[0m[96m ENJ   [0m[0m[93m= Enjin Coin [0m
 echo [7;93m::: INFO :::[0m[96m ETC   [0m[0m[93m= Ethereum Classic [0m
 echo [7;93m::: INFO :::[0m[96m ETH   [0m[0m[93m= Ethereum [0m
+echo [7;93m::: INFO :::[0m[96m KLS   [0m[0m[93m= Karlsen [0m
 echo [7;93m::: INFO :::[0m[96m KAS   [0m[0m[93m= Kaspa [0m
 echo [7;93m::: INFO :::[0m[96m NEXA  [0m[0m[93m= Nexa [0m
 echo [7;93m::: INFO :::[0m[96m NEOX  [0m[0m[93m= Neoxa [0m
@@ -1035,6 +1072,14 @@ if "%Coin%"=="ETH" (
 
     set UnMineable=true
     if %use_global_discount%==false set OUTPUT_CODE=%discount_Ethereum%
+)
+@REM  KLS - UnMineable
+    if "%Coin%"=="KLS" ( 
+    set FoundCoin=true
+    set OUTPUT_WALLET=%wallet_Karlsen%
+
+    set UnMineable=true
+if %use_global_discount%==false set OUTPUT_CODE=%discount_Karlsen%
 )
 @REM  KAS - UnMineable
     if "%Coin%"=="KAS" ( 
