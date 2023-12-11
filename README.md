@@ -37,6 +37,7 @@
 - ENJ (Enjin Coin)
 - ETC (Ethereum Classic)
 - ETH (Ethereum)
+- KLS (Karlsen)
 - KAS (Kaspa)
 - NEXA (Nexa)
 - RVN (Raven Coin)
