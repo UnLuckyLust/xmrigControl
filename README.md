@@ -56,8 +56,7 @@
 
 ![UnLuckyMiner_XMRig_Configure](https://github.com/UnLuckyLust/UnLuckyMiner/assets/104845736/8909c455-8349-4ff1-99fb-fabcf0c6fdb9)
 
-
-# Warnings
+## Warnings and Notes
 - This cmd file is created for XMRig cryptocurrency miner, it can be flagged by your antivirus.
 - This cmd file is not a cryptocurrency miner, it is a file that installs, configures and runs a cryptocurrency miner, currently the file only works with XMRig mining software.
 - If you want to use XMRig miner and this cmd file, be sure to whitelist the installation folder in your antivirus.
