@@ -11,6 +11,13 @@
 - Saving wallet addresses in the current rig, for easy mining configuration.
 - Support for UnMineable pools, for expanded coin options.
 
+## Initial Setup
+- Before you start the program for the first time, you should open the cmd file in your text editor, and change the addresses of the temporary wallets to your own.
+- Note that by default, the program will not use the Temporary Addresses, and will ask for permanent wallet addresses in the initial setting.
+- Once you've configured the file to your liking, move it to the XMRig installation folder, if you haven't installed XMRig, you'll have the option to download it to the current folder in the initial setup.
+- If you're using an Nvidia GPU and you don't have cuda for it, you'll be prompted to download it.
+- Note that all downloads will be done from this github repository or the official XMRig github repository.
+
 ## Using Commands
 - You can execute the commands at any time during the setup process.
 - The commands must be written in lowercase letters. (use 'x' not 'X')
@@ -47,12 +54,8 @@
 - XMR (Monero)
 - ZEPH (Zephyr)
 
-## Initial Setup
-- Before you start the program for the first time, you should open the cmd file in your text editor, and change the addresses of the temporary wallets to your own.
-- Note that by default, the program will not use the Temporary Addresses, and will ask for permanent wallet addresses in the initial setting.
-- Once you've configured the file to your liking, move it to the XMRig installation folder, if you haven't installed XMRig, you'll have the option to download it to the current folder in the initial setup.
-- If you're using an Nvidia GPU and you don't have cuda for it, you'll be prompted to download it.
-- Note that all downloads will be done from this github repository or the official XMRig github repository.
+![UnLuckyMiner_XMRig_Configure](https://github.com/UnLuckyLust/UnLuckyMiner/assets/104845736/8909c455-8349-4ff1-99fb-fabcf0c6fdb9)
+
 
 # Warnings
 - This cmd file is created for XMRig cryptocurrency miner, it can be flagged by your antivirus.
