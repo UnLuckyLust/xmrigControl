@@ -1,5 +1,8 @@
 # UnLuckyMiner Changelog
 
+## Version 1.3.1
+- Added Karlsen Coin Support (can be used with UnMineable Pools)
+
 ## Version 1.3.0
 - Added more debugs.
 - General optimizations.
