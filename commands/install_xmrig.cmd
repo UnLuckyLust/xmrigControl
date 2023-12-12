@@ -1,4 +1,4 @@
-@REM Written by UnLuckyLust (https://DreamsWeaver.co) - https://github.com/UnLuckyLust/UnLuckyMiner
+@REM Written by UnLuckyLust (https://DreamsWeaver.co) - https://github.com/UnLuckyLust/xmrigControl
 @echo off
 cls
 echo [7;94m::: SETUP :::[0m[94m Installing XMrig Miner... [0m
@@ -32,4 +32,4 @@ if exist rtm_ghostrider_example.cmd del rtm_ghostrider_example.cmd
 if exist solo_mine_example.cmd del solo_mine_example.cmd
 if exist start.cmd del start.cmd
 rmdir %xmrig_src%
-call UnLuckyMiner.cmd
+call xmrigControl.cmd
