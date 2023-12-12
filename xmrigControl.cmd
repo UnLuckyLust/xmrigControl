@@ -1,4 +1,4 @@
-@REM Written by UnLuckyLust (https://DreamsWeaver.co) - https://github.com/UnLuckyLust/UnLuckyMiner
+@REM Written by UnLuckyLust (https://DreamsWeaver.co) - https://github.com/UnLuckyLust/xmrigControl
 @REM ! IMPORTANT ! This cmd file is made for XMRig crypto currency miner, it can be flagged by your antivirus.
 
 @echo off
@@ -15,7 +15,7 @@ cd /d "%~dp0"
 @REM ----------------------
 @REM ↧↧↧ Pools Settings ↧↧↧
 @REM ----------------------
-    set MINER=UnLuckyMiner
+    set MINER=xmrigControl
 
 @REM UnMineable CPU Pool Settings
     set algo_cpu=rx/0
@@ -105,7 +105,7 @@ if exist config.json del config.json
 if exist install_xmrig.cmd del install_xmrig.cmd
 if exist install_xmrig_cuda.cmd del install_xmrig_cuda.cmd
 setx TemporaryWallets %TemporaryWallets%
-set p_name=UnLuckyMiner
+set p_name=xmrigControl
 fsutil dirty query %systemdrive% >nul || (
     if %Debug%==true echo [7;94m::: SETUP :::[0m[94m Requesting administrative privileges... [0m
     set "ELEVATE_CMDLINE=cd /d "%cd%" & call "%~f0" %*"
@@ -136,7 +136,9 @@ if exist %XMRig_Folder%/xmrig.exe (
     set /p RExmrig="[7;96m::: INPUT :::[0m Would you like to download [93mXMRig 6.21.0[0m? ([96mY[0m/[96mN[0m) > "
 )
 if "%RExmrig%"=="x" exit
-if "%RExmrig%"=="s" (
+if "%RExmrig%"=="X" exit
+if "%RExmrig%"=="s" set RExmrig=S
+if "%RExmrig%"=="S" (
     call %p_name%.cmd
 )
 if "%RExmrig%"=="Y" ( set RExmrig=true ) else (
@@ -147,7 +149,7 @@ if "%RExmrig%"=="Y" ( set RExmrig=true ) else (
 
 if %RExmrig%==true (
     echo [7;94m::: SETUP :::[0m[94m Downloading XMRig installation file... [0m
-    curl --output install_xmrig.cmd -LO https://raw.githubusercontent.com/UnLuckyLust/UnLuckyMiner/cmd/commands/install_xmrig.cmd
+    curl --output install_xmrig.cmd -LO https://raw.githubusercontent.com/UnLuckyLust/xmrigControl/cmd/commands/install_xmrig.cmd
     call install_xmrig.cmd
 ) else (
     if %RExmrig%==pass (
@@ -159,7 +161,7 @@ if %RExmrig%==true (
     )
 )
 cls
-set Version=1.3.1
+set Version=1.4.0
 echo [7;93m::: INFO :::[0m[93m %p_name% - Version %Version% [0m
 echo [7;95m::: COMMAND :::[0m [95me[0m[7;95mx[0m[95mit[0m
 echo [7;95m::: COMMAND :::[0m [7;95ms[0m[95mtart over[0m
@@ -178,12 +180,12 @@ if "%Toggle_Temporary_Addresses%"=="" (
 )
 
 @REM Version Check
-if "%UnLuckyMiner_Version%"=="" (
+if "%xmrigControl_Version%"=="" (
     if %Debug%==true echo [7;94m::: SETUP :::[0m[94m %p_name% No Older Version found. [0m
-    set UnLuckyMiner_Version=0
-    setx UnLuckyMiner_Version 0
+    set xmrigControl_Version=0
+    setx xmrigControl_Version 0
 )
-if %Version%==%UnLuckyMiner_Version% (
+if %Version%==%xmrigControl_Version% (
     if %Debug%==true echo [7;94m::: SETUP :::[0m[94m %p_name% Current Version found. [0m
 ) else (
     echo [7;94m::: SETUP :::[0m[94m %p_name% new version found. [0m
@@ -202,7 +204,9 @@ if %confirm_reset%==false (
     )
 )
 if "%client_confirm_reset%"=="x" exit
-if "%client_confirm_reset%"=="s" (
+if "%client_confirm_reset%"=="X" exit
+if "%client_confirm_reset%"=="s" set client_confirm_reset=S
+if "%client_confirm_reset%"=="S" (
     call %p_name%.cmd
 )
 if "%client_confirm_reset%"=="Y" ( set client_confirm_reset=true ) else (
@@ -254,8 +258,8 @@ if %confirm_reset%==true (
     set p_wallet_Zephyr=NO_WALLET_ADDRESS
     setx p_wallet_Zephyr NO_WALLET_ADDRESS
 
-    set UnLuckyMiner_Version=%Version%
-    setx UnLuckyMiner_Version %Version%
+    set xmrigControl_Version=%Version%
+    setx xmrigControl_Version %Version%
     set Reset_Addresses=false
     setx Reset_Addresses false
     if exist wallets.cmd del wallets.cmd
@@ -290,7 +294,9 @@ if %Toggle_Temporary_Addresses%==true (
     )
 )
 if "%client_confirm_toggle%"=="x" exit
-if "%client_confirm_toggle%"=="s" (
+if "%client_confirm_toggle%"=="X" exit
+if "%client_confirm_toggle%"=="s" set client_confirm_toggle=S
+if "%client_confirm_toggle%"=="S" (
     call %p_name%.cmd
 )
 if "%client_confirm_toggle%"=="Y" (
@@ -394,15 +400,19 @@ if "%wallet_Avalanche%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Avalanche [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -422,15 +432,19 @@ if "%wallet_Bitcoin%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Bitcoin [0m> "
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -449,15 +463,19 @@ if "%wallet_BitcoinCash%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Bitcoin Cash [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -476,15 +494,19 @@ if "%wallet_Clore%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Clore AI [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -503,15 +525,19 @@ if "%wallet_DogeCoin%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Doge Coin [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -530,15 +556,19 @@ if "%wallet_EnjinCoin%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Enjin Coin [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -557,15 +587,19 @@ if "%wallet_Ethereum%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Ethereum [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -584,18 +618,21 @@ if "%wallet_EthereumClassic%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Ethereum Classic [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
-    cls
     call %p_name%.cmd
 )
 if %Reset_Wallet%==true (
@@ -612,15 +649,19 @@ if "%wallet_Karlsen%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Karlsen [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -639,15 +680,19 @@ if "%wallet_Kaspa%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Kaspa [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -666,15 +711,19 @@ if "%wallet_Monero%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Monero [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -693,18 +742,21 @@ if "%wallet_Neoxa%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Neoxa [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
-    cls
     call %p_name%.cmd
 )
 if %Reset_Wallet%==true (
@@ -721,15 +773,19 @@ if "%wallet_Nexa%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Nexa [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -748,15 +804,19 @@ if "%wallet_ShibaInu%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Shiba Inu [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -775,15 +835,19 @@ if "%wallet_Solana%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Solana [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -802,15 +866,19 @@ if "%wallet_RavenCoin%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Raven Coin [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -829,15 +897,19 @@ if "%wallet_Raptoreum%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Raptoreum [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -856,15 +928,19 @@ if "%wallet_Zephyr%"=="NO_WALLET_ADDRESS" (
     set /p Reset_Wallet_Input="[7;96m::: INPUT :::[0m Set the wallet address for[93m Zephyr [0m> " 
 )
 if "%Reset_Wallet_Input%"=="x" exit
-if "%Reset_Wallet_Input%"=="s" (
+if "%Reset_Wallet_Input%"=="X" exit
+if "%Reset_Wallet_Input%"=="s" set Reset_Wallet_Input=S
+if "%Reset_Wallet_Input%"=="S" (
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="r" (
+if "%Reset_Wallet_Input%"=="r" set Reset_Wallet_Input=R
+if "%Reset_Wallet_Input%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Reset_Wallet_Input%"=="t" (
+if "%Reset_Wallet_Input%"=="t" set Reset_Wallet_Input=T
+if "%Reset_Wallet_Input%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -880,7 +956,7 @@ if %Reset_Wallet%==true (
 if %New_Wallet%==true (
     echo [7;94m::: SETUP :::[0m[94m Saving New Wallets Addresses. [0m
     if exist wallets.cmd del wallets.cmd
-    echo @REM Written by UnLuckyLust - https://DreamsWeaver.co - https://github.com/UnLuckyLust/UnLuckyMiner > wallets.cmd
+    echo @REM Written by UnLuckyLust - https://DreamsWeaver.co - https://github.com/UnLuckyLust/xmrigControl > wallets.cmd
     echo @REM Auto Generated File from - %p_name% Persistent Wallets: Version %Version% >> wallets.cmd
     echo @echo off >> wallets.cmd
     echo cls >> wallets.cmd
@@ -949,15 +1025,19 @@ if %Debug%==true (
 @REM Worker Name
 set /p MINER="[7;96m::: INPUT :::[0m What is the name of the worker? [93m(Currently: %MINER%)[0m > "
 if "%MINER%"=="x" exit
-if "%MINER%"=="s" (
+if "%MINER%"=="X" exit
+if "%MINER%"=="s" set MINER=S
+if "%MINER%"=="S" (
     call %p_name%.cmd
 )
-if "%MINER%"=="r" (
+if "%MINER%"=="r" set MINER=R
+if "%MINER%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%MINER%"=="t" (
+if "%MINER%"=="t" set MINER=T
+if "%MINER%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -993,15 +1073,19 @@ echo [7;93m::: INFO :::[0m[96m ZEPH  [0m[0m[93m= Zephyr [0m
 
 set /p Coin="[7;96m::: INPUT :::[0m What Coin would you like to mine? [93m(Coin Tag)[0m > "
 if "%Coin%"=="x" exit
-if "%Coin%"=="s" (
+if "%Coin%"=="X" exit
+if "%Coin%"=="s" set Coin=S
+if "%Coin%"=="S" (
     call %p_name%.cmd
 )
-if "%Coin%"=="r" ( 
+if "%Coin%"=="r" set Coin=R
+if "%Coin%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Coin%"=="t" (
+if "%Coin%"=="t" set Coin=T
+if "%Coin%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -1193,15 +1277,19 @@ if %Debug%==true echo [7;93m::: INFO :::[0m[93m Wallet Address -[0m[97m %OU
 if "%CAN_SELECT_UnMineable%"=="" set CAN_SELECT_UnMineable=false
 if %CAN_SELECT_UnMineable%==true set /p Use_UnMineable_Pool="[7;96m::: INPUT :::[0m Use UnMineable Pools for mining? [93m(Currently: %UnMineable%)[0m ([96mY[0m/[96mN[0m) > "
 if "%Use_UnMineable_Pool%"=="x" exit
-if "%Use_UnMineable_Pool%"=="s" (
+if "%Use_UnMineable_Pool%"=="X" exit
+if "%Use_UnMineable_Pool%"=="s" set Use_UnMineable_Pool=S
+if "%Use_UnMineable_Pool%"=="S" (
     call %p_name%.cmd
 )
-if "%Use_UnMineable_Pool%"=="r" ( 
+if "%Use_UnMineable_Pool%"=="r" set Use_UnMineable_Pool=R
+if "%Use_UnMineable_Pool%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%Use_UnMineable_Pool%"=="t" (
+if "%Use_UnMineable_Pool%"=="t" set Use_UnMineable_Pool=T
+if "%Use_UnMineable_Pool%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -1223,15 +1311,19 @@ if %UnMineable%==true (
     set /p USEgpu="[7;96m::: INPUT :::[0m Are you interested in using the [93mGPU[0m? [93m(Currently: %GPU%)[0m ([96mY[0m/[96mN[0m) > "
 )
 if "%USEgpu%"=="x" exit
-if "%USEgpu%"=="s" (
+if "%USEgpu%"=="X" exit
+if "%USEgpu%"=="s" set USEgpu=S
+if "%USEgpu%"=="S" (
     call %p_name%.cmd
 )
-if "%USEgpu%"=="r" ( 
+if "%USEgpu%"=="r" set USEgpu=R
+if "%USEgpu%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%USEgpu%"=="t" (
+if "%USEgpu%"=="t" set USEgpu=T
+if "%USEgpu%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -1259,15 +1351,19 @@ if %GPU%==true (
     set /p REgpu="[7;96m::: INPUT :::[0m Are you using [93mAMD GPU[0m? [93m(Currently: %AMD%)[0m ([96mY[0m/[96mN[0m) > " 
 )
 if "%REgpu%"=="x" exit
-if "%REgpu%"=="s" (
+if "%REgpu%"=="X" exit
+if "%REgpu%"=="s" set REgpu=S
+if "%REgpu%"=="S" (
     call %p_name%.cmd
 )
-if "%REgpu%"=="r" ( 
+if "%REgpu%"=="r" set REgpu=R
+if "%REgpu%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%REgpu%"=="t" (
+if "%REgpu%"=="t" set REgpu=T
+if "%REgpu%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -1296,15 +1392,19 @@ if %NVIDIA%==true (
     )
 )
 if "%REcuda%"=="x" exit
-if "%REcuda%"=="s" (
+if "%REcuda%"=="X" exit
+if "%REcuda%"=="s" set REcuda=S
+if "%REcuda%"=="S" (
     call %p_name%.cmd
 )
-if "%REcuda%"=="r" (
+if "%REcuda%"=="r" set REcuda=R
+if "%REcuda%"=="R" (
     set Reset_Addresses=true
     setx Reset_Addresses true
     call %p_name%.cmd
 )
-if "%REcuda%"=="t" (
+if "%REcuda%"=="t" set REcuda=T
+if "%REcuda%"=="T" (
     set Toggle_Temporary_Addresses=true
     setx Toggle_Temporary_Addresses true
     call %p_name%.cmd
@@ -1315,7 +1415,7 @@ if "%REcuda%"=="Y" ( set REcuda=true ) else (
 
 if %REcuda%==true (
     echo [7;94m::: SETUP :::[0m[94m Downloading XMRig Nvidia Cuda installation file... [0m
-    curl --output install_xmrig_cuda.cmd -LO https://raw.githubusercontent.com/UnLuckyLust/UnLuckyMiner/cmd/commands/install_xmrig_cuda.cmd
+    curl --output install_xmrig_cuda.cmd -LO https://raw.githubusercontent.com/UnLuckyLust/xmrigControl/cmd/commands/install_xmrig_cuda.cmd
     call install_xmrig_cuda.cmd
 ) else (
     if %REcuda%==pass (
@@ -1336,7 +1436,7 @@ if %UnMineable%==true (
 )
 set OUTPUT_WALLET=%OUTPUT_WALLET: =%
 
-@REM Delete Old Shortcut
+@REM Delete xmrigControl Old Shortcut
 if %MINER%==%TEMP_MINER% (
         if %Debug%==true echo [7;94m::: SETUP :::[0m[94m The name of the shortcut remains the same. [0m
     ) else ( 
@@ -1349,7 +1449,7 @@ if %MINER%==%TEMP_MINER% (
     )
 )
 
-@REM Create Shortcut
+@REM Create xmrigControl Shortcut
 set shortcut_loc=%shortcut_location%\!MINER!.lnk
 set LOG=".\%~N0_runtime.log"
 if %shortcut%==true (
@@ -1378,7 +1478,7 @@ if %shortcut%==true (
 set TEMP_MINER=%MINER%
 setx TEMP_MINER %MINER%
 
-@REM Create Config File
+@REM Create XMRig Config File
 cls
 if %UnMineable%==true echo [7;94m::: SETUP :::[0m[94m Using UnMineable Pools [0m
 echo [7;94m::: SETUP :::[0m[94m Worker Name -[0m[97m %MINER% [0m

@@ -1,4 +1,8 @@
-# UnLuckyMiner Changelog
+# xmrigControl Changelog
+
+## Version 1.4.0
+- Changed program name from UnLuckyMiner to xmrigControl
+- Optimized commands, to work with both lowercase and uppercase letters.
 
 ## Version 1.3.1
 - Added Karlsen Coin Support (can be used with UnMineable Pools)

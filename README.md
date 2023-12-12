@@ -1,7 +1,7 @@
-# UnLuckyMiner CMD version
+# XMRig Miner Control
 - Optimized command line for quick installation and startup of XMRig cryptocurrency miner.
-- For Support join us on [Discord](https://discord.gg/gtH9nkGrHu)
 - This command file is intended for a Windows operating system, and its purpose is to run the XMRig cryptocurrency miner, easily and quickly with pre-defined addresses for fast switching between currency types and quick installation in different rigs.
+- For Support join us on [Discord](https://discord.gg/gtH9nkGrHu)
 
 ## What can i do?
 - Start mining cryptocurrency with XMRig program.
@@ -20,12 +20,7 @@
 
 ## Using Commands
 - You can execute the commands at any time during the setup process.
-- The commands must be written in lowercase letters. (use 'x' not 'X')
-  
-- Quit program - 'x'
-- Restart the configuration processes - 's'
-- Toggle persistent wallets addresses - 't'
-- Reset persistent wallets addresses - 'r'
+- The list of available commands will appear at the top of the program.
 
 ## What coins can i mine?
 - Coin support depends on if you use UnMineable pools.
@@ -55,12 +50,12 @@
 - XMR (Monero)
 - ZEPH (Zephyr)
 
-![UnLuckyMiner_XMRig_Configure](https://github.com/UnLuckyLust/UnLuckyMiner/assets/104845736/8909c455-8349-4ff1-99fb-fabcf0c6fdb9)
+![UnLuckyLust_XMRig_Control](https://github.com/UnLuckyLust/xmrigControl/assets/104845736/8909c455-8349-4ff1-99fb-fabcf0c6fdb9)
 
 ## Warnings and Notes
 - This cmd file is created for XMRig cryptocurrency miner, it can be flagged by your antivirus.
-- This cmd file is not a cryptocurrency miner, it is a file that installs, configures and runs a cryptocurrency miner, currently the file only works with XMRig mining software.
 - If you want to use XMRig miner and this cmd file, be sure to whitelist the installation folder in your antivirus.
+- This cmd file is not a cryptocurrency miner, it is a file that installs, configures and runs a cryptocurrency miner, currently the file only works with XMRig mining software.
 - There is no operating fee for this file, the only operating fee is the donate level that goes to XMRig developers, It can be set to whatever percentage you want, but by default it is set to a minimum of 1% in the XMRig software, and can't go below that.
 - This cmd file does not save, send, copy or share any information, and intended for use on the local machine only.
 - This cmd file will never ask you for passwords, addresses or payment methods.
