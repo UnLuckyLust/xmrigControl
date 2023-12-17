@@ -1,5 +1,18 @@
 # xmrigControl Changelog
 
+## Version 1.5.0
+- The entire program has been ReWritten in a more Efficient and Optimized Code!
+- Added Alephium Coin Support (UnMineable)
+- Added Binance Coin Support (UnMineable)
+- Added Bonk Coin Support (UnMineable)
+- Added Cardano Coin Support (UnMineable)
+- Added Cosmos Coin Support (UnMineable)
+- Added Neurai Coin Support (GPU)
+- Added Quantum Resistant Ledger Coin Support (CPU)
+- Added Ripple Coin Support (UnMineable)
+- Added Tether Coin Support (UnMineable)
+- Added Tron Coin Support (UnMineable)
+
 ## Version 1.4.0
 - Changed program name from UnLuckyMiner to xmrigControl
 - Optimized commands, to work with both lowercase and uppercase letters.

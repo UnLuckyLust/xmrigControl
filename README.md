@@ -4,16 +4,16 @@
 - For Support join us on [Discord](https://discord.gg/gtH9nkGrHu)
 
 ## What can i do?
-- Start mining cryptocurrency with XMRig program.
-- Install XMRig mining program.
-- Install XMRig Nvidia Cuda.
+- A quick way to start mining with XRMig, and easy switching between coins.
+- Install Latest XMRig mining program. (from the official XMRig GitHub repository)
+- Install Latest XMRig Nvidia Cuda. (from the official XMRig GitHub repository)
 - Create Custom Config file for XMRig.
-- Saving wallet addresses in the current rig, for easy mining configuration.
+- Saving wallet addresses in the current rig, for easy switching between coins.
 - Support for UnMineable pools, for expanded coin options.
 
 ## Initial Setup
 - Before you start the program for the first time, you should open the cmd file in your text editor, and change the addresses of the temporary wallets to your own.
-- Note that by default, the program will not use the Temporary Addresses, and will ask for permanent wallet addresses in the initial setting.
+- Note that by default, the program will not use the Temporary Addresses, and will ask for Persistent Wallet Addresses in the initial setup.
 - Once you've configured the file to your liking, move it to the XMRig installation folder, if you haven't installed XMRig, you'll have the option to download it to the current folder in the initial setup.
 - If you're using an Nvidia GPU and you don't have cuda for it, you'll be prompted to download it.
 - Note that all downloads will be done from this github repository or the official XMRig github repository.
@@ -25,30 +25,41 @@
 ## What coins can i mine?
 - Coin support depends on if you use UnMineable pools.
 ### When using UnMineable pools
-- AVAX (Avalanche)
-- BCH (Bitcoin Cash)
-- BTC (Bitcoin)
-- DOGE (Doge Coin)
-- ENJ (Enjin Coin)
-- ETC (Ethereum Classic)
-- ETH (Ethereum)
-- KLS (Karlsen)
-- KAS (Kaspa)
-- NEXA (Nexa)
-- RVN (Raven Coin)
-- SHIB (Shiba Inu)
-- SOL (Solana)
-- XMR (Monero)
-- ZEPH (Zephyr)
+- ALPH  { Alephium }
+- AVAX  { Avalanche }
+- BNB   { Binance }
+- BTC   { Bitcoin }
+- BCH   { Bitcoin Cash }
+- BONK  { Bonk }
+- ADA   { Cardano }
+- ATOM  { Cosmos }
+- DOGE  { Doge Coin }
+- ENJ   { Enjin Coin }
+- ETH   { Ethereum } 
+- ETC   { Ethereum Classic }
+- KLS   { Karlsen }
+- KAS   { Kaspa }
+- XMR   { Monero }
+- NEXA  { Nexa }
+- PEPE  { Pepe }
+- RVN   { Raven Coin }
+- XRP   { Ripple }
+- SHIB  { Shiba Inu }
+- SOL   { Solana }
+- USDT  { Tether US }
+- TRX   { Tron }
+- ZEPH  { Zephyr }
 ### When using Custom pools
 #### GPU Algorithm Coins
-- CLORE (Clore AI)
-- NEOX (Neoxa)
-- RVN (Raven Coin)
+- CLORE { Clore AI }
+- NEOX  { Neoxa }
+- XNA   { Neurai }
+- RVN   { Raven Coin }
 #### CPU Algorithm Coins
-- RTM (Raptoreum)
-- XMR (Monero)
-- ZEPH (Zephyr)
+- QRL   { Quantum Resistant Ledger }
+- RTM   { Raptoreum }
+- XMR   { Monero }
+- ZEPH  { Zephyr }
 
 ![UnLuckyLust_XMRig_Control](https://github.com/UnLuckyLust/xmrigControl/assets/104845736/8909c455-8349-4ff1-99fb-fabcf0c6fdb9)
 
