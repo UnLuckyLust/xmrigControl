@@ -61,7 +61,7 @@
 - XMR   { Monero }
 - ZEPH  { Zephyr }
 
-![UnLuckyLust_XMRig_Control](https://github.com/UnLuckyLust/xmrigControl/assets/104845736/8909c455-8349-4ff1-99fb-fabcf0c6fdb9)
+![xmrigControl_v1_5_0](https://github.com/UnLuckyLust/xmrigControl/assets/104845736/60c49ae3-1ead-4d67-95f3-76e2981f7032)
 
 ## Warnings and Notes
 - This cmd file is created for XMRig cryptocurrency miner, it can be flagged by your antivirus.
