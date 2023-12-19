@@ -1,5 +1,11 @@
 # xmrigControl Changelog
 
+## Version 1.5.1
+- Added option to download and use xmrigCC instead of xmrig.
+- Added Yada Coin Support (CPU - only for xmrigCC)
+- Added Dagger Coin Support (CPU - only for xmrigCC)
+- Added Keva Coin Support (CPU)
+
 ## Version 1.5.0
 - The entire program has been ReWritten in a more Efficient and Optimized Code!
 - Added Alephium Coin Support (UnMineable)

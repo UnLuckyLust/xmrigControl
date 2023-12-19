@@ -1,9 +1,9 @@
 @REM Written by UnLuckyLust (https://DreamsWeaver.co) - https://github.com/UnLuckyLust/xmrigControl
 @REM ! IMPORTANT ! This cmd file is made for XMRig crypto currency miner, it can be flagged by your antivirus.
-
 @echo off
 setlocal enabledelayedexpansion
 cd /d "%~dp0"
+
 @REM -----------------------------------
 @REM ↧↧↧ Start of configuration area ↧↧↧
 @REM -----------------------------------
@@ -27,12 +27,15 @@ cd /d "%~dp0"
 
 @REM Custom Pools addresses
     set pool_Clore=stratum+ssl://tr.clore.herominers.com:1163
+    set pool_Dagger=stratum.xdag.org:23656
+    set pool_Keva=pool.hashvault.pro:443
     set pool_Monero=stratum+ssl://xmr-eu1.nanopool.org:10343
     set pool_Neoxa=neox.2miners.com:4040
     set pool_Neurai=xna.2miners.com:6060
     set pool_QuantumRL=stratum+ssl://tr.qrl.herominers.com:1166
     set pool_Raptoreum=stratum+ssl://eu.flockpool.com:5555
     set pool_RavenCoin=rvn.2miners.com:6060
+    set pool_Yada=yadapool.org:3333
     set pool_Zephyr=stratum+ssl://tr.zephyr.herominers.com:1123
 
 @REM ----------------------------------------------------------------------------------------------------------------
@@ -54,12 +57,14 @@ cd /d "%~dp0"
     set t_wallet_Cardano=addr1q8x4hex5880gywxsnhqrwahh52kzj7ddmnvmnqlyr80593dmwnmj3h58dfcs057ey8hwmr9txjnus43u0llvm9wmkzfqw952sp
     set t_wallet_Clore=AUJZmq919Ujsn9jRfkcVSNA1txUewy467W
     set t_wallet_Cosmos=cosmos1p9ru4lte6g7vfnkqv2xtnqmvt0l872n8zhg2xt
+    set t_wallet_Dagger=JVQZfRinc5UDAceu3mSG4Bt8vmRvudBjd
     set t_wallet_DogeCoin=DHRQi6qMF7KdFthUhjaTDh42HN6Rp2jdXq
     set t_wallet_EnjinCoin=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
     set t_wallet_Ethereum=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
     set t_wallet_EthereumClassic=0xdB334D2B4D6B10cc7e84a4927e3bcf6e9a75A629
     set t_wallet_Karlsen=karlsen:qp9yaplt6nl35cz6sc9ltmzj52afncjnycdvgf62k4nqac8yu0syusdnvzraa
     set t_wallet_Kaspa=kaspa:qyp4h36wejns6zfddah5wqrclnawrl74lrlqjnhf7gjccy03jh6j8zs4e6grwud
+    set t_wallet_Keva=VLkjtRHnJG8jwGjoqCtbAxuBjnwY8TSXu2
     set t_wallet_Monero=48rfHy6xMMQCKCJTAdojzqcKbtvFYhkvB5giRfbzF6wv5wGDMfJLjzsWL1njt6y7PSJYY7F6QajQFXXNfmw5cuGj61vQSVL
     set t_wallet_Neoxa=GXjY2uyeji7qEBxVF93mKRQ9snUzoZPfdx
     set t_wallet_Neurai=NXSE744YDmeEdSUVC78R6EU31oWjb3DP6h
@@ -73,6 +78,7 @@ cd /d "%~dp0"
     set t_wallet_Solana=3BQMMAUaGbTg6A9Fr7t6kPmSw7c41WEkKWWJJ5Yra4qo
     set t_wallet_Tether=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
     set t_wallet_Tron=TLYq6ajCXShebrbrvkyabnoSworxHkoJkS
+    set t_wallet_Yada=1KLesDTJntuK1hmLWYCXrWsMqat85HnHZH
     set t_wallet_Zephyr=ZEPHYR3d46PJL5fM5C4Lu2XHHmt9opnjuhzMvJXTxjgmftPsKmUzrzVE4GmPsSCWWeKe7DzjmQuPXaqqDoiPziBkVtfCyW2STTC2m
 
 @REM ---------------------------------
@@ -108,17 +114,32 @@ cd /d "%~dp0"
     set discount_Zephyr=f60t-hqix
 
 @REM ----------------------
+@REM ↧↧↧ XMRig Settings ↧↧↧
+@REM ----------------------
+    set TLS=true
+    set Password=x
+    set NiceHash=false
+    set Donate_Level=1
+    set max_cpu_usage=100
+
+@REM ------------------------
+@REM ↧↧↧ XMRigCC Settings ↧↧↧
+@REM ------------------------
+    set use_xmrigCC=true
+@REM ------------------------
+    set activate_CC_client=false
+    set CC_server_url=localhost:3344
+    set CC_server_access_token=mySecret
+    set CC_server_tls=false
+
+@REM ----------------------
 @REM ↧↧↧ Debug Settings ↧↧↧
 @REM ----------------------
     set Debug=false
-    set TLS=true
-    set Donate=1
-    set Password=x
-    set NiceHash=false
     set TimeOut=10
     set shortcut=true
     set shortcut_location=%cd%
-    set shortcut_icon=%cd%\xmrig.exe
+
 @REM ---------------------------------
 @REM ↥↥↥ End of configuration area ↥↥↥
 @REM ---------------------------------
@@ -126,15 +147,24 @@ cd /d "%~dp0"
 if exist %XMRig_Folder% ( cd %XMRig_Folder% ) else exit
 if exist config.json del config.json
 if exist install_xmrig.cmd del install_xmrig.cmd
+if exist install_xmrigCC.cmd del install_xmrigCC.cmd
 if exist install_xmrig_cuda.cmd del install_xmrig_cuda.cmd
-set p_version=1.5.0
+set p_version=1.5.1
 set p_name=xmrigControl
+set xmrig_p_name=xmrig
+set xmrig_p_download=install_xmrig
+if %use_xmrigCC%==true (
+    set xmrig_p_name=xmrigDaemon
+    set xmrig_p_download=install_xmrigCC
+)
+set shortcut_icon=%cd%\%xmrig_p_name%.exe
 if "%TemporaryWallets%"=="" (
     set TemporaryWallets=%use_Temporary_Wallets%
     setx TemporaryWallets %use_Temporary_Wallets%
 )
 title %p_name%
-mode con: lines=45
+mode con: lines=44
+if %use_xmrigCC%==true mode con: lines=46
 set temp_p_name=%cd%\%~nx0
 if not %temp_p_name%==%cd%\%p_name%.cmd (
     ren %temp_p_name% %p_name%.cmd
@@ -162,7 +192,7 @@ set old_shortcut_loc=%shortcut_location%\!TEMP_MINER!.lnk
 @REM XMRig Check
 set need_download_xmrig=false
 set download_xmrig=false
-if not exist %XMRig_Folder%/xmrig.exe (
+if not exist %XMRig_Folder%/%xmrig_p_name%.exe (
     set need_download_xmrig=true
     cls
     echo [7;93m::: INFO :::[0m[93m %p_name% - Version %p_version% [0m
@@ -177,7 +207,7 @@ if not exist %XMRig_Folder%/xmrig.exe (
     echo [7;91m::: ERROR :::[0m[91m Cannot find XMRig, make sure the address is set correctly. [0m
     echo [7;94m::: IMPORTANT :::[0m[94m If you want to use XMRig miner make sure whitelist the folder in your antivirus. [0m
     echo.
-    set /p download_xmrig="[7;96m::: INPUT :::[0m Would you like to download [93mXMRig 6.21.0[0m? ([96mY[0m/[96mN[0m) > "
+    set /p download_xmrig="[7;96m::: INPUT :::[0m Would you like to download [93mXMRig[0m? ([96mY[0m/[96mN[0m) > "
 )
 if "%download_xmrig%"=="x" set download_xmrig=X
 if "%download_xmrig%"=="X" goto :LOGOUT
@@ -188,7 +218,7 @@ if "%download_xmrig%"=="Y" set download_xmrig=true
 if %need_download_xmrig%==true (
     if %download_xmrig%==true (
         echo [7;94m::: SETUP :::[0m[94m Downloading XMRig installation file... [0m
-        curl --output install_xmrig.cmd -LO https://raw.githubusercontent.com/UnLuckyLust/xmrigControl/cmd/commands/install_xmrig.cmd
+        curl --output install_xmrig.cmd -LO https://raw.githubusercontent.com/UnLuckyLust/xmrigControl/cmd/commands/%xmrig_p_download%.cmd
         call install_xmrig.cmd
     )
     cls
@@ -307,6 +337,8 @@ if %p_version%==%xmrigControl_Version% (
         setx p_wallet_Clore NO_WALLET_ADDRESS
         set p_wallet_Cosmos=NO_WALLET_ADDRESS
         setx p_wallet_Cosmos NO_WALLET_ADDRESS
+        set p_wallet_Dagger=NO_WALLET_ADDRESS
+        setx p_wallet_Dagger NO_WALLET_ADDRESS
         set p_wallet_DogeCoin=NO_WALLET_ADDRESS
         setx p_wallet_DogeCoin NO_WALLET_ADDRESS
         set p_wallet_EnjinCoin=NO_WALLET_ADDRESS
@@ -319,6 +351,8 @@ if %p_version%==%xmrigControl_Version% (
         setx p_wallet_Karlsen NO_WALLET_ADDRESS
         set p_wallet_Kaspa=NO_WALLET_ADDRESS
         setx p_wallet_Kaspa NO_WALLET_ADDRESS
+        set p_wallet_Keva=NO_WALLET_ADDRESS
+        setx p_wallet_Keva NO_WALLET_ADDRESS
         set p_wallet_Monero=NO_WALLET_ADDRESS
         setx p_wallet_Monero NO_WALLET_ADDRESS
         set p_wallet_Neoxa=NO_WALLET_ADDRESS
@@ -345,6 +379,8 @@ if %p_version%==%xmrigControl_Version% (
         setx p_wallet_Tether NO_WALLET_ADDRESS
         set p_wallet_Tron=NO_WALLET_ADDRESS
         setx p_wallet_Tron NO_WALLET_ADDRESS
+        set p_wallet_Yada=NO_WALLET_ADDRESS
+        setx p_wallet_Yada NO_WALLET_ADDRESS
         set p_wallet_Zephyr=NO_WALLET_ADDRESS
         setx p_wallet_Zephyr NO_WALLET_ADDRESS
         if exist wallets.cmd del wallets.cmd
@@ -371,6 +407,8 @@ if %p_version%==%xmrigControl_Version% (
     if "%p_wallet_Clore%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Cosmos%"=="" set p_wallet_Cosmos=NO_WALLET_ADDRESS
     if "%p_wallet_Cosmos%"=="NO_WALLET_ADDRESS" set check_w_fail=true
+    if "%p_wallet_Dagger%"=="" set p_wallet_Dagger=NO_WALLET_ADDRESS
+    if "%p_wallet_Dagger%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_DogeCoin%"=="" set p_wallet_DogeCoin=NO_WALLET_ADDRESS
     if "%p_wallet_DogeCoin%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_EnjinCoin%"=="" set p_wallet_EnjinCoin=NO_WALLET_ADDRESS
@@ -383,6 +421,8 @@ if %p_version%==%xmrigControl_Version% (
     if "%p_wallet_Karlsen%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Kaspa%"=="" set p_wallet_Kaspa=NO_WALLET_ADDRESS
     if "%p_wallet_Kaspa%"=="NO_WALLET_ADDRESS" set check_w_fail=true
+    if "%p_wallet_Keva%"=="" set p_wallet_Keva=NO_WALLET_ADDRESS
+    if "%p_wallet_Keva%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Monero%"=="" set p_wallet_Monero=NO_WALLET_ADDRESS
     if "%p_wallet_Monero%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Neoxa%"=="" set p_wallet_Neoxa=NO_WALLET_ADDRESS
@@ -409,6 +449,8 @@ if %p_version%==%xmrigControl_Version% (
     if "%p_wallet_Tether%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Tron%"=="" set p_wallet_Tron=NO_WALLET_ADDRESS
     if "%p_wallet_Tron%"=="NO_WALLET_ADDRESS" set check_w_fail=true
+    if "%p_wallet_Yada%"=="" set p_wallet_Yada=NO_WALLET_ADDRESS
+    if "%p_wallet_Yada%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Zephyr%"=="" set p_wallet_Zephyr=NO_WALLET_ADDRESS
     if "%p_wallet_Zephyr%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if %check_w_fail%==true goto :W_ADDRESS_SET
@@ -562,6 +604,23 @@ if %p_version%==%xmrigControl_Version% (
     if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
     set temp_p_wallet_Cosmos=%new_wallet_address%
 
+@REM Dagger Wallet Address
+    if %use_xmrigCC%==true (
+        echo.
+        echo [7;94m::: ADDRESS :::[0m[94m Dagger -[0m[97m %p_wallet_Dagger% [0m
+        set new_wallet_address=%p_wallet_Dagger%
+        set /p new_wallet_address="[7;96m::: INPUT :::[0m Set a new wallet address for[93m Dagger [0m> " 
+        if "%new_wallet_address%"=="x" set new_wallet_address=X
+        if "%new_wallet_address%"=="X" goto :LOGOUT
+        if "%new_wallet_address%"=="s" set new_wallet_address=S
+        if "%new_wallet_address%"=="S" goto :START_OVER
+        if "%new_wallet_address%"=="r" set new_wallet_address=R
+        if "%new_wallet_address%"=="R" goto :W_ADDRESS_RESET
+        if "%new_wallet_address%"=="t" set new_wallet_address=T
+        if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
+        set temp_p_wallet_Dagger=%new_wallet_address%        
+    )
+
 @REM Doge Coin Wallet Address
     echo.
     echo [7;94m::: ADDRESS :::[0m[94m Doge Coin -[0m[97m %p_wallet_DogeCoin% [0m
@@ -651,6 +710,21 @@ if %p_version%==%xmrigControl_Version% (
     if "%new_wallet_address%"=="t" set new_wallet_address=T
     if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
     set temp_p_wallet_Kaspa=%new_wallet_address%
+
+@REM Keva Wallet Address
+    echo.
+    echo [7;94m::: ADDRESS :::[0m[94m Keva -[0m[97m %p_wallet_Keva% [0m
+    set new_wallet_address=%p_wallet_Keva%
+    set /p new_wallet_address="[7;96m::: INPUT :::[0m Set a new wallet address for[93m Keva [0m> " 
+    if "%new_wallet_address%"=="x" set new_wallet_address=X
+    if "%new_wallet_address%"=="X" goto :LOGOUT
+    if "%new_wallet_address%"=="s" set new_wallet_address=S
+    if "%new_wallet_address%"=="S" goto :START_OVER
+    if "%new_wallet_address%"=="r" set new_wallet_address=R
+    if "%new_wallet_address%"=="R" goto :W_ADDRESS_RESET
+    if "%new_wallet_address%"=="t" set new_wallet_address=T
+    if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
+    set temp_p_wallet_Keva=%new_wallet_address%
 
 @REM Monero Wallet Address
     echo.
@@ -847,6 +921,23 @@ if %p_version%==%xmrigControl_Version% (
     if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
     set temp_p_wallet_Tron=%new_wallet_address%
 
+@REM Yada Wallet Address
+    if %use_xmrigCC%==true (
+        echo.
+        echo [7;94m::: ADDRESS :::[0m[94m Yada -[0m[97m %p_wallet_Yada% [0m
+        set new_wallet_address=%p_wallet_Yada%
+        set /p new_wallet_address="[7;96m::: INPUT :::[0m Set a new wallet address for[93m Yada [0m> " 
+        if "%new_wallet_address%"=="x" set new_wallet_address=X
+        if "%new_wallet_address%"=="X" goto :LOGOUT
+        if "%new_wallet_address%"=="s" set new_wallet_address=S
+        if "%new_wallet_address%"=="S" goto :START_OVER
+        if "%new_wallet_address%"=="r" set new_wallet_address=R
+        if "%new_wallet_address%"=="R" goto :W_ADDRESS_RESET
+        if "%new_wallet_address%"=="t" set new_wallet_address=T
+        if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
+        set temp_p_wallet_Yada=%new_wallet_address%        
+    )
+
 @REM Zephyr Wallet Address
     echo.
     echo [7;94m::: ADDRESS :::[0m[94m Zephyr -[0m[97m %p_wallet_Zephyr% [0m
@@ -885,12 +976,14 @@ if %p_version%==%xmrigControl_Version% (
     echo [7;93m   [0m[93m Cardano -[0m[97m %temp_p_wallet_Cardano% [0m
     echo [7;93m   [0m[93m Clore AI -[0m[97m %temp_p_wallet_Clore% [0m
     echo [7;93m   [0m[93m Cosmos -[0m[97m %temp_p_wallet_Cosmos% [0m
+    if %use_xmrigCC%==true echo [7;93m   [0m[93m Dagger -[0m[97m %temp_p_wallet_Dagger% [0m
     echo [7;93m   [0m[93m Doge Coin -[0m[97m %temp_p_wallet_DogeCoin% [0m
     echo [7;93m   [0m[93m Enjin Coin -[0m[97m %temp_p_wallet_EnjinCoin% [0m
     echo [7;93m   [0m[93m Ethereum -[0m[97m %temp_p_wallet_Ethereum% [0m
     echo [7;93m   [0m[93m Ethereum Classic -[0m[97m %temp_p_wallet_EthereumClassic% [0m
     echo [7;93m   [0m[93m Karlsen -[0m[97m %temp_p_wallet_Karlsen% [0m
     echo [7;93m   [0m[93m Kaspa -[0m[97m %temp_p_wallet_Kaspa% [0m
+    echo [7;93m   [0m[93m Keva -[0m[97m %temp_p_wallet_Keva% [0m
     echo [7;93m   [0m[93m Monero -[0m[97m %temp_p_wallet_Monero% [0m
     echo [7;93m   [0m[93m Neoxa -[0m[97m %temp_p_wallet_Neoxa% [0m
     echo [7;93m   [0m[93m Neurai -[0m[97m %temp_p_wallet_Neurai% [0m
@@ -904,6 +997,7 @@ if %p_version%==%xmrigControl_Version% (
     echo [7;93m   [0m[93m Solana -[0m[97m %temp_p_wallet_Solana% [0m
     echo [7;93m   [0m[93m Tether US -[0m[97m %temp_p_wallet_Tether% [0m
     echo [7;93m   [0m[93m Tron -[0m[97m %temp_p_wallet_Tron% [0m
+    if %use_xmrigCC%==true echo [7;93m   [0m[93m Yada -[0m[97m %temp_p_wallet_Yada% [0m
     echo [7;93m   [0m[93m Zephyr -[0m[97m %temp_p_wallet_Zephyr% [0m
     echo.
     
@@ -942,6 +1036,10 @@ if %p_version%==%xmrigControl_Version% (
         echo setx p_wallet_Clore %temp_p_wallet_Clore%>> wallets.cmd
         echo set p_wallet_Cosmos=%temp_p_wallet_Cosmos%>> wallets.cmd
         echo setx p_wallet_Cosmos %temp_p_wallet_Cosmos%>> wallets.cmd
+        if %use_xmrigCC%==true (
+            echo set p_wallet_Dagger=%temp_p_wallet_Dagger%>> wallets.cmd
+            echo setx p_wallet_Dagger %temp_p_wallet_Dagger%>> wallets.cmd            
+        )
         echo set p_wallet_DogeCoin=%temp_p_wallet_DogeCoin%>> wallets.cmd
         echo setx p_wallet_DogeCoin %temp_p_wallet_DogeCoin%>> wallets.cmd
         echo set p_wallet_EnjinCoin=%temp_p_wallet_EnjinCoin%>> wallets.cmd
@@ -954,6 +1052,8 @@ if %p_version%==%xmrigControl_Version% (
         echo setx p_wallet_Karlsen %temp_p_wallet_Karlsen%>> wallets.cmd
         echo set p_wallet_Kaspa=%temp_p_wallet_Kaspa%>> wallets.cmd
         echo setx p_wallet_Kaspa %temp_p_wallet_Kaspa%>> wallets.cmd
+        echo set p_wallet_Keva=%temp_p_wallet_Keva%>> wallets.cmd
+        echo setx p_wallet_Keva %temp_p_wallet_Keva%>> wallets.cmd
         echo set p_wallet_Monero=%temp_p_wallet_Monero%>> wallets.cmd
         echo setx p_wallet_Monero %temp_p_wallet_Monero%>> wallets.cmd
         echo set p_wallet_Neoxa=%temp_p_wallet_Neoxa%>> wallets.cmd
@@ -980,6 +1080,10 @@ if %p_version%==%xmrigControl_Version% (
         echo setx p_wallet_Tether %temp_p_wallet_Tether%>> wallets.cmd
         echo set p_wallet_Tron=%temp_p_wallet_Tron%>> wallets.cmd
         echo setx p_wallet_Tron %temp_p_wallet_Tron%>> wallets.cmd
+        if %use_xmrigCC%==true (
+            echo set p_wallet_Yada=%temp_p_wallet_Yada%>> wallets.cmd
+            echo setx p_wallet_Yada %temp_p_wallet_Yada%>> wallets.cmd            
+        )
         echo set p_wallet_Zephyr=%temp_p_wallet_Zephyr%>> wallets.cmd
         echo setx p_wallet_Zephyr %temp_p_wallet_Zephyr%>> wallets.cmd
         echo call %p_name%.cmd >> wallets.cmd
@@ -1065,12 +1169,14 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_Cardano=%t_wallet_Cardano%
         set wallet_Clore=%t_wallet_Clore%
         set wallet_Cosmos=%t_wallet_Cosmos%
+        set wallet_Dagger=%t_wallet_Dagger%
         set wallet_DogeCoin=%t_wallet_DogeCoin%
         set wallet_EnjinCoin=%t_wallet_EnjinCoin%
         set wallet_Ethereum=%t_wallet_Ethereum%
         set wallet_EthereumClassic=%t_wallet_EthereumClassic%
         set wallet_Karlsen=%t_wallet_Karlsen%
         set wallet_Kaspa=%t_wallet_Kaspa%
+        set wallet_Keva=%t_wallet_Keva%
         set wallet_Monero=%t_wallet_Monero%
         set wallet_Neoxa=%t_wallet_Neoxa%
         set wallet_Neurai=%t_wallet_Neurai%
@@ -1084,6 +1190,7 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_Solana=%t_wallet_Solana%
         set wallet_Tether=%t_wallet_Tether%
         set wallet_Tron=%t_wallet_Tron%
+        set wallet_Yada=%t_wallet_Yada%
         set wallet_Zephyr=%t_wallet_Zephyr%
     ) else (
         set wallet_Alephium=%p_wallet_Alephium%
@@ -1095,12 +1202,14 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_Cardano=%p_wallet_Cardano%
         set wallet_Clore=%p_wallet_Clore%
         set wallet_Cosmos=%p_wallet_Cosmos%
+        set wallet_Dagger=%p_wallet_Dagger%
         set wallet_DogeCoin=%p_wallet_DogeCoin%
         set wallet_EnjinCoin=%p_wallet_EnjinCoin%
         set wallet_Ethereum=%p_wallet_Ethereum%
         set wallet_EthereumClassic=%p_wallet_EthereumClassic%
         set wallet_Karlsen=%p_wallet_Karlsen%
         set wallet_Kaspa=%p_wallet_Kaspa%
+        set wallet_Keva=%p_wallet_Keva%
         set wallet_Monero=%p_wallet_Monero%
         set wallet_Neoxa=%p_wallet_Neoxa%
         set wallet_Neurai=%p_wallet_Neurai%
@@ -1114,6 +1223,7 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_Solana=%p_wallet_Solana%
         set wallet_Tether=%p_wallet_Tether%
         set wallet_Tron=%p_wallet_Tron%
+        set wallet_Yada=%p_wallet_Yada%
         set wallet_Zephyr=%p_wallet_Zephyr%
     )
     set coin_select=false
@@ -1126,6 +1236,7 @@ if %p_version%==%xmrigControl_Version% (
     set CAN_SELECT_UnMineable=false
     set OUTPUT_CODE=%global_discount_code%
     set temp_TLS=%TLS%
+    set combine_worker=true
     cls
     echo [7;93m::: INFO :::[0m[93m %p_name% - Version %p_version% [0m
     echo.
@@ -1148,12 +1259,14 @@ if %p_version%==%xmrigControl_Version% (
     echo [7;93m   [0m[96m ADA   [0m[93m= Cardano [0m
     echo [7;93m   [0m[96m CLORE [0m[93m= Clore AI [0m
     echo [7;93m   [0m[96m ATOM  [0m[93m= Cosmos [0m
+    if %use_xmrigCC%==true echo [7;93m   [0m[96m XDAG  [0m[93m= Dagger [0m
     echo [7;93m   [0m[96m DOGE  [0m[93m= Doge Coin [0m
     echo [7;93m   [0m[96m ENJ   [0m[93m= Enjin Coin [0m
     echo [7;93m   [0m[96m ETH   [0m[93m= Ethereum [0m
     echo [7;93m   [0m[96m ETC   [0m[93m= Ethereum Classic [0m
     echo [7;93m   [0m[96m KLS   [0m[93m= Karlsen [0m
     echo [7;93m   [0m[96m KAS   [0m[93m= Kaspa [0m
+    echo [7;93m   [0m[96m KVA   [0m[93m= Keva [0m
     echo [7;93m   [0m[96m XMR   [0m[93m= Monero [0m
     echo [7;93m   [0m[96m NEOX  [0m[93m= Neoxa [0m
     echo [7;93m   [0m[96m XNA   [0m[93m= Neurai [0m
@@ -1167,6 +1280,7 @@ if %p_version%==%xmrigControl_Version% (
     echo [7;93m   [0m[96m SOL   [0m[93m= Solana [0m
     echo [7;93m   [0m[96m USDT  [0m[93m= Tether US [0m
     echo [7;93m   [0m[96m TRX   [0m[93m= Tron [0m
+    if %use_xmrigCC%==true echo [7;93m   [0m[96m YDA   [0m[93m= Yada [0m
     echo [7;93m   [0m[96m ZEPH  [0m[93m= Zephyr [0m
     echo.
     set /p coin_select="[7;96m::: INPUT :::[0m What Coin would you like to mine? [93m(Coin Tag)[0m > "
@@ -1253,6 +1367,22 @@ if %p_version%==%xmrigControl_Version% (
         set UnMineable=true
         if %use_global_discount%==false set OUTPUT_CODE=%discount_Cosmos%
     )
+@REM  XDAG - CPU
+    if %use_xmrigCC%==true (
+        if "%coin_select%"=="XDAG" ( 
+            set FoundCoin=true
+            set OUTPUT_WALLET=%wallet_Dagger%
+
+            set temp_TLS=false
+            set combine_worker=false
+
+            set CPU=true
+            set OUTPUT_ALGO=rx/xdag
+            set OUTPUT_POOL=%pool_Dagger%
+
+            set use_discount=false
+        )        
+    )
 @REM  DOGE - UnMineable
     if "%coin_select%"=="DOGE" ( 
         set FoundCoin=true
@@ -1300,6 +1430,20 @@ if %p_version%==%xmrigControl_Version% (
 
         set UnMineable=true
     if %use_global_discount%==false set OUTPUT_CODE=%discount_Kaspa%
+    )
+@REM  KVA - CPU
+    if "%coin_select%"=="KVA" ( 
+        set FoundCoin=true
+        set OUTPUT_WALLET=%wallet_Keva%
+        
+        set combine_worker=false
+        set Password=%WORKER%
+
+        set CPU=true
+        set OUTPUT_ALGO=rx/keva
+        set OUTPUT_POOL=%pool_Keva%
+
+        set use_discount=false
     )
 @REM  XMR - UnMineable / CPU
     if "%coin_select%"=="XMR" ( 
@@ -1430,6 +1574,21 @@ if %p_version%==%xmrigControl_Version% (
 
         set UnMineable=true
         if %use_global_discount%==false set OUTPUT_CODE=%discount_Tron%
+    )
+@REM  YDA - CPU
+    if %use_xmrigCC%==true (
+        if "%coin_select%"=="YDA" ( 
+            set FoundCoin=true
+            set OUTPUT_WALLET=%wallet_Yada%
+
+            set temp_TLS=false
+
+            set CPU=true
+            set OUTPUT_ALGO=rx/yada
+            set OUTPUT_POOL=%pool_Yada%
+
+            set use_discount=false
+        )        
     )
 @REM  ZEPH - UnMineable / CPU
     if "%coin_select%"=="ZEPH" ( 
@@ -1615,15 +1774,15 @@ if %p_version%==%xmrigControl_Version% (
 
 :CONFIG
     set TLS=%temp_TLS%
-
-    set OUTPUT_WALLET=%OUTPUT_WALLET%.%WORKER%
+    if %combine_worker%==true set OUTPUT_WALLET=%OUTPUT_WALLET%.%WORKER%
 
     if %UnMineable%==true set OUTPUT_WALLET=%coin_select%:%OUTPUT_WALLET%
     if %UnMineable%==true ( if %use_discount%==true set OUTPUT_WALLET=%OUTPUT_WALLET%#%OUTPUT_CODE% )
     
     set OUTPUT_WALLET=%OUTPUT_WALLET: =%
 
-    set CONFIG={ "api": { "id": null, "worker-id": null }, "http": { "enabled": false, "host": "127.0.0.1", "port": 0, "access-token": null, "restricted": true }, "autosave": true, "background": false, "colors": true, "title": "%p_name%", "randomx": { "init": -1, "init-avx2": 1, "mode": "fast", "1gb-pages": true, "rdmsr": true, "wrmsr": true, "cache_qos": false, "numa": true, "scratchpad_prefetch_mode": 2 }, "cpu": { "enabled": %CPU%, "huge-pages": true, "huge-pages-jit": false, "hw-aes": null, "priority": null, "memory-pool": false, "yield": false, "max-threads-hint": 100, "asm": true, "argon2-impl": null, "cn/0": false, "cn-lite/0": false }, "opencl": { "enabled": %AMD%, "cache": true, "loader": null, "platform": "AMD", "adl": true, "cn/0": false, "cn-lite/0": false }, "cuda": { "enabled": %NVIDIA%, "loader": "%XMRig_Folder%/xmrig-cuda.dll", "nvml": true, "cn/0": false, "cn-lite/0": false }, "donate-level": %Donate%, "donate-over-proxy": %Donate%, "log-file": null, "pools": [{ "enabled": true, "coin": null, "algo": "%OUTPUT_ALGO%", "url": "%OUTPUT_POOL%", "user": "%OUTPUT_WALLET%", "pass": "%Password%", "rig-id": "%WORKER%", "nicehash": %NiceHash%, "keepalive": true, "tls": %TLS%, "tls-fingerprint": null, "daemon": false, "socks5": null, "self-select": null, "submit-to-origin": false }], "print-time": 60, "health-print-time": 60, "dmi": true, "retries": 5, "retry-pause": 5, "syslog": false, "tls": { "enabled": false, "protocols": null, "cert": null, "cert_key": null, "ciphers": null, "ciphersuites": null, "dhparam": null }, "dns": { "ipv6": false, "ttl": 30 }, "user-agent": null, "verbose": 0, "watch": true, "pause-on-battery": false, "pause-on-active": false }
+    set CONFIG={ "api": { "id": null, "worker-id": null }, "http": { "enabled": false, "host": "127.0.0.1", "port": 0, "access-token": null, "restricted": true }, "autosave": true, "background": false, "colors": true, "title": "%p_name%", "randomx": { "init": -1, "init-avx2": -1, "mode": "fast", "1gb-pages": false, "rdmsr": true, "wrmsr": true, "cache_qos": false, "numa": true, "scratchpad_prefetch_mode": 2 }, "cpu": { "enabled": %CPU%, "huge-pages": true, "huge-pages-jit": false, "hw-aes": null, "priority": null, "memory-pool": false, "yield": false, "force-autoconfig": false, "max-threads-hint": 100, "max-cpu-usage": %max_cpu_usage%, "asm": true, "argon2-impl": null, "cn/0": false, "cn-lite/0": false }, "opencl": { "enabled": %AMD%, "cache": true, "loader": null, "platform": "AMD", "adl": true, "cn/0": false, "cn-lite/0": false }, "cuda": { "enabled": %NVIDIA%, "loader": "%XMRig_Folder%/xmrig-cuda.dll", "nvml": true, "cn/0": false, "cn-lite/0": false }, "donate-level": %Donate_Level%, "donate-over-proxy": %Donate_Level%, "log-file": null, "pools": [ { "algo": "%OUTPUT_ALGO%", "coin": null, "url": "%OUTPUT_POOL%", "user": "%OUTPUT_WALLET%", "pass": "%Password%", "rig-id": "%WORKER%", "nicehash": %NiceHash%, "keepalive": false, "enabled": true, "tls": %TLS%, "tls-fingerprint": null, "daemon": false, "socks5": null, "self-select": null, "submit-to-origin": false } ], "cc-client": { "enabled": %activate_CC_client%, "servers": [ { "url": "%CC_server_url%", "access-token": "%CC_server_access_token%", "use-tls": %CC_server_tls% } ], "use-remote-logging": true, "upload-config-on-start": true, "worker-id": "%WORKER%", "reboot-cmd": null, "update-interval-s": 10, "retries-to-failover": 5 }, "print-time": 60, "health-print-time": 60, "dmi": true, "retries": 5, "retry-pause": 5, "syslog": false, "tls": { "enabled": false, "protocols": null, "cert": null, "cert_key": null, "ciphers": null, "ciphersuites": null, "dhparam": null }, "dns": { "ipv6": false, "ttl": 30 }, "user-agent": null, "verbose": 0, "watch": true, "pause-on-battery": false, "pause-on-active": false }
+
     echo %CONFIG% > config.json
     if exist config.json (
         echo [7;92m::: SUCCESS :::[0m[92m Configuration file created successfully. [0m
@@ -1648,11 +1807,11 @@ if %p_version%==%xmrigControl_Version% (
     set OUTPUT_GPU_TYPE=NVIDIA
     if %AMD%==true set OUTPUT_GPU_TYPE=AMD
     if %GPU%==true echo [7;94m::: SETUP :::[0m[94m GPU Type -[0m[97m %OUTPUT_GPU_TYPE% [0m
-    echo [7;94m::: SETUP :::[0m[94m XMRig Donate Level -[0m[97m %Donate%[0m%%
+    echo [7;94m::: SETUP :::[0m[94m XMRig Donate Level -[0m[97m %Donate_Level%[0m%%
     if %UnMineable%==false echo [7;94m::: SETUP :::[0m[94m Pool Address -[0m[97m %OUTPUT_POOL% [0m
     echo [7;94m::: SETUP :::[0m[94m Wallet Address -[0m[97m %OUTPUT_WALLET% [0m
     timeout /t %TimeOut%
-    xmrig.exe
+    %xmrig_p_name%.exe
 
 :START_OVER
     call %p_name%.cmd

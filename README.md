@@ -56,9 +56,12 @@
 - XNA   { Neurai }
 - RVN   { Raven Coin }
 #### CPU Algorithm Coins
+- XDAG  { Dagger } - only when using xmrigCC
+- KVA   { Keva }
 - QRL   { Quantum Resistant Ledger }
 - RTM   { Raptoreum }
 - XMR   { Monero }
+- YDA   { Yada } - only when using xmrigCC
 - ZEPH  { Zephyr }
 
 ![xmrigControl_v1_5_0](https://github.com/UnLuckyLust/xmrigControl/assets/104845736/60c49ae3-1ead-4d67-95f3-76e2981f7032)
