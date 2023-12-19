@@ -10,6 +10,7 @@
 - Create Custom Config file for XMRig.
 - Saving wallet addresses in the current rig, for easy switching between coins.
 - Support for UnMineable pools, for expanded coin options.
+- Support for XMRigCC, for expanded coin options.
 
 ## Initial Setup
 - Before you start the program for the first time, you should open the cmd file in your text editor, and change the addresses of the temporary wallets to your own.
