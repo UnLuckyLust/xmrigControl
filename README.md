@@ -35,6 +35,7 @@
 - ADA   { Cardano }
 - ATOM  { Cosmos }
 - DOGE  { Doge Coin }
+- DNX   { Dynex }
 - ENJ   { Enjin Coin }
 - ETH   { Ethereum } 
 - ETC   { Ethereum Classic }
@@ -59,9 +60,9 @@
 #### CPU Algorithm Coins
 - XDAG  { Dagger } - only when using xmrigCC
 - KVA   { Keva }
+- XMR   { Monero }
 - QRL   { Quantum Resistant Ledger }
 - RTM   { Raptoreum }
-- XMR   { Monero }
 - YDA   { Yada } - only when using xmrigCC
 - ZEPH  { Zephyr }
 

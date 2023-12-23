@@ -1,5 +1,10 @@
 # xmrigControl Changelog
 
+## Version 1.5.2
+- Added more XMRig Configs options.
+- Changed XMRig window title to the current Worker Name.
+- Added Dynex Coin Support (UnMineable)
+
 ## Version 1.5.1
 - Added option to download and use xmrigCC instead of xmrig.
 - Added Yada Coin Support (CPU - only for xmrigCC)

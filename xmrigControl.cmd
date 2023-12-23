@@ -59,6 +59,7 @@ cd /d "%~dp0"
     set t_wallet_Cosmos=cosmos1p9ru4lte6g7vfnkqv2xtnqmvt0l872n8zhg2xt
     set t_wallet_Dagger=JVQZfRinc5UDAceu3mSG4Bt8vmRvudBjd
     set t_wallet_DogeCoin=DHRQi6qMF7KdFthUhjaTDh42HN6Rp2jdXq
+    set t_wallet_Dynex=Xwn57RKujVL5VWch6VvZbxfWtLe8LryQRU1ZuznWpZouMGAyNytLhvpBxy6Yd4mzgVenz1xUQTPg48EHj4BaZsEK2xxx9EQBd
     set t_wallet_EnjinCoin=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
     set t_wallet_Ethereum=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
     set t_wallet_EthereumClassic=0xdB334D2B4D6B10cc7e84a4927e3bcf6e9a75A629
@@ -97,6 +98,7 @@ cd /d "%~dp0"
     set discount_Cardano=cjs7-d894
     set discount_Cosmos=ieat-7mld
     set discount_DogeCoin=x0x8-zqtb
+    set discount_Dynex=87c7-p889
     set discount_EnjinCoin=4twy-lc6o
     set discount_Ethereum=9y1u-abm2
     set discount_EthereumClassic=s1fn-193o
@@ -118,9 +120,19 @@ cd /d "%~dp0"
 @REM ----------------------
     set TLS=true
     set Password=x
-    set NiceHash=false
     set Donate_Level=1
+    set xmr_mode=fast
+    set NiceHash=false
+    set 1gb-pages=false
+    set huge-pages=true
+    set huge-pages-jit=false
+    set memory-pool=true
+    set yield=false
+    set background=false
+    set cpu_priority=null
     set max_cpu_usage=100
+    set max-threads-hint=100
+    set scratchpad_prefetch_mode=2
 
 @REM ------------------------
 @REM ↧↧↧ XMRigCC Settings ↧↧↧
@@ -137,8 +149,9 @@ cd /d "%~dp0"
 @REM ----------------------
     set Debug=false
     set TimeOut=10
-    set shortcut=true
-    set shortcut_location=%cd%
+    set Window_Height=45
+    set Shortcut=true
+    set Shortcut_Location=%cd%
 
 @REM ---------------------------------
 @REM ↥↥↥ End of configuration area ↥↥↥
@@ -149,7 +162,7 @@ if exist config.json del config.json
 if exist install_xmrig.cmd del install_xmrig.cmd
 if exist install_xmrigCC.cmd del install_xmrigCC.cmd
 if exist install_xmrig_cuda.cmd del install_xmrig_cuda.cmd
-set p_version=1.5.1
+set p_version=1.5.2
 set p_name=xmrigControl
 set xmrig_p_name=xmrig
 set xmrig_p_download=install_xmrig
@@ -163,8 +176,10 @@ if "%TemporaryWallets%"=="" (
     setx TemporaryWallets %use_Temporary_Wallets%
 )
 title %p_name%
-mode con: lines=44
-if %use_xmrigCC%==true mode con: lines=46
+if %use_xmrigCC%==true (
+    set /a Window_Height=Window_Height+2
+)
+mode con: lines=!Window_Height!
 set temp_p_name=%cd%\%~nx0
 if not %temp_p_name%==%cd%\%p_name%.cmd (
     ren %temp_p_name% %p_name%.cmd
@@ -187,7 +202,7 @@ rem ------- getadmin.vbs ----------------------------------
 rem -------------------------------------------------------
 if %Debug%==true echo [7;92m::: SUCCESS :::[0m[92m Running %p_name% as admin [0m
 if "%TEMP_MINER%"=="" set TEMP_MINER=%WORKER%
-set old_shortcut_loc=%shortcut_location%\!TEMP_MINER!.lnk
+set old_shortcut_loc=%Shortcut_Location%\!TEMP_MINER!.lnk
 
 @REM XMRig Check
 set need_download_xmrig=false
@@ -341,6 +356,8 @@ if %p_version%==%xmrigControl_Version% (
         setx p_wallet_Dagger NO_WALLET_ADDRESS
         set p_wallet_DogeCoin=NO_WALLET_ADDRESS
         setx p_wallet_DogeCoin NO_WALLET_ADDRESS
+        set p_wallet_Dynex=NO_WALLET_ADDRESS
+        setx p_wallet_Dynex NO_WALLET_ADDRESS
         set p_wallet_EnjinCoin=NO_WALLET_ADDRESS
         setx p_wallet_EnjinCoin NO_WALLET_ADDRESS
         set p_wallet_Ethereum=NO_WALLET_ADDRESS
@@ -411,6 +428,8 @@ if %p_version%==%xmrigControl_Version% (
     if "%p_wallet_Dagger%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_DogeCoin%"=="" set p_wallet_DogeCoin=NO_WALLET_ADDRESS
     if "%p_wallet_DogeCoin%"=="NO_WALLET_ADDRESS" set check_w_fail=true
+    if "%p_wallet_Dynex%"=="" set p_wallet_DogeCoin=NO_WALLET_ADDRESS
+    if "%p_wallet_Dynex%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_EnjinCoin%"=="" set p_wallet_EnjinCoin=NO_WALLET_ADDRESS
     if "%p_wallet_EnjinCoin%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Ethereum%"=="" set p_wallet_Ethereum=NO_WALLET_ADDRESS
@@ -635,6 +654,21 @@ if %p_version%==%xmrigControl_Version% (
     if "%new_wallet_address%"=="t" set new_wallet_address=T
     if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
     set temp_p_wallet_DogeCoin=%new_wallet_address%
+
+@REM Dynex Wallet Address
+    echo.
+    echo [7;94m::: ADDRESS :::[0m[94m Dynex -[0m[97m %p_wallet_Dynex% [0m
+    set new_wallet_address=%p_wallet_Dynex%
+    set /p new_wallet_address="[7;96m::: INPUT :::[0m Set a new wallet address for[93m Dynex [0m> " 
+    if "%new_wallet_address%"=="x" set new_wallet_address=X
+    if "%new_wallet_address%"=="X" goto :LOGOUT
+    if "%new_wallet_address%"=="s" set new_wallet_address=S
+    if "%new_wallet_address%"=="S" goto :START_OVER
+    if "%new_wallet_address%"=="r" set new_wallet_address=R
+    if "%new_wallet_address%"=="R" goto :W_ADDRESS_RESET
+    if "%new_wallet_address%"=="t" set new_wallet_address=T
+    if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
+    set temp_p_wallet_Dynex=%new_wallet_address%
 
 @REM Enjin Coin Wallet Address
     echo.
@@ -978,6 +1012,7 @@ if %p_version%==%xmrigControl_Version% (
     echo [7;93m   [0m[93m Cosmos -[0m[97m %temp_p_wallet_Cosmos% [0m
     if %use_xmrigCC%==true echo [7;93m   [0m[93m Dagger -[0m[97m %temp_p_wallet_Dagger% [0m
     echo [7;93m   [0m[93m Doge Coin -[0m[97m %temp_p_wallet_DogeCoin% [0m
+    echo [7;93m   [0m[93m Dynex -[0m[97m %temp_p_wallet_Dynex% [0m
     echo [7;93m   [0m[93m Enjin Coin -[0m[97m %temp_p_wallet_EnjinCoin% [0m
     echo [7;93m   [0m[93m Ethereum -[0m[97m %temp_p_wallet_Ethereum% [0m
     echo [7;93m   [0m[93m Ethereum Classic -[0m[97m %temp_p_wallet_EthereumClassic% [0m
@@ -1042,6 +1077,8 @@ if %p_version%==%xmrigControl_Version% (
         )
         echo set p_wallet_DogeCoin=%temp_p_wallet_DogeCoin%>> wallets.cmd
         echo setx p_wallet_DogeCoin %temp_p_wallet_DogeCoin%>> wallets.cmd
+        echo set p_wallet_Dynex=%temp_p_wallet_Dynex%>> wallets.cmd
+        echo setx p_wallet_Dynex %temp_p_wallet_Dynex%>> wallets.cmd
         echo set p_wallet_EnjinCoin=%temp_p_wallet_EnjinCoin%>> wallets.cmd
         echo setx p_wallet_EnjinCoin %temp_p_wallet_EnjinCoin%>> wallets.cmd
         echo set p_wallet_Ethereum=%temp_p_wallet_Ethereum%>> wallets.cmd
@@ -1115,8 +1152,8 @@ if %p_version%==%xmrigControl_Version% (
     if "%select_worker%"=="t" set select_worker=T
     if "%select_worker%"=="T" goto :W_ADDRESS_TOGGLE
     set WORKER=%select_worker%
-    if %shortcut%==false goto :SELECT_COIN
-    if %shortcut%==true goto :SHORTCUT
+    if %Shortcut%==false goto :SELECT_COIN
+    if %Shortcut%==true goto :SHORTCUT
 
 :SHORTCUT
     @REM Delete xmrigControl Old Shortcut
@@ -1128,7 +1165,7 @@ if %p_version%==%xmrigControl_Version% (
     )
 
     @REM Create xmrigControl Shortcut
-    set shortcut_loc=%shortcut_location%\!WORKER!.lnk
+    set shortcut_loc=%Shortcut_Location%\!WORKER!.lnk
     set LOG=".\%~N0_runtime.log"
     if exist %shortcut_loc% (
         if %Debug%==true echo [7;94m::: SETUP :::[0m[94m Found existing shortcut. [0m
@@ -1171,6 +1208,7 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_Cosmos=%t_wallet_Cosmos%
         set wallet_Dagger=%t_wallet_Dagger%
         set wallet_DogeCoin=%t_wallet_DogeCoin%
+        set wallet_Dynex=%t_wallet_Dynex%
         set wallet_EnjinCoin=%t_wallet_EnjinCoin%
         set wallet_Ethereum=%t_wallet_Ethereum%
         set wallet_EthereumClassic=%t_wallet_EthereumClassic%
@@ -1204,6 +1242,7 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_Cosmos=%p_wallet_Cosmos%
         set wallet_Dagger=%p_wallet_Dagger%
         set wallet_DogeCoin=%p_wallet_DogeCoin%
+        set wallet_Dynex=%p_wallet_Dynex%
         set wallet_EnjinCoin=%p_wallet_EnjinCoin%
         set wallet_Ethereum=%p_wallet_Ethereum%
         set wallet_EthereumClassic=%p_wallet_EthereumClassic%
@@ -1261,6 +1300,7 @@ if %p_version%==%xmrigControl_Version% (
     echo [7;93m   [0m[96m ATOM  [0m[93m= Cosmos [0m
     if %use_xmrigCC%==true echo [7;93m   [0m[96m XDAG  [0m[93m= Dagger [0m
     echo [7;93m   [0m[96m DOGE  [0m[93m= Doge Coin [0m
+    echo [7;93m   [0m[96m DNX   [0m[93m= Dynex [0m
     echo [7;93m   [0m[96m ENJ   [0m[93m= Enjin Coin [0m
     echo [7;93m   [0m[96m ETH   [0m[93m= Ethereum [0m
     echo [7;93m   [0m[96m ETC   [0m[93m= Ethereum Classic [0m
@@ -1390,6 +1430,14 @@ if %p_version%==%xmrigControl_Version% (
 
         set UnMineable=true
         if %use_global_discount%==false set OUTPUT_CODE=%discount_DogeCoin%
+    )
+@REM  DNX - UnMineable
+    if "%coin_select%"=="DNX" ( 
+        set FoundCoin=true
+        set OUTPUT_WALLET=%wallet_Dynex%
+
+        set UnMineable=true
+        if %use_global_discount%==false set OUTPUT_CODE=%discount_Dynex%
     )
 @REM  ENJ - UnMineable
     if "%coin_select%"=="ENJ" ( 
@@ -1781,7 +1829,7 @@ if %p_version%==%xmrigControl_Version% (
     
     set OUTPUT_WALLET=%OUTPUT_WALLET: =%
 
-    set CONFIG={ "api": { "id": null, "worker-id": null }, "http": { "enabled": false, "host": "127.0.0.1", "port": 0, "access-token": null, "restricted": true }, "autosave": true, "background": false, "colors": true, "title": "%p_name%", "randomx": { "init": -1, "init-avx2": -1, "mode": "fast", "1gb-pages": false, "rdmsr": true, "wrmsr": true, "cache_qos": false, "numa": true, "scratchpad_prefetch_mode": 2 }, "cpu": { "enabled": %CPU%, "huge-pages": true, "huge-pages-jit": false, "hw-aes": null, "priority": null, "memory-pool": false, "yield": false, "force-autoconfig": false, "max-threads-hint": 100, "max-cpu-usage": %max_cpu_usage%, "asm": true, "argon2-impl": null, "cn/0": false, "cn-lite/0": false }, "opencl": { "enabled": %AMD%, "cache": true, "loader": null, "platform": "AMD", "adl": true, "cn/0": false, "cn-lite/0": false }, "cuda": { "enabled": %NVIDIA%, "loader": "%XMRig_Folder%/xmrig-cuda.dll", "nvml": true, "cn/0": false, "cn-lite/0": false }, "donate-level": %Donate_Level%, "donate-over-proxy": %Donate_Level%, "log-file": null, "pools": [ { "algo": "%OUTPUT_ALGO%", "coin": null, "url": "%OUTPUT_POOL%", "user": "%OUTPUT_WALLET%", "pass": "%Password%", "rig-id": "%WORKER%", "nicehash": %NiceHash%, "keepalive": false, "enabled": true, "tls": %TLS%, "tls-fingerprint": null, "daemon": false, "socks5": null, "self-select": null, "submit-to-origin": false } ], "cc-client": { "enabled": %activate_CC_client%, "servers": [ { "url": "%CC_server_url%", "access-token": "%CC_server_access_token%", "use-tls": %CC_server_tls% } ], "use-remote-logging": true, "upload-config-on-start": true, "worker-id": "%WORKER%", "reboot-cmd": null, "update-interval-s": 10, "retries-to-failover": 5 }, "print-time": 60, "health-print-time": 60, "dmi": true, "retries": 5, "retry-pause": 5, "syslog": false, "tls": { "enabled": false, "protocols": null, "cert": null, "cert_key": null, "ciphers": null, "ciphersuites": null, "dhparam": null }, "dns": { "ipv6": false, "ttl": 30 }, "user-agent": null, "verbose": 0, "watch": true, "pause-on-battery": false, "pause-on-active": false }
+    set CONFIG={ "api": { "id": null, "worker-id": null }, "http": { "enabled": false, "host": "127.0.0.1", "port": 0, "access-token": null, "restricted": true }, "autosave": true, "background": !background!, "colors": true, "title": "!WORKER!", "randomx": { "init": -1, "init-avx2": -1, "mode": "!xmr_mode!", "1gb-pages": !1gb-pages!, "rdmsr": true, "wrmsr": true, "cache_qos": false, "numa": true, "scratchpad_prefetch_mode": !scratchpad_prefetch_mode! }, "cpu": { "enabled": !CPU!, "huge-pages": !huge-pages!, "huge-pages-jit": !huge-pages-jit!, "hw-aes": null, "priority": !cpu_priority!, "memory-pool": !memory-pool!, "yield": !yield!, "force-autoconfig": false, "max-threads-hint": !max-threads-hint!, "max-cpu-usage": !max_cpu_usage!, "asm": true, "argon2-impl": null, "cn/0": false, "cn-lite/0": false }, "opencl": { "enabled": !AMD!, "cache": true, "loader": null, "platform": "AMD", "adl": true, "cn/0": false, "cn-lite/0": false }, "cuda": { "enabled": !NVIDIA!, "loader": "!XMRig_Folder!/xmrig-cuda.dll", "nvml": true, "cn/0": false, "cn-lite/0": false }, "donate-level": !Donate_Level!, "donate-over-proxy": !Donate_Level!, "log-file": null, "pools": [ { "algo": "!OUTPUT_ALGO!", "coin": null, "url": "!OUTPUT_POOL!", "user": "!OUTPUT_WALLET!", "pass": "!Password!", "rig-id": "!WORKER!", "nicehash": !NiceHash!, "keepalive": false, "enabled": true, "tls": !TLS!, "tls-fingerprint": null, "daemon": false, "socks5": null, "self-select": null, "submit-to-origin": false } ], "cc-client": { "enabled": !activate_CC_client!, "servers": [ { "url": "!CC_server_url!", "access-token": "!CC_server_access_token!", "use-tls": !CC_server_tls! } ], "use-remote-logging": true, "upload-config-on-start": true, "worker-id": "!WORKER!", "reboot-cmd": null, "update-interval-s": 10, "retries-to-failover": 5 }, "print-time": 60, "health-print-time": 60, "dmi": true, "retries": 5, "retry-pause": 5, "syslog": false, "tls": { "enabled": false, "protocols": null, "cert": null, "cert_key": null, "ciphers": null, "ciphersuites": null, "dhparam": null }, "dns": { "ipv6": false, "ttl": 30 }, "user-agent": null, "verbose": 0, "watch": true, "pause-on-battery": false, "pause-on-active": false }
 
     echo %CONFIG% > config.json
     if exist config.json (
