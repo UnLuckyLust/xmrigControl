@@ -53,6 +53,7 @@
 - ZEPH  { Zephyr }
 ### When using Custom pools
 #### GPU Algorithm Coins
+- AIPG  { AI Power Grid }
 - CLORE { Clore AI }
 - NEOX  { Neoxa }
 - XNA   { Neurai }

@@ -26,6 +26,7 @@ cd /d "%~dp0"
     set pool_gpu=stratum+ssl://kp-eu.unmineable.com:443
 
 @REM Custom Pools addresses
+    set pool_AIPowerGrid=stratum+ssl://tr.aipg.herominers.com:1128
     set pool_Clore=stratum+ssl://tr.clore.herominers.com:1163
     set pool_Dagger=stratum.xdag.org:23656
     set pool_Keva=pool.hashvault.pro:443
@@ -48,6 +49,7 @@ cd /d "%~dp0"
 @REM -----------------------------------
 @REM ↧↧↧ Temporary wallets addresses ↧↧↧
 @REM -----------------------------------    
+    set t_wallet_AIPowerGrid=APMALUKctrzBjjVReutRxK2d1FHWe1Pqm1
     set t_wallet_Alephium=17T6VoqHrVwc4wNqmgNmXdMwzyUr1TcnMc55tzv6rCB9x
     set t_wallet_Avalanche=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
     set t_wallet_Binance=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
@@ -132,12 +134,12 @@ cd /d "%~dp0"
     set cpu_priority=null
     set max_cpu_usage=100
     set max-threads-hint=100
-    set scratchpad_prefetch_mode=2
+    set scratchpad_prefetch_mode=1
 
 @REM ------------------------
 @REM ↧↧↧ XMRigCC Settings ↧↧↧
 @REM ------------------------
-    set use_xmrigCC=true
+    set use_xmrigCC=false
 @REM ------------------------
     set activate_CC_client=false
     set CC_server_url=localhost:3344
@@ -148,8 +150,9 @@ cd /d "%~dp0"
 @REM ↧↧↧ Debug Settings ↧↧↧
 @REM ----------------------
     set Debug=false
+    set Updater=true
     set TimeOut=10
-    set Window_Height=45
+    set Window_Height=46
     set Shortcut=true
     set Shortcut_Location=%cd%
 
@@ -162,7 +165,8 @@ if exist config.json del config.json
 if exist install_xmrig.cmd del install_xmrig.cmd
 if exist install_xmrigCC.cmd del install_xmrigCC.cmd
 if exist install_xmrig_cuda.cmd del install_xmrig_cuda.cmd
-set p_version=1.5.2
+if exist install_xmrigControl.cmd del install_xmrigControl.cmd
+set p_version=1.5.3
 set p_name=xmrigControl
 set xmrig_p_name=xmrig
 set xmrig_p_download=install_xmrig
@@ -242,7 +246,47 @@ if %need_download_xmrig%==true (
     goto :LOGOUT
 )
 
-@REM Version Check
+@REM GitHub Version Check
+set http_results=NONE
+set need_download_xmrigControl=false
+set download_xmrigControl=false
+Set "MyCommand=curl -s "https://raw.githubusercontent.com/UnLuckyLust/xmrigControl/cmd/updater_version""
+@for /f %%R in ('%MyCommand%') do ( Set http_results=%%R )
+set http_results=%http_results: =%
+if !http_results!==404: set http_results=NONE
+if !http_results!==NONE (
+    echo [7;91m::: ERROR :::[0m[91m No response was received from the GitHub server. [0m
+) else (
+    cls
+    if !http_results!==!p_version! (
+        echo [7;92m::: SUCCESS :::[0m[92m xmrigControl is up to date. [0m
+    ) else (
+        echo [7;91m::: ERROR :::[0m[91m xmrigControl has a new version. [0m
+        echo.
+        echo [7;91m::: CURRENT VERSION :::[0m[91m -[0m !p_version!
+        echo [7;92m::: LATEST  VERSION :::[0m[92m -[0m !http_results!
+        echo.
+        if !Updater!==true (
+            set need_download_xmrigControl=true
+            set /p download_xmrigControl="[7;96m::: INPUT :::[0m Would you like to update [93mxmrigControl[0m? ([96mY[0m/[96mN[0m) > "
+        )
+    )
+)
+if "%download_xmrigControl%"=="x" set download_xmrigControl=X
+if "%download_xmrigControl%"=="X" goto :LOGOUT
+if "%download_xmrigControl%"=="r" set download_xmrigControl=R
+if "%download_xmrigControl%"=="R" goto :START_OVER
+if "%download_xmrigControl%"=="y" set download_xmrigControl=Y
+if "%download_xmrigControl%"=="Y" set download_xmrigControl=true
+if !need_download_xmrigControl!==true (
+    if !download_xmrigControl!==true (
+        echo [7;94m::: SETUP :::[0m[94m Updating xmrigControl... [0m
+        curl --output install_xmrigControl.cmd -LO https://raw.githubusercontent.com/UnLuckyLust/xmrigControl/cmd/commands/install_xmrigControl.cmd
+        call install_xmrigControl.cmd
+    )
+)
+
+@REM Local Version Check
 if "%xmrigControl_Version%"=="" (
     if %Debug%==true echo [7;94m::: SETUP :::[0m[94m %p_name% No Older Version found. [0m
     set xmrigControl_Version=%p_version%
@@ -334,6 +378,8 @@ if %p_version%==%xmrigControl_Version% (
     if "%confirm_w_reset%"=="y" set confirm_w_reset=Y
     if "%confirm_w_reset%"=="Y" set confirm_w_reset=true
     if %confirm_w_reset%==true (
+        set p_wallet_AIPowerGrid=NO_WALLET_ADDRESS
+        setx p_wallet_AIPowerGrid NO_WALLET_ADDRESS
         set p_wallet_Alephium=NO_WALLET_ADDRESS
         setx p_wallet_Alephium NO_WALLET_ADDRESS
         set p_wallet_Avalanche=NO_WALLET_ADDRESS
@@ -408,6 +454,8 @@ if %p_version%==%xmrigControl_Version% (
 
 :W_ADDRESS_CHECK
     set check_w_fail=false
+    if "%p_wallet_AIPowerGrid%"=="" set p_wallet_AIPowerGrid=NO_WALLET_ADDRESS
+    if "%p_wallet_AIPowerGrid%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Alephium%"=="" set p_wallet_Alephium=NO_WALLET_ADDRESS
     if "%p_wallet_Alephium%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Avalanche%"=="" set p_wallet_Avalanche=NO_WALLET_ADDRESS
@@ -487,6 +535,21 @@ if %p_version%==%xmrigControl_Version% (
     echo.
     if %TemporaryWallets%==true echo [7;94m::: SETUP :::[0m[94m Using Temporary wallets addresses. [0m
     if %TemporaryWallets%==false echo [7;94m::: SETUP :::[0m[94m Using Persistent wallets addresses. [0m
+
+@REM AI Power Grid Wallet Address
+    echo.
+    echo [7;94m::: ADDRESS :::[0m[94m AI Power Grid -[0m[97m %p_wallet_AIPowerGrid% [0m
+    set new_wallet_address=%p_wallet_AIPowerGrid%
+    set /p new_wallet_address="[7;96m::: INPUT :::[0m Set a new wallet address for[93m AI Power Grid [0m> " 
+    if "%new_wallet_address%"=="x" set new_wallet_address=X
+    if "%new_wallet_address%"=="X" goto :LOGOUT
+    if "%new_wallet_address%"=="r" set new_wallet_address=R
+    if "%new_wallet_address%"=="R" goto :START_OVER
+    if "%new_wallet_address%"=="d" set new_wallet_address=D
+    if "%new_wallet_address%"=="D" goto :W_ADDRESS_RESET
+    if "%new_wallet_address%"=="t" set new_wallet_address=T
+    if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
+    set temp_p_wallet_AIPowerGrid=%new_wallet_address%
 
 @REM Alephium Wallet Address
     echo.
@@ -1001,6 +1064,7 @@ if %p_version%==%xmrigControl_Version% (
     if %TemporaryWallets%==false echo [7;94m::: SETUP :::[0m[94m Using Persistent wallets addresses. [0m
     echo.
     echo [93m::: Wallet Addresses [0m
+    echo [7;93m   [0m[93m AI Power Grid -[0m[97m %temp_p_wallet_AIPowerGrid% [0m
     echo [7;93m   [0m[93m Alephium -[0m[97m %temp_p_wallet_Alephium% [0m
     echo [7;93m   [0m[93m Avalanche -[0m[97m %temp_p_wallet_Avalanche% [0m
     echo [7;93m   [0m[93m Binance Coin -[0m[97m %temp_p_wallet_Binance% [0m
@@ -1053,6 +1117,8 @@ if %p_version%==%xmrigControl_Version% (
         echo @echo off >> wallets.cmd
         echo cls >> wallets.cmd
         echo echo [7;93m::: INFO :::[0m[93m %p_name% Wallets - Version %p_version% [0m >> wallets.cmd
+        echo set p_wallet_AIPowerGrid=%temp_p_wallet_AIPowerGrid%>> wallets.cmd
+        echo setx p_wallet_AIPowerGrid %temp_p_wallet_AIPowerGrid%>> wallets.cmd
         echo set p_wallet_Alephium=%temp_p_wallet_Alephium%>> wallets.cmd
         echo setx p_wallet_Alephium %temp_p_wallet_Alephium%>> wallets.cmd
         echo set p_wallet_Avalanche=%temp_p_wallet_Avalanche%>> wallets.cmd
@@ -1197,6 +1263,7 @@ if %p_version%==%xmrigControl_Version% (
 
 :SELECT_COIN
     if %TemporaryWallets%==true (
+        set wallet_AIPowerGrid=%t_wallet_AIPowerGrid%
         set wallet_Alephium=%t_wallet_Alephium%
         set wallet_Avalanche=%t_wallet_Avalanche%
         set wallet_Binance=%t_wallet_Binance%
@@ -1231,6 +1298,7 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_Yada=%t_wallet_Yada%
         set wallet_Zephyr=%t_wallet_Zephyr%
     ) else (
+        set wallet_AIPowerGrid=%p_wallet_AIPowerGrid%
         set wallet_Alephium=%p_wallet_Alephium%
         set wallet_Avalanche=%p_wallet_Avalanche%
         set wallet_Binance=%p_wallet_Binance%
@@ -1289,6 +1357,7 @@ if %p_version%==%xmrigControl_Version% (
     if %TemporaryWallets%==false echo [7;94m::: SETUP :::[0m[94m Using Persistent wallets addresses. [0m
     echo.
     echo [93m::: Coins available for mining [0m
+    echo [7;93m   [0m[96m AIPG  [0m[93m= AI Power Grid [0m
     echo [7;93m   [0m[96m ALPH  [0m[93m= Alephium [0m
     echo [7;93m   [0m[96m AVAX  [0m[93m= Avalanche [0m
     echo [7;93m   [0m[96m BNB   [0m[93m= Binance Coin [0m
@@ -1332,6 +1401,17 @@ if %p_version%==%xmrigControl_Version% (
     if "%coin_select%"=="D" goto :W_ADDRESS_RESET
     if "%coin_select%"=="t" set coin_select=T
     if "%coin_select%"=="T" goto :W_ADDRESS_TOGGLE
+@REM  AIPG - GPU
+    if "%coin_select%"=="AIPG" ( 
+        set FoundCoin=true
+        set OUTPUT_WALLET=%wallet_AIPowerGrid%
+
+        set GPU=true
+        set OUTPUT_ALGO=kawpow
+        set OUTPUT_POOL=%pool_AIPowerGrid%
+        
+        set use_discount=false
+    )
 @REM  ALPH - UnMineable
     if "%coin_select%"=="ALPH" ( 
         set FoundCoin=true
@@ -1828,6 +1908,8 @@ if %p_version%==%xmrigControl_Version% (
     if %UnMineable%==true ( if %use_discount%==true set OUTPUT_WALLET=%OUTPUT_WALLET%#%OUTPUT_CODE% )
     
     set OUTPUT_WALLET=%OUTPUT_WALLET: =%
+    set OUTPUT_POOL=%OUTPUT_POOL: =%
+    set OUTPUT_ALGO=%OUTPUT_ALGO: =%
 
     set CONFIG={ "api": { "id": null, "worker-id": null }, "http": { "enabled": false, "host": "127.0.0.1", "port": 0, "access-token": null, "restricted": true }, "autosave": true, "background": !background!, "colors": true, "title": "!WORKER!", "randomx": { "init": -1, "init-avx2": -1, "mode": "!xmr_mode!", "1gb-pages": !1gb-pages!, "rdmsr": true, "wrmsr": true, "cache_qos": false, "numa": true, "scratchpad_prefetch_mode": !scratchpad_prefetch_mode! }, "cpu": { "enabled": !CPU!, "huge-pages": !huge-pages!, "huge-pages-jit": !huge-pages-jit!, "hw-aes": null, "priority": !cpu_priority!, "memory-pool": !memory-pool!, "yield": !yield!, "force-autoconfig": false, "max-threads-hint": !max-threads-hint!, "max-cpu-usage": !max_cpu_usage!, "asm": true, "argon2-impl": null, "cn/0": false, "cn-lite/0": false }, "opencl": { "enabled": !AMD!, "cache": true, "loader": null, "platform": "AMD", "adl": true, "cn/0": false, "cn-lite/0": false }, "cuda": { "enabled": !NVIDIA!, "loader": "!XMRig_Folder!/xmrig-cuda.dll", "nvml": true, "cn/0": false, "cn-lite/0": false }, "donate-level": !Donate_Level!, "donate-over-proxy": !Donate_Level!, "log-file": null, "pools": [ { "algo": "!OUTPUT_ALGO!", "coin": null, "url": "!OUTPUT_POOL!", "user": "!OUTPUT_WALLET!", "pass": "!Password!", "rig-id": "!WORKER!", "nicehash": !NiceHash!, "keepalive": false, "enabled": true, "tls": !TLS!, "tls-fingerprint": null, "daemon": false, "socks5": null, "self-select": null, "submit-to-origin": false } ], "cc-client": { "enabled": !activate_CC_client!, "servers": [ { "url": "!CC_server_url!", "access-token": "!CC_server_access_token!", "use-tls": !CC_server_tls! } ], "use-remote-logging": true, "upload-config-on-start": true, "worker-id": "!WORKER!", "reboot-cmd": null, "update-interval-s": 10, "retries-to-failover": 5 }, "print-time": 60, "health-print-time": 60, "dmi": true, "retries": 5, "retry-pause": 5, "syslog": false, "tls": { "enabled": false, "protocols": null, "cert": null, "cert_key": null, "ciphers": null, "ciphersuites": null, "dhparam": null }, "dns": { "ipv6": false, "ttl": 30 }, "user-agent": null, "verbose": 0, "watch": true, "pause-on-battery": false, "pause-on-active": false }
 

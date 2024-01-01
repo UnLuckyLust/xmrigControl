@@ -1,5 +1,10 @@
 # xmrigControl Changelog
 
+## Version 1.5.3
+- General optimizations.
+- Added Updater function.
+- Added AI Power Grid Coin Support (GPU)
+
 ## Version 1.5.2
 - Added more XMRig Configs options.
 - Changed XMRig window title to the current Worker Name.
