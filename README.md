@@ -1,5 +1,5 @@
 # XMRig Miner Control
-- Optimized command line for quick installation and startup of XMRig cryptocurrency miner.
+- Optimized command line for quick installation and startup of [XMRig](https://github.com/xmrig/xmrig) cryptocurrency miner.
 - This command file is intended for a Windows operating system, and its purpose is to run the XMRig cryptocurrency miner, easily and quickly with pre-defined addresses for fast switching between currency types and quick installation in different rigs.
 - For Support join us on [Discord](https://discord.gg/gtH9nkGrHu)
 
@@ -9,8 +9,9 @@
 - Install Latest XMRig Nvidia Cuda. (from the official XMRig GitHub repository)
 - Create Custom Config file for XMRig.
 - Saving wallet addresses in the current rig, for easy switching between coins.
-- Support for UnMineable pools, for expanded coin options.
-- Support for XMRigCC, for expanded coin options.
+- Supports [UnMineable Pools](https://unmineable.com), for expanded coin options.
+- Supports [XMRigCC Fork](https://github.com/Bendr0id/xmrigCC), for expanded coin options.
+- Supports Solo Mining.
 
 ## Initial Setup
 - Before you start the program for the first time, you should open the cmd file in your text editor, and change the addresses of the temporary wallets to your own.
@@ -61,9 +62,11 @@
 #### CPU Algorithm Coins
 - XDAG  { Dagger } - only when using xmrigCC
 - KVA   { Keva }
+- MECU  { MecuAI }
 - XMR   { Monero }
 - QRL   { Quantum Resistant Ledger }
 - RTM   { Raptoreum }
+- RTC   { Reaction }
 - YDA   { Yada } - only when using xmrigCC
 - ZEPH  { Zephyr }
 

@@ -30,12 +30,14 @@ cd /d "%~dp0"
     set pool_Clore=stratum+ssl://tr.clore.herominers.com:1163
     set pool_Dagger=stratum.xdag.org:23656
     set pool_Keva=pool.hashvault.pro:443
+    set pool_MecuAI=stratum-eu.rplant.xyz:17094
     set pool_Monero=stratum+ssl://xmr-eu1.nanopool.org:10343
     set pool_Neoxa=neox.2miners.com:4040
     set pool_Neurai=xna.2miners.com:6060
     set pool_QuantumRL=stratum+ssl://tr.qrl.herominers.com:1166
     set pool_Raptoreum=stratum+ssl://eu.flockpool.com:5555
     set pool_RavenCoin=rvn.2miners.com:6060
+    set pool_Reaction=stratum-eu.rplant.xyz:17054
     set pool_Yada=yadapool.org:3333
     set pool_Zephyr=stratum+ssl://tr.zephyr.herominers.com:1123
 
@@ -68,6 +70,7 @@ cd /d "%~dp0"
     set t_wallet_Karlsen=karlsen:qp9yaplt6nl35cz6sc9ltmzj52afncjnycdvgf62k4nqac8yu0syusdnvzraa
     set t_wallet_Kaspa=kaspa:qyp4h36wejns6zfddah5wqrclnawrl74lrlqjnhf7gjccy03jh6j8zs4e6grwud
     set t_wallet_Keva=VLkjtRHnJG8jwGjoqCtbAxuBjnwY8TSXu2
+    set t_wallet_MecuAI=M9BMC7Tjv2pJTfEojT3bYzymdoBPsnJnsj
     set t_wallet_Monero=48rfHy6xMMQCKCJTAdojzqcKbtvFYhkvB5giRfbzF6wv5wGDMfJLjzsWL1njt6y7PSJYY7F6QajQFXXNfmw5cuGj61vQSVL
     set t_wallet_Neoxa=GXjY2uyeji7qEBxVF93mKRQ9snUzoZPfdx
     set t_wallet_Neurai=NXSE744YDmeEdSUVC78R6EU31oWjb3DP6h
@@ -76,6 +79,7 @@ cd /d "%~dp0"
     set t_wallet_QuantumRL=Q0105008a5488ed58d1ca54ff5843bfe42696ae0afc815d11794bcb5a645138322d6aadb2ee4b9b
     set t_wallet_Raptoreum=RVJ57sidiLD8EVHvEnRrBUeyBaPoKVh2yZ
     set t_wallet_RavenCoin=RQ2oVQHg4ETZkCL7fkvbJRpfcvGc47XvsF
+    set t_wallet_Reaction=Rtko9w32bPEBymKBQ2VoaACwRAyBXHdZ9v
     set t_wallet_Ripple=r9oiQSvc8nb29zyHXcE5i1uktcKP7izMra
     set t_wallet_ShibaInu=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
     set t_wallet_Solana=3BQMMAUaGbTg6A9Fr7t6kPmSw7c41WEkKWWJJ5Yra4qo
@@ -150,9 +154,10 @@ cd /d "%~dp0"
 @REM ↧↧↧ Debug Settings ↧↧↧
 @REM ----------------------
     set Debug=false
-    set Updater=true
     set TimeOut=10
-    set Window_Height=46
+    set Window_Height=49
+    set Updater=true
+    set SoloMining=true
     set Shortcut=true
     set Shortcut_Location=%cd%
 
@@ -166,7 +171,7 @@ if exist install_xmrig.cmd del install_xmrig.cmd
 if exist install_xmrigCC.cmd del install_xmrigCC.cmd
 if exist install_xmrig_cuda.cmd del install_xmrig_cuda.cmd
 if exist install_xmrigControl.cmd del install_xmrigControl.cmd
-set p_version=1.5.3
+set p_version=1.5.4
 set p_name=xmrigControl
 set xmrig_p_name=xmrig
 set xmrig_p_download=install_xmrig
@@ -416,6 +421,8 @@ if %p_version%==%xmrigControl_Version% (
         setx p_wallet_Kaspa NO_WALLET_ADDRESS
         set p_wallet_Keva=NO_WALLET_ADDRESS
         setx p_wallet_Keva NO_WALLET_ADDRESS
+        set p_wallet_MecuAI=NO_WALLET_ADDRESS
+        setx p_wallet_MecuAI NO_WALLET_ADDRESS
         set p_wallet_Monero=NO_WALLET_ADDRESS
         setx p_wallet_Monero NO_WALLET_ADDRESS
         set p_wallet_Neoxa=NO_WALLET_ADDRESS
@@ -432,6 +439,8 @@ if %p_version%==%xmrigControl_Version% (
         setx p_wallet_Raptoreum NO_WALLET_ADDRESS
         set p_wallet_RavenCoin=NO_WALLET_ADDRESS
         setx p_wallet_RavenCoin NO_WALLET_ADDRESS
+        set p_wallet_Reaction=NO_WALLET_ADDRESS
+        setx p_wallet_Reaction NO_WALLET_ADDRESS
         set p_wallet_Ripple=NO_WALLET_ADDRESS
         setx p_wallet_Ripple NO_WALLET_ADDRESS
         set p_wallet_ShibaInu=NO_WALLET_ADDRESS
@@ -490,6 +499,8 @@ if %p_version%==%xmrigControl_Version% (
     if "%p_wallet_Kaspa%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Keva%"=="" set p_wallet_Keva=NO_WALLET_ADDRESS
     if "%p_wallet_Keva%"=="NO_WALLET_ADDRESS" set check_w_fail=true
+    if "%p_wallet_MecuAI%"=="" set p_wallet_MecuAI=NO_WALLET_ADDRESS
+    if "%p_wallet_MecuAI%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Monero%"=="" set p_wallet_Monero=NO_WALLET_ADDRESS
     if "%p_wallet_Monero%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Neoxa%"=="" set p_wallet_Neoxa=NO_WALLET_ADDRESS
@@ -506,6 +517,8 @@ if %p_version%==%xmrigControl_Version% (
     if "%p_wallet_Raptoreum%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_RavenCoin%"=="" set p_wallet_RavenCoin=NO_WALLET_ADDRESS
     if "%p_wallet_RavenCoin%"=="NO_WALLET_ADDRESS" set check_w_fail=true
+    if "%p_wallet_Reaction%"=="" set p_wallet_Reaction=NO_WALLET_ADDRESS
+    if "%p_wallet_Reaction%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Ripple%"=="" set p_wallet_Ripple=NO_WALLET_ADDRESS
     if "%p_wallet_Ripple%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_ShibaInu%"=="" set p_wallet_ShibaInu=NO_WALLET_ADDRESS
@@ -823,6 +836,21 @@ if %p_version%==%xmrigControl_Version% (
     if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
     set temp_p_wallet_Keva=%new_wallet_address%
 
+@REM MecuAI Wallet Address
+    echo.
+    echo [7;94m::: ADDRESS :::[0m[94m MecuAI -[0m[97m %p_wallet_MecuAI% [0m
+    set new_wallet_address=%p_wallet_MecuAI%
+    set /p new_wallet_address="[7;96m::: INPUT :::[0m Set a new wallet address for[93m MecuAI [0m> " 
+    if "%new_wallet_address%"=="x" set new_wallet_address=X
+    if "%new_wallet_address%"=="X" goto :LOGOUT
+    if "%new_wallet_address%"=="s" set new_wallet_address=S
+    if "%new_wallet_address%"=="S" goto :START_OVER
+    if "%new_wallet_address%"=="r" set new_wallet_address=R
+    if "%new_wallet_address%"=="R" goto :W_ADDRESS_RESET
+    if "%new_wallet_address%"=="t" set new_wallet_address=T
+    if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
+    set temp_p_wallet_MecuAI=%new_wallet_address%
+
 @REM Monero Wallet Address
     echo.
     echo [7;94m::: ADDRESS :::[0m[94m Monero -[0m[97m %p_wallet_Monero% [0m
@@ -942,6 +970,21 @@ if %p_version%==%xmrigControl_Version% (
     if "%new_wallet_address%"=="t" set new_wallet_address=T
     if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
     set temp_p_wallet_RavenCoin=%new_wallet_address%
+
+@REM Reaction Wallet Address
+    echo.
+    echo [7;94m::: ADDRESS :::[0m[94m Reaction -[0m[97m %p_wallet_Reaction% [0m
+    set new_wallet_address=%p_wallet_Reaction%
+    set /p new_wallet_address="[7;96m::: INPUT :::[0m Set a new wallet address for[93m Reaction [0m> " 
+    if "%new_wallet_address%"=="x" set new_wallet_address=X
+    if "%new_wallet_address%"=="X" goto :LOGOUT
+    if "%new_wallet_address%"=="s" set new_wallet_address=S
+    if "%new_wallet_address%"=="S" goto :START_OVER
+    if "%new_wallet_address%"=="r" set new_wallet_address=R
+    if "%new_wallet_address%"=="R" goto :W_ADDRESS_RESET
+    if "%new_wallet_address%"=="t" set new_wallet_address=T
+    if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
+    set temp_p_wallet_Reaction=%new_wallet_address%
 
 @REM Ripple Wallet Address
     echo.
@@ -1083,14 +1126,16 @@ if %p_version%==%xmrigControl_Version% (
     echo [7;93m   [0m[93m Karlsen -[0m[97m %temp_p_wallet_Karlsen% [0m
     echo [7;93m   [0m[93m Kaspa -[0m[97m %temp_p_wallet_Kaspa% [0m
     echo [7;93m   [0m[93m Keva -[0m[97m %temp_p_wallet_Keva% [0m
+    echo [7;93m   [0m[93m MecuAI -[0m[97m %temp_p_wallet_MecuAI% [0m
     echo [7;93m   [0m[93m Monero -[0m[97m %temp_p_wallet_Monero% [0m
     echo [7;93m   [0m[93m Neoxa -[0m[97m %temp_p_wallet_Neoxa% [0m
     echo [7;93m   [0m[93m Neurai -[0m[97m %temp_p_wallet_Neurai% [0m
     echo [7;93m   [0m[93m Nexa -[0m[97m %temp_p_wallet_Nexa% [0m
     echo [7;93m   [0m[93m Pepe -[0m[97m %temp_p_wallet_Pepe% [0m
     echo [7;93m   [0m[93m Quantum Resistant Ledger -[0m[97m %temp_p_wallet_QuantumRL% [0m
-    echo [7;93m   [0m[93m Raven Coin -[0m[97m %temp_p_wallet_RavenCoin% [0m
     echo [7;93m   [0m[93m Raptoreum -[0m[97m %temp_p_wallet_Raptoreum% [0m
+    echo [7;93m   [0m[93m Raven Coin -[0m[97m %temp_p_wallet_RavenCoin% [0m
+    echo [7;93m   [0m[93m Reaction -[0m[97m %temp_p_wallet_Reaction% [0m
     echo [7;93m   [0m[93m Ripple -[0m[97m %temp_p_wallet_Ripple% [0m
     echo [7;93m   [0m[93m Shiba Inu -[0m[97m %temp_p_wallet_ShibaInu% [0m
     echo [7;93m   [0m[93m Solana -[0m[97m %temp_p_wallet_Solana% [0m
@@ -1157,6 +1202,8 @@ if %p_version%==%xmrigControl_Version% (
         echo setx p_wallet_Kaspa %temp_p_wallet_Kaspa%>> wallets.cmd
         echo set p_wallet_Keva=%temp_p_wallet_Keva%>> wallets.cmd
         echo setx p_wallet_Keva %temp_p_wallet_Keva%>> wallets.cmd
+        echo set p_wallet_MecuAI=%temp_p_wallet_MecuAI%>> wallets.cmd
+        echo setx p_wallet_MecuAI %temp_p_wallet_MecuAI%>> wallets.cmd
         echo set p_wallet_Monero=%temp_p_wallet_Monero%>> wallets.cmd
         echo setx p_wallet_Monero %temp_p_wallet_Monero%>> wallets.cmd
         echo set p_wallet_Neoxa=%temp_p_wallet_Neoxa%>> wallets.cmd
@@ -1173,6 +1220,8 @@ if %p_version%==%xmrigControl_Version% (
         echo setx p_wallet_Raptoreum %temp_p_wallet_Raptoreum%>> wallets.cmd
         echo set p_wallet_RavenCoin=%temp_p_wallet_RavenCoin%>> wallets.cmd
         echo setx p_wallet_RavenCoin %temp_p_wallet_RavenCoin%>> wallets.cmd
+        echo set p_wallet_Reaction=%temp_p_wallet_Reaction%>> wallets.cmd
+        echo setx p_wallet_Reaction %temp_p_wallet_Reaction%>> wallets.cmd
         echo set p_wallet_Ripple=%temp_p_wallet_Ripple%>> wallets.cmd
         echo setx p_wallet_Ripple %temp_p_wallet_Ripple%>> wallets.cmd
         echo set p_wallet_ShibaInu=%temp_p_wallet_ShibaInu%>> wallets.cmd
@@ -1282,6 +1331,7 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_Karlsen=%t_wallet_Karlsen%
         set wallet_Kaspa=%t_wallet_Kaspa%
         set wallet_Keva=%t_wallet_Keva%
+        set wallet_MecuAI=%t_wallet_MecuAI%
         set wallet_Monero=%t_wallet_Monero%
         set wallet_Neoxa=%t_wallet_Neoxa%
         set wallet_Neurai=%t_wallet_Neurai%
@@ -1290,6 +1340,7 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_QuantumRL=%t_wallet_QuantumRL%
         set wallet_Raptoreum=%t_wallet_Raptoreum%
         set wallet_RavenCoin=%t_wallet_RavenCoin%
+        set wallet_Reaction=%t_wallet_Reaction%
         set wallet_Ripple=%t_wallet_Ripple%
         set wallet_ShibaInu=%t_wallet_ShibaInu%
         set wallet_Solana=%t_wallet_Solana%
@@ -1317,6 +1368,7 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_Karlsen=%p_wallet_Karlsen%
         set wallet_Kaspa=%p_wallet_Kaspa%
         set wallet_Keva=%p_wallet_Keva%
+        set wallet_MecuAI=%p_wallet_MecuAI%
         set wallet_Monero=%p_wallet_Monero%
         set wallet_Neoxa=%p_wallet_Neoxa%
         set wallet_Neurai=%p_wallet_Neurai%
@@ -1325,6 +1377,7 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_QuantumRL=%p_wallet_QuantumRL%
         set wallet_Raptoreum=%p_wallet_Raptoreum%
         set wallet_RavenCoin=%p_wallet_RavenCoin%
+        set wallet_Reaction=%p_wallet_Reaction%
         set wallet_Ripple=%p_wallet_Ripple%
         set wallet_ShibaInu=%p_wallet_ShibaInu%
         set wallet_Solana=%p_wallet_Solana%
@@ -1376,6 +1429,7 @@ if %p_version%==%xmrigControl_Version% (
     echo [7;93m   [0m[96m KLS   [0m[93m= Karlsen [0m
     echo [7;93m   [0m[96m KAS   [0m[93m= Kaspa [0m
     echo [7;93m   [0m[96m KVA   [0m[93m= Keva [0m
+    echo [7;93m   [0m[96m MECU  [0m[93m= MecuAI [0m
     echo [7;93m   [0m[96m XMR   [0m[93m= Monero [0m
     echo [7;93m   [0m[96m NEOX  [0m[93m= Neoxa [0m
     echo [7;93m   [0m[96m XNA   [0m[93m= Neurai [0m
@@ -1384,6 +1438,7 @@ if %p_version%==%xmrigControl_Version% (
     echo [7;93m   [0m[96m QRL   [0m[93m= Quantum Resistant Ledger [0m
     echo [7;93m   [0m[96m RTM   [0m[93m= Raptoreum [0m
     echo [7;93m   [0m[96m RVN   [0m[93m= Raven Coin [0m
+    echo [7;93m   [0m[96m RTC   [0m[93m= Reaction [0m
     echo [7;93m   [0m[96m XRP   [0m[93m= Ripple [0m
     echo [7;93m   [0m[96m SHIB  [0m[93m= Shiba Inu [0m
     echo [7;93m   [0m[96m SOL   [0m[93m= Solana [0m
@@ -1573,6 +1628,17 @@ if %p_version%==%xmrigControl_Version% (
 
         set use_discount=false
     )
+@REM  MECU - CPU
+    if "%coin_select%"=="MECU" ( 
+        set FoundCoin=true
+        set OUTPUT_WALLET=%wallet_MecuAI%
+
+        set CPU=true
+        set OUTPUT_ALGO=gr
+        set OUTPUT_POOL=%pool_MecuAI%
+
+        set use_discount=false
+    )
 @REM  XMR - UnMineable / CPU
     if "%coin_select%"=="XMR" ( 
         set FoundCoin=true
@@ -1663,6 +1729,17 @@ if %p_version%==%xmrigControl_Version% (
         set CAN_SELECT_UnMineable=true
         if %use_global_discount%==false set OUTPUT_CODE=%discount_RavenCoin%
     )
+@REM  RTC - CPU
+    if "%coin_select%"=="RTC" ( 
+        set FoundCoin=true
+        set OUTPUT_WALLET=%wallet_Reaction%
+
+        set CPU=true
+        set OUTPUT_ALGO=gr
+        set OUTPUT_POOL=%pool_Reaction%
+
+        set use_discount=false
+    )
 @REM  XRP - UnMineable
     if "%coin_select%"=="XRP" (
         set FoundCoin=true
@@ -1736,7 +1813,7 @@ if %p_version%==%xmrigControl_Version% (
         if %CAN_SELECT_UnMineable%==true goto :SELECT_UNMINEABLE
         if %UnMineable%==true goto :SELECT_GPU
         if %GPU%==true goto :SELECT_GPU_TYPE
-        if %CPU%==true goto :CONFIG
+        if %CPU%==true goto :SOLO
         
     )
 
@@ -1771,7 +1848,7 @@ if %p_version%==%xmrigControl_Version% (
     ) else (
         set UnMineable=false
         if %GPU%==true goto :SELECT_GPU_TYPE
-        if %CPU%==true goto :CONFIG
+        if %CPU%==true goto :SOLO
         goto :START_OVER
     )
 
@@ -1813,7 +1890,7 @@ if %p_version%==%xmrigControl_Version% (
         set CPU=true
         set OUTPUT_ALGO=%algo_cpu%
         set OUTPUT_POOL=%pool_cpu%
-        goto :CONFIG
+        goto :SOLO
     )
 
 :SELECT_GPU_TYPE
@@ -1845,7 +1922,7 @@ if %p_version%==%xmrigControl_Version% (
     if %use_amd_gpu%==true (
         set AMD=true
         set NVIDIA=false
-        goto :CONFIG
+        goto :SOLO
     ) else (
         set AMD=false
         set NVIDIA=true
@@ -1896,9 +1973,28 @@ if %p_version%==%xmrigControl_Version% (
         )
     ) else (
         if %Debug%==true echo [7;92m::: SUCCESS :::[0m[92m XMRig nvidia cuda Found. [0m
-        goto :CONFIG
+        goto :SOLO
     )
 
+:SOLO
+    set use_SoloMining=false
+    if %UnMineable%==true goto :CONFIG
+    if %SoloMining%==false goto :CONFIG
+    set /p use_SoloMining="[7;96m::: INPUT :::[0m Would you like to add [93mSolo Mining[0m tag? [93m(Currently: %use_SoloMining%)[0m ([96mY[0m/[96mN[0m) > "
+    if "%use_SoloMining%"=="x" set use_SoloMining=X
+    if "%use_SoloMining%"=="X" goto :LOGOUT
+    if "%use_SoloMining%"=="r" set use_SoloMining=R
+    if "%use_SoloMining%"=="R" goto :START_OVER
+    if "%use_SoloMining%"=="d" set use_SoloMining=D
+    if "%use_SoloMining%"=="D" goto :W_ADDRESS_RESET
+    if "%use_SoloMining%"=="t" set use_SoloMining=T
+    if "%use_SoloMining%"=="T" goto :W_ADDRESS_TOGGLE
+    if "%use_SoloMining%"=="y" set use_SoloMining=Y
+    if "%use_SoloMining%"=="Y" set use_SoloMining=true
+    if %use_SoloMining%==true (
+        set OUTPUT_WALLET=solo:%OUTPUT_WALLET%
+    )
+    goto :CONFIG
 
 :CONFIG
     set TLS=%temp_TLS%

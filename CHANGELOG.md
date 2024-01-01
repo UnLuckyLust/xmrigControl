@@ -1,5 +1,10 @@
 # xmrigControl Changelog
 
+## Version 1.5.4
+- Added support for solo mining.
+- Added Reaction Coin Support (CPU)
+- Added MecuAI Coin Support (CPU)
+
 ## Version 1.5.3
 - General optimizations.
 - Added Updater function.
