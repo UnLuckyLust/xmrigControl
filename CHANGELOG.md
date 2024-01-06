@@ -1,5 +1,9 @@
 # xmrigControl Changelog
 
+## Version 1.5.5
+- Changed nexoa, raven coins and neurai pools to herominers, enabling tls.
+- Changed the location of the shortcut to the desktop.
+
 ## Version 1.5.4
 - Added support for solo mining.
 - Added Reaction Coin Support (CPU)

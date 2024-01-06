@@ -32,11 +32,11 @@ cd /d "%~dp0"
     set pool_Keva=pool.hashvault.pro:443
     set pool_MecuAI=stratum-eu.rplant.xyz:17094
     set pool_Monero=stratum+ssl://xmr-eu1.nanopool.org:10343
-    set pool_Neoxa=neox.2miners.com:4040
-    set pool_Neurai=xna.2miners.com:6060
+    set pool_Neoxa=stratum+ssl://tr.neoxa.herominers.com:1202
+    set pool_Neurai=stratum+ssl://tr.neurai.herominers.com:1160
     set pool_QuantumRL=stratum+ssl://tr.qrl.herominers.com:1166
     set pool_Raptoreum=stratum+ssl://eu.flockpool.com:5555
-    set pool_RavenCoin=rvn.2miners.com:6060
+    set pool_RavenCoin=stratum+ssl://tr.ravencoin.herominers.com:1140
     set pool_Reaction=stratum-eu.rplant.xyz:17054
     set pool_Yada=yadapool.org:3333
     set pool_Zephyr=stratum+ssl://tr.zephyr.herominers.com:1123
@@ -159,7 +159,7 @@ cd /d "%~dp0"
     set Updater=true
     set SoloMining=true
     set Shortcut=true
-    set Shortcut_Location=%cd%
+    set Shortcut_Location=C:\users\%username%\desktop
 
 @REM ---------------------------------
 @REM ↥↥↥ End of configuration area ↥↥↥
@@ -171,7 +171,7 @@ if exist install_xmrig.cmd del install_xmrig.cmd
 if exist install_xmrigCC.cmd del install_xmrigCC.cmd
 if exist install_xmrig_cuda.cmd del install_xmrig_cuda.cmd
 if exist install_xmrigControl.cmd del install_xmrigControl.cmd
-set p_version=1.5.4
+set p_version=1.5.5
 set p_name=xmrigControl
 set xmrig_p_name=xmrig
 set xmrig_p_download=install_xmrig
@@ -1656,8 +1656,6 @@ if %p_version%==%xmrigControl_Version% (
         set FoundCoin=true
         set OUTPUT_WALLET=%wallet_Neoxa%
 
-        set temp_TLS=false
-
         set GPU=true
         set OUTPUT_ALGO=kawpow
         set OUTPUT_POOL=%pool_Neoxa%
@@ -1668,8 +1666,6 @@ if %p_version%==%xmrigControl_Version% (
     if "%coin_select%"=="XNA" ( 
         set FoundCoin=true
         set OUTPUT_WALLET=%wallet_Neurai%
-
-        set temp_TLS=false
 
         set GPU=true
         set OUTPUT_ALGO=kawpow
@@ -1719,8 +1715,6 @@ if %p_version%==%xmrigControl_Version% (
     if "%coin_select%"=="RVN" ( 
         set FoundCoin=true
         set OUTPUT_WALLET=%wallet_RavenCoin%
-
-        set temp_TLS=false
 
         set GPU=true
         set OUTPUT_ALGO=kawpow
