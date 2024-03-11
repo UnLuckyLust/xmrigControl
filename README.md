@@ -40,11 +40,14 @@
 - ENJ   { Enjin Coin }
 - ETH   { Ethereum } 
 - ETC   { Ethereum Classic }
+- JUP   { Jupiter }
 - KLS   { Karlsen }
 - KAS   { Kaspa }
 - XMR   { Monero }
+- NEOX  { Neoxa }
 - NEXA  { Nexa }
 - PEPE  { Pepe }
+- PYI   { Pyrin }
 - RVN   { Raven Coin }
 - XRP   { Ripple }
 - SHIB  { Shiba Inu }

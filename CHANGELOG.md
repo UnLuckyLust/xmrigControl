@@ -1,5 +1,12 @@
 # xmrigControl Changelog
 
+## Version 1.5.6
+- Updated XMRig download to the latest official version (6.21.1)
+- Updated XMRig Nvidia Cuda download (11_4) to the latest official version (6.21.0)
+- Added UnMineable Pools support for Neoxa Coin.
+- Added Pyrin Coin Support (UnMineable)
+- Added Jupiter Coin Support (UnMineable)
+
 ## Version 1.5.5
 - Changed nexoa, raven coins and neurai pools to herominers, enabling tls.
 - Changed the location of the shortcut to the desktop.

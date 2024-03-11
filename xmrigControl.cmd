@@ -8,7 +8,7 @@ cd /d "%~dp0"
 @REM ↧↧↧ Start of configuration area ↧↧↧
 @REM -----------------------------------
 @REM ! IMPORTANT ! Change the XMRig_Folder value to the XMRig directory path, or place this file in the XMRig folder to use an existing XMRig installation.
-@REM ! IMPORTANT ! Leave XMRig_Folder value as it is to download a fresh installation of XMRig in the current folder. (Will download XMRig version 6.21.0 from GitHub)
+@REM ! IMPORTANT ! Leave XMRig_Folder value as it is to download a fresh installation of XMRig in the current folder. (Will download XMRig from the official GitHub repository)
 @REM ! IMPORTANT ! Due limitations of JSON format, Windows directory separator should be escaped like \\ or written in Unix style like /.
     set XMRig_Folder=%cd:\=/%
 
@@ -51,42 +51,44 @@ cd /d "%~dp0"
 @REM -----------------------------------
 @REM ↧↧↧ Temporary wallets addresses ↧↧↧
 @REM -----------------------------------    
-    set t_wallet_AIPowerGrid=APMALUKctrzBjjVReutRxK2d1FHWe1Pqm1
-    set t_wallet_Alephium=17T6VoqHrVwc4wNqmgNmXdMwzyUr1TcnMc55tzv6rCB9x
-    set t_wallet_Avalanche=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
-    set t_wallet_Binance=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
-    set t_wallet_Bitcoin=bc1qm6x7lcgck5h8lrrs9glv243mty0pnv72236sz8
-    set t_wallet_BitcoinCash=1Adtmi4FdwfCrBdHCbYJyBwuyTiA6n1Q9j
-    set t_wallet_Bonk=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
-    set t_wallet_Cardano=addr1q8x4hex5880gywxsnhqrwahh52kzj7ddmnvmnqlyr80593dmwnmj3h58dfcs057ey8hwmr9txjnus43u0llvm9wmkzfqw952sp
-    set t_wallet_Clore=AUJZmq919Ujsn9jRfkcVSNA1txUewy467W
-    set t_wallet_Cosmos=cosmos1p9ru4lte6g7vfnkqv2xtnqmvt0l872n8zhg2xt
-    set t_wallet_Dagger=JVQZfRinc5UDAceu3mSG4Bt8vmRvudBjd
-    set t_wallet_DogeCoin=DHRQi6qMF7KdFthUhjaTDh42HN6Rp2jdXq
-    set t_wallet_Dynex=Xwn57RKujVL5VWch6VvZbxfWtLe8LryQRU1ZuznWpZouMGAyNytLhvpBxy6Yd4mzgVenz1xUQTPg48EHj4BaZsEK2xxx9EQBd
-    set t_wallet_EnjinCoin=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
-    set t_wallet_Ethereum=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
-    set t_wallet_EthereumClassic=0xdB334D2B4D6B10cc7e84a4927e3bcf6e9a75A629
-    set t_wallet_Karlsen=karlsen:qp9yaplt6nl35cz6sc9ltmzj52afncjnycdvgf62k4nqac8yu0syusdnvzraa
-    set t_wallet_Kaspa=kaspa:qyp4h36wejns6zfddah5wqrclnawrl74lrlqjnhf7gjccy03jh6j8zs4e6grwud
-    set t_wallet_Keva=VLkjtRHnJG8jwGjoqCtbAxuBjnwY8TSXu2
-    set t_wallet_MecuAI=M9BMC7Tjv2pJTfEojT3bYzymdoBPsnJnsj
-    set t_wallet_Monero=48rfHy6xMMQCKCJTAdojzqcKbtvFYhkvB5giRfbzF6wv5wGDMfJLjzsWL1njt6y7PSJYY7F6QajQFXXNfmw5cuGj61vQSVL
-    set t_wallet_Neoxa=GXjY2uyeji7qEBxVF93mKRQ9snUzoZPfdx
-    set t_wallet_Neurai=NXSE744YDmeEdSUVC78R6EU31oWjb3DP6h
-    set t_wallet_Nexa=nexa:nqtsq5g5az4f8xuy5kg3u499ml0mrdsfle7jgtru99a33xyc
-    set t_wallet_Pepe=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
-    set t_wallet_QuantumRL=Q0105008a5488ed58d1ca54ff5843bfe42696ae0afc815d11794bcb5a645138322d6aadb2ee4b9b
-    set t_wallet_Raptoreum=RVJ57sidiLD8EVHvEnRrBUeyBaPoKVh2yZ
-    set t_wallet_RavenCoin=RQ2oVQHg4ETZkCL7fkvbJRpfcvGc47XvsF
-    set t_wallet_Reaction=Rtko9w32bPEBymKBQ2VoaACwRAyBXHdZ9v
-    set t_wallet_Ripple=r9oiQSvc8nb29zyHXcE5i1uktcKP7izMra
-    set t_wallet_ShibaInu=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
-    set t_wallet_Solana=3BQMMAUaGbTg6A9Fr7t6kPmSw7c41WEkKWWJJ5Yra4qo
-    set t_wallet_Tether=0xb01083a46AC44862F6f41c9F420Cbdc405A7b765
-    set t_wallet_Tron=TLYq6ajCXShebrbrvkyabnoSworxHkoJkS
-    set t_wallet_Yada=1KLesDTJntuK1hmLWYCXrWsMqat85HnHZH
-    set t_wallet_Zephyr=ZEPHYR3d46PJL5fM5C4Lu2XHHmt9opnjuhzMvJXTxjgmftPsKmUzrzVE4GmPsSCWWeKe7DzjmQuPXaqqDoiPziBkVtfCyW2STTC2m
+    set t_wallet_AIPowerGrid=Enter_Your_Wallet_Address
+    set t_wallet_Alephium=Enter_Your_Wallet_Address
+    set t_wallet_Avalanche=Enter_Your_Wallet_Address
+    set t_wallet_Binance=Enter_Your_Wallet_Address
+    set t_wallet_Bitcoin=Enter_Your_Wallet_Address
+    set t_wallet_BitcoinCash=Enter_Your_Wallet_Address
+    set t_wallet_Bonk=Enter_Your_Wallet_Address
+    set t_wallet_Cardano=Enter_Your_Wallet_Address
+    set t_wallet_Clore=Enter_Your_Wallet_Address
+    set t_wallet_Cosmos=Enter_Your_Wallet_Address
+    set t_wallet_Dagger=Enter_Your_Wallet_Address
+    set t_wallet_DogeCoin=Enter_Your_Wallet_Address
+    set t_wallet_Dynex=Enter_Your_Wallet_Address
+    set t_wallet_EnjinCoin=Enter_Your_Wallet_Address
+    set t_wallet_Ethereum=Enter_Your_Wallet_Address
+    set t_wallet_EthereumClassic=Enter_Your_Wallet_Address
+    set t_wallet_Jupiter=Enter_Your_Wallet_Address
+    set t_wallet_Karlsen=Enter_Your_Wallet_Address
+    set t_wallet_Kaspa=Enter_Your_Wallet_Address
+    set t_wallet_Keva=Enter_Your_Wallet_Address
+    set t_wallet_MecuAI=Enter_Your_Wallet_Address
+    set t_wallet_Monero=Enter_Your_Wallet_Address
+    set t_wallet_Neoxa=Enter_Your_Wallet_Address
+    set t_wallet_Neurai=Enter_Your_Wallet_Address
+    set t_wallet_Nexa=Enter_Your_Wallet_Address
+    set t_wallet_Pepe=Enter_Your_Wallet_Address
+    set t_wallet_Pyrin=Enter_Your_Wallet_Address
+    set t_wallet_QuantumRL=Enter_Your_Wallet_Address
+    set t_wallet_Raptoreum=Enter_Your_Wallet_Address
+    set t_wallet_RavenCoin=Enter_Your_Wallet_Address
+    set t_wallet_Reaction=Enter_Your_Wallet_Address
+    set t_wallet_Ripple=Enter_Your_Wallet_Address
+    set t_wallet_ShibaInu=Enter_Your_Wallet_Address
+    set t_wallet_Solana=Enter_Your_Wallet_Address
+    set t_wallet_Tether=Enter_Your_Wallet_Address
+    set t_wallet_Tron=Enter_Your_Wallet_Address
+    set t_wallet_Yada=Enter_Your_Wallet_Address
+    set t_wallet_Zephyr=Enter_Your_Wallet_Address
 
 @REM ---------------------------------
 @REM ↧↧↧ UnMineable Discount Codes ↧↧↧
@@ -95,31 +97,34 @@ cd /d "%~dp0"
     set use_global_discount=true
     set global_discount_code=or99-ie7s
 
-    set discount_Alephium=r0q8-n28a
-    set discount_Avalanche=5n2s-3fhd
-    set discount_Binance=cwuf-ex75
-    set discount_Bitcoin=gaxo-qwnd
-    set discount_BitcoinCash=9m4d-usmh
-    set discount_Bonk=xsmc-y0n0
-    set discount_Cardano=cjs7-d894
-    set discount_Cosmos=ieat-7mld
-    set discount_DogeCoin=x0x8-zqtb
-    set discount_Dynex=87c7-p889
-    set discount_EnjinCoin=4twy-lc6o
-    set discount_Ethereum=9y1u-abm2
-    set discount_EthereumClassic=s1fn-193o
-    set discount_Karlsen=g1o5-lb1g
-    set discount_Kaspa=k7cp-oyfk
-    set discount_Monero=mky5-uf5c
-    set discount_Nexa=st3u-qrcx
-    set discount_Pepe=eje7-u8hb
-    set discount_RavenCoin=b0fn-70b3
-    set discount_Ripple=zg6s-lr1k
-    set discount_ShibaInu=or99-ie7s
-    set discount_Solana=6yt7-80iq
-    set discount_Tether=s7ht-ussd
-    set discount_Tron=wu2d-u28q
-    set discount_Zephyr=f60t-hqix
+    set discount_Alephium=Enter_Your_UnMineable_Discount_Code
+    set discount_Avalanche=Enter_Your_UnMineable_Discount_Code
+    set discount_Binance=Enter_Your_UnMineable_Discount_Code
+    set discount_Bitcoin=Enter_Your_UnMineable_Discount_Code
+    set discount_BitcoinCash=Enter_Your_UnMineable_Discount_Code
+    set discount_Bonk=Enter_Your_UnMineable_Discount_Code
+    set discount_Cardano=Enter_Your_UnMineable_Discount_Code
+    set discount_Cosmos=Enter_Your_UnMineable_Discount_Code
+    set discount_DogeCoin=Enter_Your_UnMineable_Discount_Code
+    set discount_Dynex=Enter_Your_UnMineable_Discount_Code
+    set discount_EnjinCoin=Enter_Your_UnMineable_Discount_Code
+    set discount_Ethereum=Enter_Your_UnMineable_Discount_Code
+    set discount_EthereumClassic=Enter_Your_UnMineable_Discount_Code
+    set discount_Jupiter=Enter_Your_UnMineable_Discount_Code
+    set discount_Karlsen=Enter_Your_UnMineable_Discount_Code
+    set discount_Kaspa=Enter_Your_UnMineable_Discount_Code
+    set discount_Monero=Enter_Your_UnMineable_Discount_Code
+    set discount_Neoxa=Enter_Your_UnMineable_Discount_Code
+    set discount_Nexa=Enter_Your_UnMineable_Discount_Code
+    set discount_Pepe=Enter_Your_UnMineable_Discount_Code
+    set discount_Pyrin=Enter_Your_UnMineable_Discount_Code
+    set discount_RavenCoin=Enter_Your_UnMineable_Discount_Code
+    set discount_Ripple=Enter_Your_UnMineable_Discount_Code
+    set discount_ShibaInu=Enter_Your_UnMineable_Discount_Code
+    set discount_Solana=Enter_Your_UnMineable_Discount_Code
+    set discount_Tether=Enter_Your_UnMineable_Discount_Code
+    set discount_Tron=Enter_Your_UnMineable_Discount_Code
+    set discount_Zephyr=Enter_Your_UnMineable_Discount_Code
 
 @REM ----------------------
 @REM ↧↧↧ XMRig Settings ↧↧↧
@@ -155,7 +160,7 @@ cd /d "%~dp0"
 @REM ----------------------
     set Debug=false
     set TimeOut=10
-    set Window_Height=49
+    set Window_Height=50
     set Updater=true
     set SoloMining=true
     set Shortcut=true
@@ -171,7 +176,7 @@ if exist install_xmrig.cmd del install_xmrig.cmd
 if exist install_xmrigCC.cmd del install_xmrigCC.cmd
 if exist install_xmrig_cuda.cmd del install_xmrig_cuda.cmd
 if exist install_xmrigControl.cmd del install_xmrigControl.cmd
-set p_version=1.5.5
+set p_version=1.5.6
 set p_name=xmrigControl
 set xmrig_p_name=xmrig
 set xmrig_p_download=install_xmrig
@@ -415,6 +420,8 @@ if %p_version%==%xmrigControl_Version% (
         setx p_wallet_Ethereum NO_WALLET_ADDRESS
         set p_wallet_EthereumClassic=NO_WALLET_ADDRESS
         setx p_wallet_EthereumClassic NO_WALLET_ADDRESS
+        set p_wallet_Jupiter=NO_WALLET_ADDRESS
+        setx p_wallet_Jupiter NO_WALLET_ADDRESS
         set p_wallet_Karlsen=NO_WALLET_ADDRESS
         setx p_wallet_Karlsen NO_WALLET_ADDRESS
         set p_wallet_Kaspa=NO_WALLET_ADDRESS
@@ -433,6 +440,8 @@ if %p_version%==%xmrigControl_Version% (
         setx p_wallet_Nexa NO_WALLET_ADDRESS
         set p_wallet_Pepe=NO_WALLET_ADDRESS
         setx p_wallet_Pepe NO_WALLET_ADDRESS
+        set p_wallet_Pyrin=NO_WALLET_ADDRESS
+        setx p_wallet_Pyrin NO_WALLET_ADDRESS
         set p_wallet_QuantumRL=NO_WALLET_ADDRESS
         setx p_wallet_QuantumRL NO_WALLET_ADDRESS
         set p_wallet_Raptoreum=NO_WALLET_ADDRESS
@@ -493,6 +502,8 @@ if %p_version%==%xmrigControl_Version% (
     if "%p_wallet_Ethereum%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_EthereumClassic%"=="" set p_wallet_EthereumClassic=NO_WALLET_ADDRESS
     if "%p_wallet_EthereumClassic%"=="NO_WALLET_ADDRESS" set check_w_fail=true
+    if "%p_wallet_Jupiter%"=="" set p_wallet_Jupiter=NO_WALLET_ADDRESS
+    if "%p_wallet_Jupiter%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Karlsen%"=="" set p_wallet_Karlsen=NO_WALLET_ADDRESS
     if "%p_wallet_Karlsen%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Kaspa%"=="" set p_wallet_Kaspa=NO_WALLET_ADDRESS
@@ -511,6 +522,8 @@ if %p_version%==%xmrigControl_Version% (
     if "%p_wallet_Nexa%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Pepe%"=="" set p_wallet_Pepe=NO_WALLET_ADDRESS
     if "%p_wallet_Pepe%"=="NO_WALLET_ADDRESS" set check_w_fail=true
+    if "%p_wallet_Pyrin%"=="" set p_wallet_Pyrin=NO_WALLET_ADDRESS
+    if "%p_wallet_Pyrin%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_QuantumRL%"=="" set p_wallet_QuantumRL=NO_WALLET_ADDRESS
     if "%p_wallet_QuantumRL%"=="NO_WALLET_ADDRESS" set check_w_fail=true
     if "%p_wallet_Raptoreum%"=="" set p_wallet_Raptoreum=NO_WALLET_ADDRESS
@@ -791,6 +804,21 @@ if %p_version%==%xmrigControl_Version% (
     if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
     set temp_p_wallet_EthereumClassic=%new_wallet_address%
 
+@REM Jupiter Wallet Address
+    echo.
+    echo [7;94m::: ADDRESS :::[0m[94m Jupiter -[0m[97m %p_wallet_Jupiter% [0m
+    set new_wallet_address=%p_wallet_Jupiter%
+    set /p new_wallet_address="[7;96m::: INPUT :::[0m Set a new wallet address for[93m Jupiter [0m> " 
+    if "%new_wallet_address%"=="x" set new_wallet_address=X
+    if "%new_wallet_address%"=="X" goto :LOGOUT
+    if "%new_wallet_address%"=="s" set new_wallet_address=S
+    if "%new_wallet_address%"=="S" goto :START_OVER
+    if "%new_wallet_address%"=="r" set new_wallet_address=R
+    if "%new_wallet_address%"=="R" goto :W_ADDRESS_RESET
+    if "%new_wallet_address%"=="t" set new_wallet_address=T
+    if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
+    set temp_p_wallet_Jupiter=%new_wallet_address%
+
 @REM Karlsen Wallet Address
     echo.
     echo [7;94m::: ADDRESS :::[0m[94m Karlsen -[0m[97m %p_wallet_Karlsen% [0m
@@ -925,6 +953,21 @@ if %p_version%==%xmrigControl_Version% (
     if "%new_wallet_address%"=="t" set new_wallet_address=T
     if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
     set temp_p_wallet_Pepe=%new_wallet_address%
+
+@REM Pyrin Wallet Address
+    echo.
+    echo [7;94m::: ADDRESS :::[0m[94m Pyrin -[0m[97m %p_wallet_Pyrin% [0m
+    set new_wallet_address=%p_wallet_Pyrin%
+    set /p new_wallet_address="[7;96m::: INPUT :::[0m Set a new wallet address for[93m Pyrin [0m> " 
+    if "%new_wallet_address%"=="x" set new_wallet_address=X
+    if "%new_wallet_address%"=="X" goto :LOGOUT
+    if "%new_wallet_address%"=="s" set new_wallet_address=S
+    if "%new_wallet_address%"=="S" goto :START_OVER
+    if "%new_wallet_address%"=="r" set new_wallet_address=R
+    if "%new_wallet_address%"=="R" goto :W_ADDRESS_RESET
+    if "%new_wallet_address%"=="t" set new_wallet_address=T
+    if "%new_wallet_address%"=="T" goto :W_ADDRESS_TOGGLE
+    set temp_p_wallet_Pyrin=%new_wallet_address%
 
 @REM QuantumRL Wallet Address
     echo.
@@ -1123,6 +1166,7 @@ if %p_version%==%xmrigControl_Version% (
     echo [7;93m   [0m[93m Enjin Coin -[0m[97m %temp_p_wallet_EnjinCoin% [0m
     echo [7;93m   [0m[93m Ethereum -[0m[97m %temp_p_wallet_Ethereum% [0m
     echo [7;93m   [0m[93m Ethereum Classic -[0m[97m %temp_p_wallet_EthereumClassic% [0m
+    echo [7;93m   [0m[93m Jupiter -[0m[97m %temp_p_wallet_Jupiter% [0m
     echo [7;93m   [0m[93m Karlsen -[0m[97m %temp_p_wallet_Karlsen% [0m
     echo [7;93m   [0m[93m Kaspa -[0m[97m %temp_p_wallet_Kaspa% [0m
     echo [7;93m   [0m[93m Keva -[0m[97m %temp_p_wallet_Keva% [0m
@@ -1132,6 +1176,7 @@ if %p_version%==%xmrigControl_Version% (
     echo [7;93m   [0m[93m Neurai -[0m[97m %temp_p_wallet_Neurai% [0m
     echo [7;93m   [0m[93m Nexa -[0m[97m %temp_p_wallet_Nexa% [0m
     echo [7;93m   [0m[93m Pepe -[0m[97m %temp_p_wallet_Pepe% [0m
+    echo [7;93m   [0m[93m Pyrin -[0m[97m %temp_p_wallet_Pyrin% [0m
     echo [7;93m   [0m[93m Quantum Resistant Ledger -[0m[97m %temp_p_wallet_QuantumRL% [0m
     echo [7;93m   [0m[93m Raptoreum -[0m[97m %temp_p_wallet_Raptoreum% [0m
     echo [7;93m   [0m[93m Raven Coin -[0m[97m %temp_p_wallet_RavenCoin% [0m
@@ -1196,6 +1241,8 @@ if %p_version%==%xmrigControl_Version% (
         echo setx p_wallet_Ethereum %temp_p_wallet_Ethereum%>> wallets.cmd
         echo set p_wallet_EthereumClassic=%temp_p_wallet_EthereumClassic%>> wallets.cmd
         echo setx p_wallet_EthereumClassic %temp_p_wallet_EthereumClassic%>> wallets.cmd
+        echo set p_wallet_Jupiter=%temp_p_wallet_Jupiter%>> wallets.cmd
+        echo setx p_wallet_Jupiter %temp_p_wallet_Jupiter%>> wallets.cmd
         echo set p_wallet_Karlsen=%temp_p_wallet_Karlsen%>> wallets.cmd
         echo setx p_wallet_Karlsen %temp_p_wallet_Karlsen%>> wallets.cmd
         echo set p_wallet_Kaspa=%temp_p_wallet_Kaspa%>> wallets.cmd
@@ -1214,6 +1261,8 @@ if %p_version%==%xmrigControl_Version% (
         echo setx p_wallet_Nexa %temp_p_wallet_Nexa%>> wallets.cmd
         echo set p_wallet_Pepe=%temp_p_wallet_Pepe%>> wallets.cmd
         echo setx p_wallet_Pepe %temp_p_wallet_Pepe%>> wallets.cmd
+        echo set p_wallet_Pyrin=%temp_p_wallet_Pyrin%>> wallets.cmd
+        echo setx p_wallet_Pyrin %temp_p_wallet_Pyrin%>> wallets.cmd
         echo set p_wallet_QuantumRL=%temp_p_wallet_QuantumRL%>> wallets.cmd
         echo setx p_wallet_QuantumRL %temp_p_wallet_QuantumRL%>> wallets.cmd
         echo set p_wallet_Raptoreum=%temp_p_wallet_Raptoreum%>> wallets.cmd
@@ -1328,6 +1377,7 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_EnjinCoin=%t_wallet_EnjinCoin%
         set wallet_Ethereum=%t_wallet_Ethereum%
         set wallet_EthereumClassic=%t_wallet_EthereumClassic%
+        set wallet_Jupiter=%t_wallet_Jupiter%
         set wallet_Karlsen=%t_wallet_Karlsen%
         set wallet_Kaspa=%t_wallet_Kaspa%
         set wallet_Keva=%t_wallet_Keva%
@@ -1337,6 +1387,7 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_Neurai=%t_wallet_Neurai%
         set wallet_Nexa=%t_wallet_Nexa%
         set wallet_Pepe=%t_wallet_Pepe%
+        set wallet_Pyrin=%t_wallet_Pyrin%
         set wallet_QuantumRL=%t_wallet_QuantumRL%
         set wallet_Raptoreum=%t_wallet_Raptoreum%
         set wallet_RavenCoin=%t_wallet_RavenCoin%
@@ -1365,6 +1416,7 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_EnjinCoin=%p_wallet_EnjinCoin%
         set wallet_Ethereum=%p_wallet_Ethereum%
         set wallet_EthereumClassic=%p_wallet_EthereumClassic%
+        set wallet_Jupiter=%p_wallet_Jupiter%
         set wallet_Karlsen=%p_wallet_Karlsen%
         set wallet_Kaspa=%p_wallet_Kaspa%
         set wallet_Keva=%p_wallet_Keva%
@@ -1374,6 +1426,7 @@ if %p_version%==%xmrigControl_Version% (
         set wallet_Neurai=%p_wallet_Neurai%
         set wallet_Nexa=%p_wallet_Nexa%
         set wallet_Pepe=%p_wallet_Pepe%
+        set wallet_Pyrin=%p_wallet_Pyrin%
         set wallet_QuantumRL=%p_wallet_QuantumRL%
         set wallet_Raptoreum=%p_wallet_Raptoreum%
         set wallet_RavenCoin=%p_wallet_RavenCoin%
@@ -1426,6 +1479,7 @@ if %p_version%==%xmrigControl_Version% (
     echo [7;93m   [0m[96m ENJ   [0m[93m= Enjin Coin [0m
     echo [7;93m   [0m[96m ETH   [0m[93m= Ethereum [0m
     echo [7;93m   [0m[96m ETC   [0m[93m= Ethereum Classic [0m
+    echo [7;93m   [0m[96m JUP   [0m[93m= Jupiter [0m
     echo [7;93m   [0m[96m KLS   [0m[93m= Karlsen [0m
     echo [7;93m   [0m[96m KAS   [0m[93m= Kaspa [0m
     echo [7;93m   [0m[96m KVA   [0m[93m= Keva [0m
@@ -1435,6 +1489,7 @@ if %p_version%==%xmrigControl_Version% (
     echo [7;93m   [0m[96m XNA   [0m[93m= Neurai [0m
     echo [7;93m   [0m[96m NEXA  [0m[93m= Nexa [0m
     echo [7;93m   [0m[96m PEPE  [0m[93m= Pepe [0m
+    echo [7;93m   [0m[96m PYI   [0m[93m= Pyrin [0m
     echo [7;93m   [0m[96m QRL   [0m[93m= Quantum Resistant Ledger [0m
     echo [7;93m   [0m[96m RTM   [0m[93m= Raptoreum [0m
     echo [7;93m   [0m[96m RVN   [0m[93m= Raven Coin [0m
@@ -1598,13 +1653,21 @@ if %p_version%==%xmrigControl_Version% (
         set UnMineable=true
         if %use_global_discount%==false set OUTPUT_CODE=%discount_EthereumClassic%
     )
+@REM  JUP - UnMineable
+        if "%coin_select%"=="JUP" ( 
+        set FoundCoin=true
+        set OUTPUT_WALLET=%wallet_Jupiter%
+
+        set UnMineable=true
+        if %use_global_discount%==false set OUTPUT_CODE=%discount_Jupiter%
+    )
 @REM  KLS - UnMineable
         if "%coin_select%"=="KLS" ( 
         set FoundCoin=true
         set OUTPUT_WALLET=%wallet_Karlsen%
 
         set UnMineable=true
-    if %use_global_discount%==false set OUTPUT_CODE=%discount_Karlsen%
+        if %use_global_discount%==false set OUTPUT_CODE=%discount_Karlsen%
     )
 @REM  KAS - UnMineable
         if "%coin_select%"=="KAS" ( 
@@ -1612,7 +1675,7 @@ if %p_version%==%xmrigControl_Version% (
         set OUTPUT_WALLET=%wallet_Kaspa%
 
         set UnMineable=true
-    if %use_global_discount%==false set OUTPUT_CODE=%discount_Kaspa%
+        if %use_global_discount%==false set OUTPUT_CODE=%discount_Kaspa%
     )
 @REM  KVA - CPU
     if "%coin_select%"=="KVA" ( 
@@ -1651,7 +1714,7 @@ if %p_version%==%xmrigControl_Version% (
         set CAN_SELECT_UnMineable=true
         if %use_global_discount%==false set OUTPUT_CODE=%discount_Monero%
     )
-@REM  NEOX - GPU
+@REM  NEOX - UnMineable / GPU
     if "%coin_select%"=="NEOX" ( 
         set FoundCoin=true
         set OUTPUT_WALLET=%wallet_Neoxa%
@@ -1660,7 +1723,8 @@ if %p_version%==%xmrigControl_Version% (
         set OUTPUT_ALGO=kawpow
         set OUTPUT_POOL=%pool_Neoxa%
 
-        set use_discount=false
+        set CAN_SELECT_UnMineable=true
+        if %use_global_discount%==false set OUTPUT_CODE=%discount_Neoxa%
     )
 @REM  XNA - GPU
     if "%coin_select%"=="XNA" ( 
@@ -1688,6 +1752,14 @@ if %p_version%==%xmrigControl_Version% (
 
         set UnMineable=true
         if %use_global_discount%==false set OUTPUT_CODE=%discount_Pepe%
+    )
+@REM  PYI - UnMineable
+    if "%coin_select%"=="PYI" (
+        set FoundCoin=true
+        set OUTPUT_WALLET=%wallet_Pyrin%
+
+        set UnMineable=true
+        if %use_global_discount%==false set OUTPUT_CODE=%discount_Pyrin%
     )
 @REM  QRL - CPU
     if "%coin_select%"=="QRL" ( 
