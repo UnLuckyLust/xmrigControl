@@ -1,8 +1,8 @@
 @REM Written by UnLuckyLust (https://DreamsWeaver.co) - https://github.com/UnLuckyLust/xmrigControl
 @echo off
 cls
-echo [7;94m::: SETUP :::[0m[94m Installing XMRig Miner v6.21.0... [0m
-curl --output xmrig.zip -LO https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-gcc-win64.zip
+echo [7;94m::: SETUP :::[0m[94m Installing XMRig Miner v6.21.1... [0m
+curl --output xmrig.zip -LO https://github.com/xmrig/xmrig/releases/download/v6.21.1/xmrig-6.21.1-gcc-win64.zip
 setlocal
 cd /d %~dp0
 Call :UnZipFile "%cd%" "%cd%\xmrig.zip"
@@ -22,7 +22,7 @@ if exist %xmrig% del /f /q %xmrig%
 cscript //nologo %xmrig%
 if exist %xmrig% del /f /q %xmrig%
 if exist xmrig.zip del xmrig.zip
-set xmrig_src=%cd%\xmrig-6.21.0
+set xmrig_src=%cd%\xmrig-6.21.1
 for /f %%a IN ('dir "%xmrig_src%" /b') do move "%xmrig_src%\%%a" "%cd%\"
 if exist benchmark_1M.cmd del benchmark_1M.cmd
 if exist benchmark_10M.cmd del benchmark_10M.cmd
