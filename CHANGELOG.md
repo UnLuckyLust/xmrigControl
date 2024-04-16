@@ -1,5 +1,10 @@
 # xmrigControl Changelog
 
+## Version 1.5.7
+- Updated XMRig download to the latest official version (6.21.2)
+- Updated XMRig Nvidia Cuda download to the latest official version (6.21.1)
+- Added option to select cuda version when downloading.
+
 ## Version 1.5.6
 - Updated XMRig download to the latest official version (6.21.1)
 - Updated XMRig Nvidia Cuda download (11_4) to the latest official version (6.21.0)
