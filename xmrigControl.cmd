@@ -2014,7 +2014,7 @@ if %p_version%==%xmrigControl_Version% (
     if not exist %XMRig_Folder%/xmrig-cuda.dll (
         set need_download_cuda=true
         echo [7;91m::: ERROR :::[0m[91m Cannot find XMRig nvidia cuda, Make sure it is located in the same folder as XMRig. [0m
-        set /p download_cuda="[7;96m::: INPUT :::[0m Would you like to Download [93mXMRig Nvidia Cuda 6.17.0 cuda11_4[0m? ([96mY[0m/[96mN[0m) > "
+        set /p download_cuda="[7;96m::: INPUT :::[0m Would you like to Download [93mXMRig Nvidia Cuda[0m? ([96mY[0m/[96mN[0m) > "
     )
     if "%download_cuda%"=="x" set download_cuda=X
     if "%download_cuda%"=="X" goto :LOGOUT
